@@ -10,3 +10,4 @@ Versions of Add-ons based upon:
 - Defense of Elensefar: 0.4.0
 - Flight to Freedom: 5.3.2 (BFW 1.14.0+)
 - Inky's Quest: 1.5.5
+- A New Order: 1.2.19
