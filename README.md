@@ -14,3 +14,4 @@ Versions of Add-ons based upon:
 - A Fiery Birth: 1.2.0
 - The Battle for the Contrabass Clarinet: 1.0.0
 - Invasion from the Unknown: 2.1.5
+- Mercenary Band: 0.7.0
