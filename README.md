@@ -15,3 +15,4 @@ Versions of Add-ons based upon:
 - The Battle for the Contrabass Clarinet: 1.0.0
 - Invasion from the Unknown: 2.1.5
 - Mercenary Band: 0.7.0
+- To Lands Unknown: 3.1.3
