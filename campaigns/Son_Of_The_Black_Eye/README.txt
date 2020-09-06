@@ -69,3 +69,6 @@ Here's a description of my changes:
   killing your green side of orcish allies, but that didn't really work. I
   mean, it worked in the sense that I saved my allies after I made my edits,
   but Howgarth still got to Shan Taum before me though.
+
+Note: now that I am going ahead with making an add-on version of this campaign,
+any further changes will be made in a separate repository.
