@@ -10,7 +10,7 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
 05a Blue River: Restricted clippers that Omandro can recruit to 1 on EASY
 08 Landfall: OK this one was a pain. The enemies ganged up on me and just
   wrecked me on my first try, so I tweaked their AIs to try to make them fight
-  each other more.
+  each other more. Also, tweaks to gold, income, and turns.
 10 Underground: This one was too chokepoint-y, so I edited the map to make
   some of the corridors wider. I also added some more villages.
 11 River of Skulls: Somehow the original 100 turn limit wasn't enough for me,
@@ -43,3 +43,7 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   tweaks. The changes I made to the "enemy gold" event varied the amounts too
   much on difficulty in the changes I actually played thru with, so hopefully
   these newer amounts will be small enough in terms of their differences.
+
+Also, this doesn't exactly fit in any particular scenario, but I gave the
+Drake Guard the Steadfast ability, because otherwise at first glance it looks
+like a RiPLIB violation.
