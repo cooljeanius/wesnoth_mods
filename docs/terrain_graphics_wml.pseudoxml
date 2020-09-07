@@ -1,0 +1,1781 @@
+<document ids="terrain-graphics-wml" names="terrain\ graphics\ wml" source="docs/terrain_graphics_wml.rst" title="Terrain Graphics WML">
+    <title>
+        Terrain Graphics WML
+    <comment xml:space="preserve">
+        vim:ft=rst:
+    <topic classes="contents" ids="table-of-contents" names="table\ of\ contents">
+        <title>
+            Table of Contents
+        <bullet_list>
+            <list_item>
+                <paragraph>
+                    <reference ids="id7" refid="tutorial-documentation">
+                        Tutorial documentation
+                <bullet_list>
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id8" refid="defining-a-rule">
+                                Defining a rule
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id9" refid="adding-constraints-to-rules">
+                                Adding constraints to rules
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id10" refid="the-hex-coordinate-system">
+                                The hex coordinate system
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id11" refid="type-strings">
+                                Type strings
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id12" refid="adding-images-to-terrains">
+                                Adding images to terrains
+                        <bullet_list>
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id13" refid="image-tags-into-constraints">
+                                        [image] tags into constraints
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id14" refid="image-tags-directly-into-the-rule">
+                                        [image] tags directly into the rule
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id15" refid="using-flags">
+                                Using flags
+                        <bullet_list>
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id16" refid="setting-flags">
+                                        Setting flags
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id17" refid="testing-for-flags">
+                                        Testing for flags
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id18" refid="flags-under-terrain-graphics">
+                                        Flags under [terrain_graphics]
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id19" refid="using-map-strings">
+                                Using map-strings
+                        <bullet_list>
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id20" refid="map-string-format">
+                                        Map string format
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id21" refid="anchors">
+                                        Anchors
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id22" refid="rule-parameters">
+                                Rule parameters
+                        <bullet_list>
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id23" refid="position-x-and-y">
+                                        Position: x and y
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id24" refid="probability">
+                                        Probability
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id25" refid="precedence">
+                                        Precedence
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id26" refid="layering-images">
+                                Layering images
+                        <bullet_list>
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id27" refid="horizontal-layered-images">
+                                        Horizontal-layered images
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id28" refid="vertical-layered-images">
+                                        Vertical-layered images
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id29" refid="using-rotation-templates">
+                                Using rotation templates
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id30" refid="animating-images">
+                                Animating images
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id31" refid="time-of-day-specific-variants-of-images">
+                                Time-of-day-specific variants of images
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id32" refid="using-macros">
+                                Using macros
+                        <bullet_list>
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id33" refid="macros-for-base-terrains">
+                                        Macros for base terrains
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id34" refid="macros-for-adjacent-terrains">
+                                        Macros for adjacent terrains
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id35" refid="macros-for-castles">
+                                        Macros for castles
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id36" refid="macros-for-canyons">
+                                        Macros for canyons
+                            <list_item>
+                                <paragraph>
+                                    <reference ids="id37" refid="macros-for-bridges">
+                                        Macros for bridges
+            <list_item>
+                <paragraph>
+                    <reference ids="id38" refid="reference-documentation">
+                        Reference documentation
+                <bullet_list>
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id39" refid="rule-structure-synopsis">
+                                Rule structure synopsis
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id40" refid="rule-matching-algorithm">
+                                Rule matching algorithm
+            <list_item>
+                <paragraph>
+                    <reference ids="id41" refid="wml-reference">
+                        WML Reference
+                <bullet_list>
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id42" refid="terrain-graphics">
+                                [terrain_graphics]
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id43" refid="tile">
+                                [tile]
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id44" refid="image">
+                                [image]
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id45" refid="variant">
+                                [variant]
+                    <list_item>
+                        <paragraph>
+                            <reference ids="id46" refid="map-format">
+                                Map format
+    <section ids="tutorial-documentation" names="tutorial\ documentation">
+        <title refid="id7">
+            Tutorial documentation
+        <paragraph>
+            The [terrain_graphics] tags describes a terrain graphics rule, which associates
+            a set of images to a given terrain configuration. Those are used to define how
+            to translate a map into a set of bitmap images which will be displayed to the
+            user.
+        <paragraph>
+            [terrain_graphics] WML tags may be either top-level tags, or defined as direct
+            children of scenarios.
+        <section ids="defining-a-rule" names="defining\ a\ rule">
+            <title refid="id8">
+                Defining a rule
+            <paragraph>
+                To define a terrain graphics rule, just add one [terrain_graphics] element. The
+                simplest terrain_graphics rule looks like this:
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                [/terrain_graphics]
+            <paragraph>
+                Of course, this rule does absolutely nothing, so it is completely useless.
+        <section ids="adding-constraints-to-rules" names="adding\ constraints\ to\ rules">
+            <title refid="id9">
+                Adding constraints to rules
+            <paragraph>
+                For rules to do anything useful, one must first add some conditions which will
+                specify where they will match. This is done using the [tile] WML tag.
+                [tile] WML elements define what we will name, in the rest of this document, a
+                "constraint".
+            <paragraph>
+                For example, the following WML code adds a constraint to our empty rule:
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                   [tile]
+                      x=0
+                      y=0
+                      type=g
+                   [/tile]
+                [/terrain_graphics]
+            <paragraph>
+                Let's describe the elements defined inside this WML tag:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        x and y define the /offset/ of the constraint.
+                <list_item>
+                    <paragraph>
+                        type defines the type of the terrain which will be matched.
+            <paragraph>
+                Supposed, the terrain map is the following one (the letter inside the hexes
+                representing the terrain type):
+            <literal_block xml:space="preserve">
+                 __    __
+                /g \__/g \
+                \__/m \__/
+                /g \__/c \
+                \__/c \__/
+                /c \__/c \
+                \__/  \__/
+            <paragraph>
+                The rule we defined will match on each terrains marked "g"
+            <paragraph>
+                What is the use of those "offsets", then? Those allow for a rule to match, a
+                combination of terrains and not a single terrain. Suppose, for example, we want
+                the rule to match the following terrain configuration:
+            <literal_block xml:space="preserve">
+                 __
+                /g \__
+                \__/c \
+                   \__/
+            <paragraph>
+                To achieve this, we will define the rule like this:
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                   [tile]
+                      x=0
+                      y=0
+                      type=g
+                   [/tile]
+                   [tile]
+                      x=1
+                      y=0
+                      type=c
+                   [/tile]
+                [/terrain_graphics]
+            <paragraph>
+                Here, this rule has 2 constraints:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        The first one which specifies that the terrain at the offset (0, 0), should
+                        be of type "g"
+                <list_item>
+                    <paragraph>
+                        The second one which specifies that the terrain at the offset (1, 0) should
+                        be of type "c"
+        <section ids="the-hex-coordinate-system" names="the\ hex\ coordinate\ system">
+            <title refid="id10">
+                The hex coordinate system
+            <paragraph>
+                To reference hexes with a system of 2 coordinates, the Wesnoth map model is
+                used. The top-left hex is numbered (0, 0), then the hex immediately to its SE
+                side is numbered (1, 0), then the hex immediately to its NE side is numbered
+                (2, 0), etc. The hex immediately behind the hex numbered (0, 0) is (1, 0), and
+                so on. Here is a picture representing coordinates of hexes:
+            <literal_block xml:space="preserve">
+                  ____        ____        ____        ____
+                 /    \      /    \      /    \      /    \
+                / 0,0  \____/ 2,0  \____/ 4,0  \____/ 6,0  \
+                \      /    \      /    \      /    \      /
+                 \____/ 1,0  \____/ 3,0  \____/ 5,0  \____/
+                 /    \      /    \      /    \      /    \
+                / 0,1  \____/ 2,1  \____/ 4,1  \____/ 6,1  \
+                \      /    \      /    \      /    \      /
+                 \____/ 1,1  \____/ 3,1  \____/ 5,1  \____/
+                 /    \      /    \      /    \      /    \
+                / 0,2  \____/ 2,2  \____/ 4,2  \____/ 6,2  \
+                \      /    \      /    \      /    \      /
+                 \____/ 1,2  \____/ 3,2  \____/ 5,2  \____/
+                 /    \      /    \      /    \      /    \
+                / 0,3  \____/ 2,3  \____/ 4,3  \____/ 6,3  \
+                \      /    \      /    \      /    \      /
+                 \____/ 1,3  \____/ 3,3  \____/ 5,3  \____/
+                      \      /    \      /    \      /
+                       \____/      \____/      \____/
+            <paragraph>
+                When we talk about an offset OF (xo, yo) FROM (xf, yf), we talk about the point
+                which would be at the position  (xo, yo) if (xf, yf) was (0, 0). This is 
+                <emphasis>
+                    not
+                
+                always the sum of coordinates! For example, the offset (1,0) from (2,0) is (3,
+                0), but the offset (1, 0) from (3, 0) is (4, 1)
+        <section ids="type-strings" names="type\ strings">
+            <title refid="id11">
+                Type strings
+            <paragraph>
+                What if we want a constraint to be able to match several terrain types? To do
+                this, just put the list of types we want to match in the 
+                <literal>
+                    type=
+                 element of
+                the [tile] tag. For example, the following rule will match any terrain with is
+                either grassland (g), or dirt (r):
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                   [tile]
+                      x=0
+                      y=0
+                      type=gr
+                   [/tile]
+                [/terrain_graphics]
+            <paragraph>
+                The following characters are also possible:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        The 
+                        <literal>
+                            *
+                         character means 'any terrain'. Any constraint with the
+                        <literal>
+                            type=*
+                         element will match any possible terrain type. We'll see below for
+                        actual uses of such constraints.
+                <list_item>
+                    <paragraph>
+                        The 
+                        <literal>
+                            !
+                         character inverts the meaning of the terrain type list. Instead of
+                        matching terrains which are in the list, the constraint will match terrains
+                        which are not in the list.
+        <section ids="adding-images-to-terrains" names="adding\ images\ to\ terrains">
+            <title refid="id12">
+                Adding images to terrains
+            <paragraph>
+                Now that we have "rules" which can "match", we need to make the do something
+                useful, that is, adding new images to terrains. This is done using the
+                <literal>
+                    [image]
+                 tag. The basic syntax for 
+                <literal>
+                    [image]
+                 tags is the following one:
+            <literal_block xml:space="preserve">
+                [image]
+                   name=<name>
+                [/image]
+            <paragraph>
+                Where <name> is to be replaced by the base filename of the image. The string
+                "terrain/" will be prepended to this name, and the string ".png" will be
+                appended to it, to generate the actual filename of the image.
+            <paragraph>
+                Image tags may appear into constraints, or into rules; those have slightly
+                different meanings.
+            <section ids="image-tags-into-constraints" names="[image]\ tags\ into\ constraints">
+                <title refid="id13">
+                    [image] tags into constraints
+                <paragraph>
+                    When [image] tags are placed into constraints, they must specify a single-hex
+                    image (currently, that means the ipmage must be 72x72). When the rule which
+                    contains the given contraint matches (that is, when all the rule's constraint
+                    match,) the image will be added to the hex corresponding to the constraint. For
+                    example, if our rule looks like this:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=g
+                       [/tile]
+                       [tile]
+                          x=1
+                          y=0
+                          type=c
+                          [image]
+                             name=foobar
+                          [/image]
+                       [/tile]
+                    [/terrain_graphics]
+                <paragraph>
+                    And if the terrain looks like this:
+                <literal_block xml:space="preserve">
+                     __    __
+                    /g \__/g \
+                    \__/m \__/
+                    /g \__/c \
+                    \__/c*\__/
+                    /c \__/c \
+                    \__/  \__/
+                <paragraph>
+                    Then the tile at coordinate (1,1) (the one marked with a star) will get the
+                    image "terrains/foobar.png". The other tiles will get nothing from this rule,
+                    even the tile at the coordinates (0,1), which corresponds to the first
+                    constraint of this rule.
+                <paragraph>
+                    Several images may appear in a single constraint. Images may appear each
+                    constraint of a rule.
+            <section ids="image-tags-directly-into-the-rule" names="[image]\ tags\ directly\ into\ the\ rule">
+                <title refid="id14">
+                    [image] tags directly into the rule
+                <paragraph>
+                    When [image] tags are directly placed into a rule, they may specify a multi-hex
+                    image. The image will be split into sub-images the size of a hex, and each of
+                    those sub-images will be added to the corresponding hex, if the rule contains a
+                    constraint in that position.
+                <paragraph>
+                    For example, consider the following rule:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=g
+                       [/tile]
+                       [tile]
+                          x=1
+                          y=0
+                          type=c
+                       [/tile]
+                       [image]
+                          name=foobar
+                       [/image]
+                    [/terrain_graphics]
+                <paragraph>
+                    The foobar image being a 126x108 image which looks like this:
+                <literal_block xml:space="preserve">
+                    ________________
+                    | /    \       |
+                    |/  A   \____  |
+                    |\ (0,0)/    \ |
+                    | \____/  B   \|
+                    |      \ (1,0)/|
+                    |_______\____/_|
+                <paragraph>
+                    The terrain, still is the same map:
+                <literal_block xml:space="preserve">
+                     __    __
+                    /g \__/g \
+                    \__/m \__/
+                    /g+\__/c \
+                    \__/c*\__/
+                    /c \__/c \
+                    \__/  \__/
+                <paragraph>
+                    Here, the part marked "A" of the image will be applied to the hex marked with a
+                    +, whereas the part marked "B" of the image will be added to the hex marked
+                    with a *.
+                <paragraph>
+                    However, suppose we wish to define a village which casts a shadow on nearby
+                    tiles. We draw a 126x144 image like the following one 
+                    <footnote_reference auto="*" ids="id1" refid="id2">
+                        *
+                    :
+                <literal_block xml:space="preserve">
+                    ________________
+                    |              |
+                    |        ____  |
+                    |       /    \ |
+                    |  ____/  V   \|
+                    | /    \ (1,0)/|
+                    |/shadow\____/ |
+                    |\ (0,1)/      |
+                    |_\____/_______|
+                <footnote auto="*" backrefs="id1" ids="id2">
+                    <label>
+                        *
+                    <paragraph>
+                        Notice that, when maps are cut, the top-left part of the map always is a
+                        full hex, namely the hex marked (0,0), even if it doesn't correspond to
+                        anything on the map.
+                <paragraph>
+                    The rule only matches villages, so we should be tempted to write something like
+                    that (assuming B is the village tile):
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=1
+                          y=0
+                          type=B
+                       [/tile]
+                       [image]
+                          name=shadow-village
+                       [/image]
+                    [/terrain_graphics]
+                <paragraph>
+                    However, this will 
+                    <strong>
+                        not
+                     work: the village will be displayed, but not the
+                    shadow! Remember what was written before: 
+                    <emphasis>
+                        those sub-images will be added to
+                        the corresponding hex, if the rule contains a constraint in that position.
+                     As
+                    there is no constraint at the location (0,1), there will be no image either.
+                <paragraph>
+                    So, the solution is to add a match-all constraint, like this:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=1
+                          y=0
+                          type=B
+                       [/tile]
+                       [tile]
+                          x=0
+                          y=1
+                          type=*
+                       [/tile]
+                       [image]
+                          name=shadow-village
+                       [/image]
+                    [/terrain_graphics]
+                <paragraph>
+                    Here, everything will work correctly.
+        <section ids="using-flags" names="using\ flags">
+            <title refid="id15">
+                Using flags
+            <paragraph>
+                Rules may also set flags upon matching, and check for the absence, or presence,
+                of flags, before being applied. This allows, for example, to make some
+                mutually-exclusive rules. Flags are character strings whicy may be added to
+                each hex of the map. Flags are not visible to the user, and only are used for
+                the purpose of calculating terrain graphics.
+            <section ids="setting-flags" names="setting\ flags">
+                <title refid="id16">
+                    Setting flags
+                <paragraph>
+                    A [tile] tag may have the 
+                    <literal>
+                        set_flag
+                     element present, followed by a
+                    comma-separated list of flags. This specifies that, when the rule which
+                    contains this constraint does match, the following flags are to be set to the
+                    terrain corrsponding to this constraint.
+            <section ids="testing-for-flags" names="testing\ for\ flags">
+                <title refid="id17">
+                    Testing for flags
+                <paragraph>
+                    A [tile] tag may have the 
+                    <literal>
+                        has_flag
+                     element present, followed by a
+                    comma-separated list of flags. This specifies that this constraint will only
+                    match if the corresponding hex has 
+                    <emphasis>
+                        each
+                     of the flags present in the list.
+                    Those flags may have been set be previous rules.
+                <paragraph>
+                    A [tile] tag may have the 
+                    <literal>
+                        no_flag
+                     element present, followed by a
+                    comma-separated list of flags. This specifies that this constraint will only
+                    match if 
+                    <emphasis>
+                        none
+                     of the flags present in the list are present on the
+                    corresponding hex.
+            <section ids="flags-under-terrain-graphics" names="flags\ under\ [terrain_graphics]">
+                <title refid="id18">
+                    Flags under [terrain_graphics]
+                <paragraph>
+                    <literal>
+                        set_flag
+                    , 
+                    <literal>
+                        has_flag
+                     and 
+                    <literal>
+                        no_flag
+                     may also be defined as children of
+                    [terrain_graphics] WML elements. Doing this is equivalent to defining those
+                    same flags in each constraint.
+                <paragraph>
+                    A common use for flags is to make mutually-exclusive rules. For example, if we
+                    have one rule which defines a 2-hex grassland tile, and another rule which
+                    defines a 1-hex grassland tile, we do not want both to appear on the same hex.
+                    So, the rules may be defined like that:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=g
+                       [/tile]
+                       [tile]
+                          x=0
+                          y=1
+                          type=g
+                       [/tile]
+                       [image]
+                          name=2-tile-grassland
+                       [/image]
+                       set_flag=base
+                    [/terrain_graphics]
+                    
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=g
+                       [/tile]
+                       [image]
+                          name=1-tile-grassland
+                       [/image]
+                       no_flag=base
+                    [/terrain_graphics]
+                <paragraph>
+                    Here, the first rule, regarding the 2-tile grassland, will be checked first. If
+                    it does match, it will set, on both hexes, the flag "base". Hence, the second
+                    rule won't match on any of those hexes, because it has "no_flag=base".
+                <paragraph>
+                    It is quite common to add, in the same rule, 
+                    <literal>
+                        set_flag=flag
+                     and
+                    <literal>
+                        no_flag=flag
+                    . This allows to define a set of mutually-exclusive rules,
+                    irrespectively of the order in which they will be applied.
+        <section ids="using-map-strings" names="using\ map-strings">
+            <title refid="id19">
+                Using map-strings
+            <paragraph>
+                Defining large multi-hex terrains may be rather confusing when the number of
+                tiles increase. To make this simpler, a shortcut notation was introduced:
+                map-strings. Map strings are defined by adding a 
+                <literal>
+                    map
+                 element under a
+                <literal>
+                    terrain_graphics
+                 tag.
+            <section ids="map-string-format" names="map\ string\ format">
+                <title refid="id20">
+                    Map string format
+                <paragraph>
+                    Map strings are stings, generally multi-line, which are parsed the following
+                    way:
+                <bullet_list bullet="*">
+                    <list_item>
+                        <paragraph>
+                            Starting empty lines are discarded.
+                    <list_item>
+                        <paragraph>
+                            If the first non-empty line starts with a space, it is given the line number
+                            "1". Else, it is given the line-number "0"
+                    <list_item>
+                        <paragraph>
+                            If the line is odd-numbered, its first 2 characters are discarded
+                    <list_item>
+                        <paragraph>
+                            The rest of the line is split into 4-character chunks (or smaller if less
+                            characters are left in the current line.)
+                    <list_item>
+                        <paragraph>
+                            For each of those 4-character chunks:
+                        <bullet_list bullet="+">
+                            <list_item>
+                                <paragraph>
+                                    If the chunk consists in a dot, it is ignored.
+                            <list_item>
+                                <paragraph>
+                                    If the chunk consists a combination of any characters except digits, a new
+                                    rule is created.
+                            <list_item>
+                                <paragraph>
+                                    If the chunk consists in digits, a new 
+                                    <reference name="anchor" refid="anchor">
+                                        anchor
+                                     is created (see below.)
+                            <list_item>
+                                <paragraph>
+                                    The column-number is increased by one.
+                <paragraph>
+                    A rule created by a map will be the exact equivalent of the following WML:
+                <literal_block xml:space="preserve">
+                    [tile]
+                       x=<x>
+                       y=<y>
+                       type=<type>
+                    [/time]
+                <paragraph>
+                    Where <type> is the 4-character string of the current chunk, and where x and y
+                    are given by the following formula:
+                <paragraph>
+                    x = (lineno % 2) + colno * 2
+                    y = lineno / 2
+                <paragraph>
+                    "%" being the modulus operator, and "/" the integer division operator.
+                <paragraph>
+                    For example, the following notations will be equivalent.
+                <paragraph>
+                    Map notation:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                      map="
+                    g   !c
+                      mh
+                    gd"
+                    [/terrain_graphics]
+                <paragraph>
+                    Classic notation:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=g
+                       [/tile]
+                       [tile]
+                          x=1
+                          y=0
+                          type=mh
+                       [/tile]
+                       [tile]
+                          x=2
+                          y=0
+                          type=!c
+                       [/tile]
+                       [tile]
+                          x=0
+                          y=1
+                          type=gd
+                       [/tile]
+                    [/terrain_graphics]
+            <section ids="anchors" names="anchors">
+                <title refid="id21">
+                    Anchors
+                <target refid="anchor">
+                <paragraph ids="anchor" names="anchor">
+                    As was stated before, maps may, instead of specifying terrains, may also
+                    specify "anchors". Anchors do not define actual rules. However, when an anchor
+                    is set, any [tile] WML child tag may use, instead of 
+                    <literal>
+                        x
+                     and 
+                    <literal>
+                        y
+                    , the WML
+                    element 
+                    <literal>
+                        pos=<anchor>
+                    , where anchor is the index of the anchor, from 0 to 9.
+                    This will define a rule as normal, except that its offset will be the offset of
+                    the anchor.
+                <paragraph>
+                    An useful feature is that a same anchor may be specified multiple times. When a
+                    [tile] tag uses this anchor, this will create several rules at once! For
+                    example: the following notations are equivalent:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       map="
+                      1
+                    1   1
+                      2
+                    1   1
+                      1"
+                       [tile]
+                          pos=1
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [tile]
+                       [tile]
+                          pos=2
+                          type=m
+                          no_flag=adjacent_to_foo
+                          [image]
+                             name=foo
+                          [/image]
+                       [/tile]
+                    [/terrain_graphics]
+                <paragraph>
+                    And:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=1
+                          y=0
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [/tile]
+                       [tile]
+                          x=0
+                          y=1
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [/tile]
+                       [tile]
+                          x=1
+                          y=1
+                          no_flag=adjacent_to_foo
+                          [image]
+                             name=foo
+                          [/image]
+                       [/tile]
+                       [tile]
+                          x=2
+                          y=1
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [/tile]
+                       [tile]
+                          x=0
+                          y=2
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [/tile]
+                       [tile]
+                          x=1
+                          y=2
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [/tile]
+                       [tile]
+                          x=1
+                          y=3
+                          type=m
+                          set_flag=adjacent_to_foo
+                       [/tile]
+                    [/terrain_graphics]
+        <section ids="rule-parameters" names="rule\ parameters">
+            <title refid="id22">
+                Rule parameters
+            <paragraph>
+                The 2 elements 
+                <literal>
+                    probability
+                , and 
+                <literal>
+                    precedence
+                , and the 
+                <literal>
+                    x
+                 and 
+                <literal>
+                    y
+                
+                couple, may be added directly under the [terrain_graphics] WML tag. Those
+                affect the rule as a whole, and have the following meaning:
+            <section ids="position-x-and-y" names="position:\ x\ and\ y">
+                <title refid="id23">
+                    Position: x and y
+                <paragraph>
+                    If a rule defines the 
+                    <literal>
+                        x
+                     and 
+                    <literal>
+                        y
+                     elements, it may only match on this
+                    position of the screen (provided all other conditions are met). May be useful
+                    for some scenario-specific terrains that only may appear at one given position.
+            <section ids="probability" names="probability">
+                <title refid="id24">
+                    Probability
+                <paragraph>
+                    The 
+                    <literal>
+                        probability
+                     element defines the probability of a rule to match, when
+                    all other conditions are met. It is a number from 0 to 100, 0 meaning "this
+                    rule will never match", and 100 "this rules always matches, provided all other
+                    conditions are met."
+            <section ids="precedence" names="precedence">
+                <title refid="id25">
+                    Precedence
+                <paragraph>
+                    Usually, rules do not define any precedence, and are executed in the order they
+                    are defined. rules with a lower precedence will always be executed before rules
+                    with a higher precedence. This allows for custom scenario to define custom
+                    rules and to choose whether they have to be defined before, or after generic
+                    rules.
+        <section ids="layering-images" names="layering\ images">
+            <title refid="id26">
+                Layering images
+            <paragraph>
+                When images are defined like what was explained above, without any layering
+                information, they will be displayed on-screen in a first-to-last way, that is,
+                images which are added first go into the background, and images which are added
+                last go into the foreground. This may not be what we expect; so, in general,
+                some "layering"-related elements are added to the images, directly into the
+                [image] WML tags.
+            <paragraph>
+                2 layering models exist; an image can use either model. The two layering models
+                are the horizontal model, and the vertical model. Model is selected with the
+                <literal>
+                    position
+                 element.
+            <section ids="horizontal-layered-images" names="horizontal-layered\ images">
+                <title refid="id27">
+                    Horizontal-layered images
+                <paragraph>
+                    The simplest, default layering model is called the "horizontal" model. Images
+                    are set to usie the horizontal model by either specifying
+                    <literal>
+                        position=horizontal
+                     in the [image] tag, or by not specifying a position at
+                    all.
+                <paragraph>
+                    The horizontal layering model is pretty simple: each image may define, using
+                    the 
+                    <literal>
+                        layer
+                     element, which layer it is in. The layer index is an integer
+                    number going from -1000 (most background) to +1000 (most foreground) (actually,
+                    using higher and lower number should work, but this may change.) Images which
+                    have negative layeris are displayed behind unit graphics; images which have
+                    positive layers are displayed in front of unit graphics.
+                <paragraph>
+                    Images which are in the same layer are ordered the classic way, in the order
+                    they are defined. If an image does not specify a layer, it will be assumed to
+                    be in layer 0.
+                <paragraph>
+                    For example, suppose the two following rules:
+                <literal_block xml:space="preserve">
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=t
+                          [image]
+                             position=horizontal
+                             layer=-500
+                             name=village_foreground
+                          [/image]
+                       [/tile]
+                    [/terrain_graphics]
+                    
+                    [terrain_graphics]
+                       [tile]
+                          x=0
+                          y=0
+                          type=t
+                          [image]
+                             position=horizontal
+                             layer=-1000
+                             name=village_background
+                          [/image]
+                       [/tile]
+                    [/terrain_graphics]
+                <paragraph>
+                    In this case, village_background will be drawn behind village_foreground, even
+                    if it is defined after it.
+            <section ids="vertical-layered-images" names="vertical-layered\ images">
+                <title refid="id28">
+                    Vertical-layered images
+                <paragraph>
+                    Images may also specify 
+                    <literal>
+                        position=vertical
+                     in the [image] tag, so they use
+                    the "vertical" model. Vertical-layered images are not disposed in flat, stacked
+                    layers, but are instead assumed, when they are rendered, to have an (x, y)
+                    position on the screen. They are, then, drawn according the rule which states
+                    that objects in the bottom are hidden by objects in the front.
+                <paragraph>
+                    To use the vertical model, [image] tags should contain the 
+                    <literal>
+                        base
+                     element,
+                    like this:
+                <literal_block xml:space="preserve">
+                    base=x,y
+                <paragraph>
+                    Where x, and y, are the coordinates, in pixels, of the base of the image (that
+                    is, the virtual point at which the image would be in contact of the ground).
+                    Those coordinates are relative to the top-left-corner of the image.
+                <paragraph>
+                    If the image is a single-hex image, this means that the 
+                    <literal>
+                        base
+                     coordinates
+                    are relative to the top-left corner of the smallest square containing the tile
+                    hex.
+                <paragraph>
+                    If the image is a multi-hex image (see the 
+                    <reference name="[image] tags directly into the rule" refid="image-tags-directly-into-the-rule">
+                        [image] tags directly into the rule
+                    
+                    section for more info,) this means that the 
+                    <literal>
+                        base
+                     coordinates are relative
+                    to the top-left corner of the multi-hex image. Please note that, when using
+                    multi-hex images, the top-left hex of the image always is assumed to ihave hex
+                    coordinates (0,0) (see above). The coordinates of 
+                    <literal>
+                        base
+                     will always be
+                    relative to the top-left of  
+                    <strong>
+                        this hex
+                    , even if the rules contains no
+                    constraint regarding (0, 0).
+                <paragraph>
+                    <strong>
+                        Note
+                    : for positioning purposes, units are supposed to be in the position
+                    (36,54) relative to the top-left corner of the square containing their hex.
+                    This means that any image in front of this may hide units.
+                <paragraph>
+                    <strong>
+                        Note
+                    : vertical-layered images are always drawn in front of
+                    horizontal-layered images which have a negative layer, whatever their
+                    respective layers and base coordinates may otherwise be. Vertical-layered
+                    images are always drawn behind horizontal-layered images which have a positive
+                    layer. 
+                    <footnote_reference auto="*" ids="id3" refid="id4">
+                        †
+                <footnote auto="*" backrefs="id3" ids="id4">
+                    <label>
+                        †
+                    <paragraph>
+                        However, this may be broken in wesnoth up to 0.8.11
+        <section ids="using-rotation-templates" names="using\ rotation\ templates">
+            <title refid="id29">
+                Using rotation templates
+            <paragraph>
+                Rules sometimes are rotated versions of other, similar rules. To simplify the
+                definition of such rules, the notion of "rotation templates" was introduced.
+                Those are [terrain_graphics] definitions which do not define one rule, but may
+                define up to 6 rules, each one rotated by a Pi/3 
+                <footnote_reference auto="*" ids="id5" refid="id6">
+                    ‡
+                 angle.
+            <paragraph>
+                To define a rotation template, defines a [terrain_graphics] rule, as usual,
+                except that this rule should contain the 
+                <literal>
+                    rotations
+                 element, followed by a
+                list of 6 comma-separated strings (usually short ones.)
+            <paragraph>
+                The image names and flag names of the rule and of its constraints may contain
+                template strings of the form 
+                <literal>
+                    @Rn
+                , n being a number from 0 to 5.
+            <paragraph>
+                A template rule will generate 6 rules, which are similar to the template,
+                except that:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        The map of constraints of this rule will be rotated by an angle, from 0 to 5
+                        pi / 6. Note that the relative positions of the constraints will be rotated,
+                        too; and so will the "base" of images whose position is set to "vertical".
+                    <paragraph>
+                        After being rotated, each set of constraint will be translated, so that:
+                    <bullet_list bullet="+">
+                        <list_item>
+                            <paragraph>
+                                There is no constraint with negative coordinates
+                        <list_item>
+                            <paragraph>
+                                There is at least one constraint which has x=0
+                        <list_item>
+                            <paragraph>
+                                There is at least one constraint which has y=0
+                    <paragraph>
+                        This is important, because, for example, rules about multi-hex images will
+                        then apply as usual, using the modified set of constraints
+                <list_item>
+                    <paragraph>
+                        On the rule which is rotated to 0rad, the template strings @R0, @R1, @R2,
+                        @R3, @R4, @R5, will be replaced by the corresponding r0, r1, r2, r3, r4, r5
+                        variables given in the rotations= element.
+                <list_item>
+                    <paragraph>
+                        On the rule which is rotated to pi/3 rad, the template strings @R0, @R1, @R2
+                        etc. will be replaced by the corresponding 
+                        <emphasis>
+                            r1, r2, r3, r4, r5, r0
+                         (note the
+                        shift in indices).
+                <list_item>
+                    <paragraph>
+                        On the rule rotated 2pi/3, those will be replaced by r2, r3, r4, r5, r0, r1
+                        and so on.
+            <paragraph>
+                For example, the following notations are equivalent
+            <paragraph>
+                The compact template-based rotation:
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                    map="
+                1
+                  g"
+                    [tile]
+                       pos=1
+                       image=bar-@R0-@R3
+                    [/tile]
+                    rotations=se,s,sw,nw,n,ne
+                [/terrain_graphics]
+            <paragraph>
+                And the quite verbose classic notation:
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                    map="
+                1
+                  g"
+                    [tile]
+                       pos=1
+                       image=bar-se-nw
+                    [/tile]
+                [/terrain_graphics]
+                [terrain_graphics]
+                    map="
+                1
+                
+                g"
+                    [tile]
+                       pos=1
+                       image=bar-s-n
+                    [/tile]
+                [/terrain_graphics]
+                [terrain_graphics]
+                    map="
+                  1
+                g"
+                    [tile]
+                       pos=1
+                       image=bar-sw-ne
+                    [/tile]
+                [/terrain_graphics]
+                [terrain_graphics]
+                    map="
+                g
+                  1"
+                    [tile]
+                       pos=1
+                       image=bar-nw-se
+                    [/tile]
+                [/terrain_graphics]
+                [terrain_graphics]
+                    map="
+                  g
+                
+                  1"
+                    [tile]
+                       pos=1
+                       image=bar-n-s
+                    [/tile]
+                [/terrain_graphics]
+                [terrain_graphics]
+                    map="
+                  g
+                1"
+                    [tile]
+                       pos=1
+                       image=bar-ne-sw
+                    [/tile]
+                [/terrain_graphics]
+            <footnote auto="*" backrefs="id5" ids="id6">
+                <label>
+                    ‡
+                <paragraph>
+                    All angles will here be expressed in radians.
+        <section ids="animating-images" names="animating\ images">
+            <title refid="id30">
+                Animating images
+            <paragraph>
+                Images may may be animated instead of being static. To do this, specify a list
+                of comma-separated images in the 
+                <literal>
+                    name
+                 element of the 
+                <literal>
+                    image
+                 tag. This
+                will generate an animation, each frame being displayed during 100ms.
+            <paragraph>
+                The duration of each frame may be specified, to have a different value than the
+                default 100 ms, by adding, after the image name, a colon (:), followed by a
+                number representing a time in milliseconds.
+            <paragraph>
+                For example, take the following declaration:
+            <literal_block xml:space="preserve">
+                [image]
+                   name=frame1,frame2,frame3:300,frame4:200,frame5
+                [/image]
+            <paragraph>
+                It will define an animation composed of the following 5 frames:
+            <paragraph>
+                Image  Duration
+                ====== ========
+                frame1 100 ms
+                frame2 100 ms
+                frame3 300 ms
+                frame4 200 ms
+                frame5 100 ms
+        <section ids="time-of-day-specific-variants-of-images" names="time-of-day-specific\ variants\ of\ images">
+            <title refid="id31">
+                Time-of-day-specific variants of images
+            <paragraph>
+                It is possible, for images, to have several variants; the actual variant
+                displayed being selected according to the current time-of-day. The notation
+                introduced above, using the 
+                <literal>
+                    name
+                 attribute to define the image used,
+                actually defines the default variant of the image; that is, the variant that
+                will be used, either if there is no time-of-day (for example, in the editor,)
+                or if the current time-of-day is not specified in another variant.
+            <paragraph>
+                Variants may be defined by adding the [variant] child tag to the [image] tag.
+                [variant] child tags have 2 elements:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        The 
+                        <literal>
+                            tod
+                         elements which specifies the time-of-day this variant applies to
+                        (see the file data/schedules.cfg for the list of times-of-day.
+                <list_item>
+                    <paragraph>
+                        The 
+                        <literal>
+                            name
+                         element which has the same exact meaning as the 
+                        <literal>
+                            name
+                         element
+                        of the [image] tag (and may, for example, carry animations etc), which will
+                        be used in place of the default 
+                        <literal>
+                            name
+                         when the time-of-day matches.
+            <paragraph>
+                For example, the following WML code specifies a village which has smoke when it
+                is the night:
+            <literal_block xml:space="preserve">
+                [terrain_graphics]
+                   [tile]
+                      x=0
+                      y=0
+                      type=t
+                      [image]
+                         name=village
+                         [variant]
+                            tod=first_watch
+                            name=village-dusk,village-dusk2,village-dusk3,village-dusk4
+                         [/variant]
+                         [variant]
+                            tod=second_watch
+                            name=village-dusk,village-dusk2,village-dusk3,village-dusk4
+                         [/variant]
+                      [/image]
+                   [/tile]
+                [/terrain_graphics]
+        <section ids="using-macros" names="using\ macros">
+            <title refid="id32">
+                Using macros
+            <section ids="macros-for-base-terrains" names="macros\ for\ base\ terrains">
+                <title refid="id33">
+                    Macros for base terrains
+            <section ids="macros-for-adjacent-terrains" names="macros\ for\ adjacent\ terrains">
+                <title refid="id34">
+                    Macros for adjacent terrains
+            <section ids="macros-for-castles" names="macros\ for\ castles">
+                <title refid="id35">
+                    Macros for castles
+            <section ids="macros-for-canyons" names="macros\ for\ canyons">
+                <title refid="id36">
+                    Macros for canyons
+            <section ids="macros-for-bridges" names="macros\ for\ bridges">
+                <title refid="id37">
+                    Macros for bridges
+    <section ids="reference-documentation" names="reference\ documentation">
+        <title refid="id38">
+            Reference documentation
+        <section ids="rule-structure-synopsis" names="rule\ structure\ synopsis">
+            <title refid="id39">
+                Rule structure synopsis
+            <literal_block xml:space="preserve">
+                +--------------------------+
+                | Rule                     |
+                |  +--------------------+  |
+                |  | Constraint         |  |
+                |  |                    |  |
+                |  | * offset           |  |
+                |  | * typestring       |  |
+                |  | * has_flags        |  |
+                |  | * set_flags        |  |
+                |  | * no_flags         |  |
+                |  |                    |  |
+                |  |  +--------------+  |  |
+                |  |  | Image        |  |  |
+                |  |  +--------------+  |  |
+                |  |  | Image        |  |  |
+                |  |  | ...          |  |  |
+                |  |  +--------------+  |  |
+                |  +--------------------+  |
+                |  | Constraint         |  |
+                |  | ...                |  |
+                |  +--------------------+  |
+                |                          |
+                | * position               |
+                | * probability            |
+                | * precedence             |
+                |                          |
+                |  +--------------+        |
+                |  | Image        |        |
+                |  +--------------+        |
+                |  | Image        |        |
+                |  | ...          |        |
+                |  +--------------+        |
+                +--------------------------+
+        <section ids="rule-matching-algorithm" names="rule\ matching\ algorithm">
+            <title refid="id40">
+                Rule matching algorithm
+            <paragraph>
+                Each rule will be tested against each hex of the map. For a rule to match on a
+                given hex (let name this hex H), the following conditions have to be met:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        Some random, 1 to 100 number must be inferior to the rule "probability"
+                <list_item>
+                    <paragraph>
+                        If the rule has a position set, it may only match on this very location.
+                <list_item>
+                    <paragraph>
+                        All constraints of the rule must match.
+            <paragraph>
+                For a constraint of the rule to match, the following conditions have to be met:
+            <bullet_list bullet="*">
+                <list_item>
+                    <paragraph>
+                        The hex corresponding to this constraint must have a type which matches the
+                        constraint's typestring:
+                    <bullet_list bullet="+">
+                        <list_item>
+                            <paragraph>
+                                We define the "hex corresponding to this constraint" as the hex, on the
+                                map, whose location is the hex H + ofs, ofs being the offset of the
+                                constraint.
+                        <list_item>
+                            <paragraph>
+                                The hex matches the constraint's typestring if any of those is true.
+                            <bullet_list bullet="-">
+                                <list_item>
+                                    <paragraph>
+                                        The typestring contains the metacharacter *.
+                                <list_item>
+                                    <paragraph>
+                                        The typestring does not start with the character '!', and the hex's
+                                        terrain character is included in the typestring.
+                                <list_item>
+                                    <paragraph>
+                                        The typestring starts with the character '!', and the hex's terrain
+                                        character is 
+                                        <emphasis>
+                                            not
+                                         included in the typestring.
+                <list_item>
+                    <paragraph>
+                        The hex corresponding to this constraint must not have any flag in the
+                        constraint's "no_flag" list.
+                <list_item>
+                    <paragraph>
+                        The hex corresponding to this contraint must have all the flags present in
+                        the constraint's "has_flag" list.
+    <section ids="wml-reference" names="wml\ reference">
+        <title refid="id41">
+            WML Reference
+        <section ids="terrain-graphics" names="[terrain_graphics]">
+            <title refid="id42">
+                [terrain_graphics]
+            <paragraph>
+                The [terrain_graphics] tag represents a terrain graphics rule. It may contain
+                the following child tags:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <reference name="[image]" refid="image">
+                            [image]
+                    <definition>
+                        <paragraph>
+                            when an image is defined in a [terrain_graphics] tag, it defines a
+                            multi-hex image which will be applied over all tiles of the rule.
+                <definition_list_item>
+                    <term>
+                        <reference name="[tile]" refid="tile">
+                            [tile]
+                    <definition>
+                        <paragraph>
+                            adds one (or several) constraints to the rule.
+            <paragraph>
+                Additionnaly, the [terrain_graphics] tag may have the following elements:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            x
+                         and 
+                        <literal>
+                            y
+                    <definition>
+                        <paragraph>
+                            format: <number>
+                        <paragraph>
+                            Specifies the coordinates at which this rule can match. A rule which has
+                            x-y coordinates may only match at this position in the map, and nowhere
+                            else.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            probability
+                    <definition>
+                        <paragraph>
+                            format: <number>
+                        <paragraph>
+                            A number from 0 to 100. Means that this rule will only match, when all
+                            other conditions are met, if a random number from 0 to 100 is inferior to
+                            the 
+                            <literal>
+                                probability
+                             value. Obviously, 0 means this rule will never match,
+                            and 100 means this rule will always match if all other conditions are met.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            precedence
+                    <definition>
+                        <paragraph>
+                            format: <number>
+                        <paragraph>
+                            An optional tag which allows to specify in which order rules are to be
+                            tested. Generally, rules are tested in the order they are defined. However,
+                            rules with a lower precedence will always de tested before rules with
+                            higher precedence.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            map
+                    <definition>
+                        <paragraph>
+                            format: see below
+                        <paragraph>
+                            A string, generally a multi-line one, graphically representing the
+                            constraints of this rule. Maps are a shorthand notation to defining several
+                            constraints using the 
+                            <reference name="[tile]" refid="tile">
+                                [tile]
+                             element. Those have a special structure; see
+                            below (
+                            <reference name="Map Format" refid="map-format">
+                                Map Format
+                            .)
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            set_flag
+                    <definition>
+                        <paragraph>
+                            Defining a 
+                            <literal>
+                                set_flag
+                             element in a rule is identical to defining it on
+                            each constraint of this rule.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            has_flag
+                    <definition>
+                        <paragraph>
+                            Defining a 
+                            <literal>
+                                has_flag
+                             element in a rule is identical to defining it on
+                            each constraint of this rule.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            no_flag
+                    <definition>
+                        <paragraph>
+                            Defining a 
+                            <literal>
+                                no_flag
+                             element in a rule is identical to defining it on
+                            each constraint of this rule.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            rotations
+                    <definition>
+                        <paragraph>
+                            format: <r0> "," <r1> "," <r2> "," <r3> "," <r4> "," <r5>
+                        <paragraph>
+                            <r0> to <r5> being (usually short) strings.
+                        <paragraph>
+                            Specifies that this [terrain_graphics] element does not define an actual
+                            rule, but will serve as a template for creating up to 6 rotated rules.
+                        <paragraph>
+                            Template rules are defined like normal rules, except that flags and image
+                            filenames may contain template strings of the form 
+                            <literal>
+                                @Rn
+                            , n being a
+                            number from 0 to 5.
+                        <paragraph>
+                            A template rule will generate 6 rules, which are similar to the
+                            template, except that:
+                        <bullet_list bullet="*">
+                            <list_item>
+                                <paragraph>
+                                    The map of constraints of this rule will be rotated by an angle, of 0 to
+                                    5 pi / 6
+                            <list_item>
+                                <paragraph>
+                                    On the rule which is rotated to 0rad, the template strings @R0, @R1, @R2,
+                                    @R3, @R4, @R5, will be replaced by the corresponding r0, r1, r2, r3, r4,
+                                    r5 variables given in the rotations= element.
+                            <list_item>
+                                <paragraph>
+                                    On the rule which is rotated to pi/3 rad, the template strings @R0, @R1,
+                                    @R2 etc. will be replaced by the corresponding 
+                                    <emphasis>
+                                        r1, r2, r3, r4,
+                                        r5, r0
+                                     (note the shift in indices).
+                            <list_item>
+                                <paragraph>
+                                    On the rule rotated 2pi/3, those will be replaced by r2, r3, r4, r5, r0,
+                                    r1 and so on.
+        <section ids="tile" names="[tile]">
+            <title refid="id43">
+                [tile]
+            <paragraph>
+                The [tile] element, in a [terrain_graphics] rule, adds one (or more) new
+                constraints to a rule. It may contain the following child tags:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <reference name="[image]" refid="image">
+                            [image]
+                    <definition>
+                        <paragraph>
+                            Defining an [image] element inside of a [tile] element will define a
+                            single-hex image which will only be applied to the tile the constraint
+                            applies to.
+            <paragraph>
+                Additionally, the [tile] tag may contain the following elements:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            x
+                         and 
+                        <literal>
+                            y
+                    <definition>
+                        <paragraph>
+                            format: <number>
+                        <paragraph>
+                            Specify the offset of the constraint.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            loc
+                    <definition>
+                        <paragraph>
+                            format: <number>, <number>
+                        <paragraph>
+                            An alternative notation for specifying the offset of the constraint.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            pos
+                    <definition>
+                        <paragraph>
+                            format: <number>
+                        <paragraph>
+                            Specifies that this [tile] tag does not define a single constraint, but
+                            instead, acts as a template for all constraints defined, on the map, with
+                            an anchor of the same number (See 
+                            <reference name="Map format" refid="map-format">
+                                Map format
+                            .)
+                        <paragraph>
+                            Only meaningful if the [terrain_graphics] parent tag contains a 
+                            <literal>
+                                map
+                            
+                            element.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            type
+                    <definition>
+                        <paragraph>
+                            format: <string>
+                        <paragraph>
+                            Defines the typestring for this constraint. This value represents a list of
+                            characters. For the constraint to match, the corresponding terrain tile's
+                            type must be one of those characters.
+                        <paragraph>
+                            This string may contain the metacharacter "*" meaning "all terrains", and
+                            the metacharacter "!", meaning "all terrains except those present in the
+                            list."
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            set_flag
+                    <definition>
+                        <paragraph>
+                            format: <flag> [ "," <flag> ] +
+                        <paragraph>
+                            Specifies that, if the rule which contains this constraint matches, the
+                            given flags will be applied to the corresponding terrain tile.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            has_flag
+                    <definition>
+                        <paragraph>
+                            format: <flag> [ "," <flag> ] +
+                        <paragraph>
+                            Specifies that this constraint will only match if the corresponding terrain
+                            tile already has all the given flags.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            no_flag
+                    <definition>
+                        <paragraph>
+                            format: <flag> [ "," <flag> ] +
+                        <paragraph>
+                            Specifies that this constraint will only match if the corresponding terrain
+                            tile does 
+                            <emphasis>
+                                not
+                             have any of the given flags.
+        <section ids="image" names="[image]">
+            <title refid="id44">
+                [image]
+            <paragraph>
+                The [image] element, in the [terrain_graphics] element, or in a [tile]
+                elements, specify an image which will be added on the terrain, if the
+                corresponding rule does match.
+            <paragraph>
+                It may contain the following child tags:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <reference name="[variant]" refid="variant">
+                            [variant]
+                    <definition>
+                        <paragraph>
+                            A time-of-day specific variant of the image.
+            <paragraph>
+                Images may contain the following elements:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            name
+                    <definition>
+                        <paragraph>
+                            format: <timed_image> ( "," <timed_image> ) +
+                        <paragraph>
+                            <timed_image> ::= <image_name> [ ":" <timing> ]
+                        <paragraph>
+                            If the name only contains one timed_image, it will be used as a base to
+                            build the filename of the image corresponding to this [image] tag, with
+                            "images/terrain/" prepended, and ".png" appended.
+                        <paragraph>
+                            If the name contains several timed_images, it will correspond to an
+                            animated image, each timed_image being a frame of the animation. For each
+                            frame of the animation the <image_name> part corresponds to the base of the
+                            filename, which will be built as shown above, and the <timing> part will
+                            correspond to the duration, in milliseconds, of this frame.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            position
+                    <definition>
+                        <paragraph>
+                            format: "horizontal" | "vertical"
+                        <paragraph>
+                            The type of layering this image will use. If set to "horizontal", it will
+                            use a layer-based stack model. If set to vertical, images will be assumed
+                            to have an (x,y) position on the screen, and will be layered according to
+                            their coordinates.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            layer
+                    <definition>
+                        <paragraph>
+                            format: <number>
+                        <paragraph>
+                            Only meaningful if the 
+                            <literal>
+                                position
+                             tag was set to 
+                            <literal>
+                                horizontal
+                            . Images
+                            with an horizontal position will be drawn, lower layer to upper layer,
+                            without taking their position into account.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            base
+                    <definition>
+                        <paragraph>
+                            format: <number> "," <number>
+                        <paragraph>
+                            Only meaningful if the 
+                            <literal>
+                                position
+                             tag was set to 
+                            <literal>
+                                vertical
+                            . Specifies
+                            the coordinates of the "base" of the image, which is, the imaginary pixel
+                            at which the image reaches the "floor", relative either to the top-left
+                            corner of the rule, or to the top-left corner of the constraint hex,
+                            depending on whether the image applies to a rule, or to a constraint.
+        <section ids="variant" names="[variant]">
+            <title refid="id45">
+                [variant]
+            <paragraph>
+                [variant] tags represent a time-of-day-specific version of an image. Variants
+                may contain the following elements:
+            <definition_list>
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            tod
+                    <definition>
+                        <paragraph>
+                            format: <string>
+                        <paragraph>
+                            The identifier of the time-of-day this variant applies to. When the turn's
+                            top is equal to this, the "name" element of this variant will replace the
+                            "name" element of the parent image.
+                <definition_list_item>
+                    <term>
+                        <literal>
+                            name
+                    <definition>
+                        <paragraph>
+                            format: <timed_image> ( "," <timed_image> ) +
+                        <paragraph>
+                            <timed_image> ::= <image_name> [ ":" <timing> ]
+                        <paragraph>
+                            The image string, which will replace the "name" element of the parent image
+                            on the right time-of-day.
+        <section ids="map-format" names="map\ format">
+            <title refid="id46">
+                Map format

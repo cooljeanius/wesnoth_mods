@@ -1,0 +1,1548 @@
+.\" Man page generated from reStructuredText.
+.
+.TH TERRAIN GRAPHICS WML  "" "" ""
+.SH NAME
+Terrain Graphics WML \- 
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.\" vim:ft=rst:
+.
+.SS Table of Contents
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Tutorial documentation\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Defining a rule\fP
+.IP \(bu 2
+\fI\%Adding constraints to rules\fP
+.IP \(bu 2
+\fI\%The hex coordinate system\fP
+.IP \(bu 2
+\fI\%Type strings\fP
+.IP \(bu 2
+\fI\%Adding images to terrains\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%[image] tags into constraints\fP
+.IP \(bu 2
+\fI\%[image] tags directly into the rule\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Using flags\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Setting flags\fP
+.IP \(bu 2
+\fI\%Testing for flags\fP
+.IP \(bu 2
+\fI\%Flags under [terrain_graphics]\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Using map\-strings\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Map string format\fP
+.IP \(bu 2
+\fI\%Anchors\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Rule parameters\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Position: x and y\fP
+.IP \(bu 2
+\fI\%Probability\fP
+.IP \(bu 2
+\fI\%Precedence\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Layering images\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Horizontal\-layered images\fP
+.IP \(bu 2
+\fI\%Vertical\-layered images\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Using rotation templates\fP
+.IP \(bu 2
+\fI\%Animating images\fP
+.IP \(bu 2
+\fI\%Time\-of\-day\-specific variants of images\fP
+.IP \(bu 2
+\fI\%Using macros\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Macros for base terrains\fP
+.IP \(bu 2
+\fI\%Macros for adjacent terrains\fP
+.IP \(bu 2
+\fI\%Macros for castles\fP
+.IP \(bu 2
+\fI\%Macros for canyons\fP
+.IP \(bu 2
+\fI\%Macros for bridges\fP
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+\fI\%Reference documentation\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Rule structure synopsis\fP
+.IP \(bu 2
+\fI\%Rule matching algorithm\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%WML Reference\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%[terrain_graphics]\fP
+.IP \(bu 2
+\fI\%[tile]\fP
+.IP \(bu 2
+\fI\%[image]\fP
+.IP \(bu 2
+\fI\%[variant]\fP
+.IP \(bu 2
+\fI\%Map format\fP
+.UNINDENT
+.UNINDENT
+.SH TUTORIAL DOCUMENTATION
+.sp
+The [terrain_graphics] tags describes a terrain graphics rule, which associates
+a set of images to a given terrain configuration. Those are used to define how
+to translate a map into a set of bitmap images which will be displayed to the
+user.
+.sp
+[terrain_graphics] WML tags may be either top\-level tags, or defined as direct
+children of scenarios.
+.SS Defining a rule
+.sp
+To define a terrain graphics rule, just add one [terrain_graphics] element. The
+simplest terrain_graphics rule looks like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Of course, this rule does absolutely nothing, so it is completely useless.
+.SS Adding constraints to rules
+.sp
+For rules to do anything useful, one must first add some conditions which will
+specify where they will match. This is done using the [tile] WML tag.
+[tile] WML elements define what we will name, in the rest of this document, a
+"constraint".
+.sp
+For example, the following WML code adds a constraint to our empty rule:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Let\(aqs describe the elements defined inside this WML tag:
+.INDENT 0.0
+.IP \(bu 2
+x and y define the /offset/ of the constraint.
+.IP \(bu 2
+type defines the type of the terrain which will be matched.
+.UNINDENT
+.sp
+Supposed, the terrain map is the following one (the letter inside the hexes
+representing the terrain type):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ __    __
+/g \e__/g \e
+\e__/m \e__/
+/g \e__/c \e
+\e__/c \e__/
+/c \e__/c \e
+\e__/  \e__/
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The rule we defined will match on each terrains marked "g"
+.sp
+What is the use of those "offsets", then? Those allow for a rule to match, a
+combination of terrains and not a single terrain. Suppose, for example, we want
+the rule to match the following terrain configuration:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ __
+/g \e__
+\e__/c \e
+   \e__/
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+To achieve this, we will define the rule like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=c
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Here, this rule has 2 constraints:
+.INDENT 0.0
+.IP \(bu 2
+The first one which specifies that the terrain at the offset (0, 0), should
+be of type "g"
+.IP \(bu 2
+The second one which specifies that the terrain at the offset (1, 0) should
+be of type "c"
+.UNINDENT
+.SS The hex coordinate system
+.sp
+To reference hexes with a system of 2 coordinates, the Wesnoth map model is
+used. The top\-left hex is numbered (0, 0), then the hex immediately to its SE
+side is numbered (1, 0), then the hex immediately to its NE side is numbered
+(2, 0), etc. The hex immediately behind the hex numbered (0, 0) is (1, 0), and
+so on. Here is a picture representing coordinates of hexes:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+  ____        ____        ____        ____
+ /    \e      /    \e      /    \e      /    \e
+/ 0,0  \e____/ 2,0  \e____/ 4,0  \e____/ 6,0  \e
+\e      /    \e      /    \e      /    \e      /
+ \e____/ 1,0  \e____/ 3,0  \e____/ 5,0  \e____/
+ /    \e      /    \e      /    \e      /    \e
+/ 0,1  \e____/ 2,1  \e____/ 4,1  \e____/ 6,1  \e
+\e      /    \e      /    \e      /    \e      /
+ \e____/ 1,1  \e____/ 3,1  \e____/ 5,1  \e____/
+ /    \e      /    \e      /    \e      /    \e
+/ 0,2  \e____/ 2,2  \e____/ 4,2  \e____/ 6,2  \e
+\e      /    \e      /    \e      /    \e      /
+ \e____/ 1,2  \e____/ 3,2  \e____/ 5,2  \e____/
+ /    \e      /    \e      /    \e      /    \e
+/ 0,3  \e____/ 2,3  \e____/ 4,3  \e____/ 6,3  \e
+\e      /    \e      /    \e      /    \e      /
+ \e____/ 1,3  \e____/ 3,3  \e____/ 5,3  \e____/
+      \e      /    \e      /    \e      /
+       \e____/      \e____/      \e____/
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+When we talk about an offset OF (xo, yo) FROM (xf, yf), we talk about the point
+which would be at the position  (xo, yo) if (xf, yf) was (0, 0). This is \fInot\fP
+always the sum of coordinates! For example, the offset (1,0) from (2,0) is (3,
+0), but the offset (1, 0) from (3, 0) is (4, 1)
+.SS Type strings
+.sp
+What if we want a constraint to be able to match several terrain types? To do
+this, just put the list of types we want to match in the \fBtype=\fP element of
+the [tile] tag. For example, the following rule will match any terrain with is
+either grassland (g), or dirt (r):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=gr
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The following characters are also possible:
+.INDENT 0.0
+.IP \(bu 2
+The \fB*\fP character means \(aqany terrain\(aq. Any constraint with the
+\fBtype=*\fP element will match any possible terrain type. We\(aqll see below for
+actual uses of such constraints.
+.IP \(bu 2
+The \fB!\fP character inverts the meaning of the terrain type list. Instead of
+matching terrains which are in the list, the constraint will match terrains
+which are not in the list.
+.UNINDENT
+.SS Adding images to terrains
+.sp
+Now that we have "rules" which can "match", we need to make the do something
+useful, that is, adding new images to terrains. This is done using the
+\fB[image]\fP tag. The basic syntax for \fB[image]\fP tags is the following one:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[image]
+   name=<name>
+[/image]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Where <name> is to be replaced by the base filename of the image. The string
+"terrain/" will be prepended to this name, and the string ".png" will be
+appended to it, to generate the actual filename of the image.
+.sp
+Image tags may appear into constraints, or into rules; those have slightly
+different meanings.
+.SS [image] tags into constraints
+.sp
+When [image] tags are placed into constraints, they must specify a single\-hex
+image (currently, that means the ipmage must be 72x72). When the rule which
+contains the given contraint matches (that is, when all the rule\(aqs constraint
+match,) the image will be added to the hex corresponding to the constraint. For
+example, if our rule looks like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=c
+      [image]
+         name=foobar
+      [/image]
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+And if the terrain looks like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ __    __
+/g \e__/g \e
+\e__/m \e__/
+/g \e__/c \e
+\e__/c*\e__/
+/c \e__/c \e
+\e__/  \e__/
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Then the tile at coordinate (1,1) (the one marked with a star) will get the
+image "terrains/foobar.png". The other tiles will get nothing from this rule,
+even the tile at the coordinates (0,1), which corresponds to the first
+constraint of this rule.
+.sp
+Several images may appear in a single constraint. Images may appear each
+constraint of a rule.
+.SS [image] tags directly into the rule
+.sp
+When [image] tags are directly placed into a rule, they may specify a multi\-hex
+image. The image will be split into sub\-images the size of a hex, and each of
+those sub\-images will be added to the corresponding hex, if the rule contains a
+constraint in that position.
+.sp
+For example, consider the following rule:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=c
+   [/tile]
+   [image]
+      name=foobar
+   [/image]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The foobar image being a 126x108 image which looks like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+________________
+| /    \e       |
+|/  A   \e____  |
+|\e (0,0)/    \e |
+| \e____/  B   \e|
+|      \e (1,0)/|
+|_______\e____/_|
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The terrain, still is the same map:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+ __    __
+/g \e__/g \e
+\e__/m \e__/
+/g+\e__/c \e
+\e__/c*\e__/
+/c \e__/c \e
+\e__/  \e__/
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Here, the part marked "A" of the image will be applied to the hex marked with a
++, whereas the part marked "B" of the image will be added to the hex marked
+with a *.
+.sp
+However, suppose we wish to define a village which casts a shadow on nearby
+tiles. We draw a 126x144 image like the following one [*]:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+________________
+|              |
+|        ____  |
+|       /    \e |
+|  ____/  V   \e|
+| /    \e (1,0)/|
+|/shadow\e____/ |
+|\e (0,1)/      |
+|_\e____/_______|
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP [*] 5
+Notice that, when maps are cut, the top\-left part of the map always is a
+full hex, namely the hex marked (0,0), even if it doesn\(aqt correspond to
+anything on the map.
+.sp
+The rule only matches villages, so we should be tempted to write something like
+that (assuming B is the village tile):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=1
+      y=0
+      type=B
+   [/tile]
+   [image]
+      name=shadow\-village
+   [/image]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+However, this will \fBnot\fP work: the village will be displayed, but not the
+shadow! Remember what was written before: \fIthose sub\-images will be added to
+the corresponding hex, if the rule contains a constraint in that position.\fP As
+there is no constraint at the location (0,1), there will be no image either.
+.sp
+So, the solution is to add a match\-all constraint, like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=1
+      y=0
+      type=B
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=*
+   [/tile]
+   [image]
+      name=shadow\-village
+   [/image]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Here, everything will work correctly.
+.SS Using flags
+.sp
+Rules may also set flags upon matching, and check for the absence, or presence,
+of flags, before being applied. This allows, for example, to make some
+mutually\-exclusive rules. Flags are character strings whicy may be added to
+each hex of the map. Flags are not visible to the user, and only are used for
+the purpose of calculating terrain graphics.
+.SS Setting flags
+.sp
+A [tile] tag may have the \fBset_flag\fP element present, followed by a
+comma\-separated list of flags. This specifies that, when the rule which
+contains this constraint does match, the following flags are to be set to the
+terrain corrsponding to this constraint.
+.SS Testing for flags
+.sp
+A [tile] tag may have the \fBhas_flag\fP element present, followed by a
+comma\-separated list of flags. This specifies that this constraint will only
+match if the corresponding hex has \fIeach\fP of the flags present in the list.
+Those flags may have been set be previous rules.
+.sp
+A [tile] tag may have the \fBno_flag\fP element present, followed by a
+comma\-separated list of flags. This specifies that this constraint will only
+match if \fInone\fP of the flags present in the list are present on the
+corresponding hex.
+.SS Flags under [terrain_graphics]
+.sp
+\fBset_flag\fP, \fBhas_flag\fP and \fBno_flag\fP may also be defined as children of
+[terrain_graphics] WML elements. Doing this is equivalent to defining those
+same flags in each constraint.
+.sp
+A common use for flags is to make mutually\-exclusive rules. For example, if we
+have one rule which defines a 2\-hex grassland tile, and another rule which
+defines a 1\-hex grassland tile, we do not want both to appear on the same hex.
+So, the rules may be defined like that:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=g
+   [/tile]
+   [image]
+      name=2\-tile\-grassland
+   [/image]
+   set_flag=base
+[/terrain_graphics]
+
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [image]
+      name=1\-tile\-grassland
+   [/image]
+   no_flag=base
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Here, the first rule, regarding the 2\-tile grassland, will be checked first. If
+it does match, it will set, on both hexes, the flag "base". Hence, the second
+rule won\(aqt match on any of those hexes, because it has "no_flag=base".
+.sp
+It is quite common to add, in the same rule, \fBset_flag=flag\fP and
+\fBno_flag=flag\fP\&. This allows to define a set of mutually\-exclusive rules,
+irrespectively of the order in which they will be applied.
+.SS Using map\-strings
+.sp
+Defining large multi\-hex terrains may be rather confusing when the number of
+tiles increase. To make this simpler, a shortcut notation was introduced:
+map\-strings. Map strings are defined by adding a \fBmap\fP element under a
+\fBterrain_graphics\fP tag.
+.SS Map string format
+.sp
+Map strings are stings, generally multi\-line, which are parsed the following
+way:
+.INDENT 0.0
+.IP \(bu 2
+Starting empty lines are discarded.
+.IP \(bu 2
+If the first non\-empty line starts with a space, it is given the line number
+"1". Else, it is given the line\-number "0"
+.IP \(bu 2
+If the line is odd\-numbered, its first 2 characters are discarded
+.IP \(bu 2
+The rest of the line is split into 4\-character chunks (or smaller if less
+characters are left in the current line.)
+.IP \(bu 2
+For each of those 4\-character chunks:
+.INDENT 2.0
+.IP \(bu 2
+If the chunk consists in a dot, it is ignored.
+.IP \(bu 2
+If the chunk consists a combination of any characters except digits, a new
+rule is created.
+.IP \(bu 2
+If the chunk consists in digits, a new \fI\%anchor\fP is created (see below.)
+.IP \(bu 2
+The column\-number is increased by one.
+.UNINDENT
+.UNINDENT
+.sp
+A rule created by a map will be the exact equivalent of the following WML:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[tile]
+   x=<x>
+   y=<y>
+   type=<type>
+[/time]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Where <type> is the 4\-character string of the current chunk, and where x and y
+are given by the following formula:
+.sp
+x = (lineno % 2) + colno * 2
+y = lineno / 2
+.sp
+"%" being the modulus operator, and "/" the integer division operator.
+.sp
+For example, the following notations will be equivalent.
+.sp
+Map notation:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+  map="
+g   !c
+  mh
+gd"
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Classic notation:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=mh
+   [/tile]
+   [tile]
+      x=2
+      y=0
+      type=!c
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=gd
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Anchors
+.sp
+As was stated before, maps may, instead of specifying terrains, may also
+specify "anchors". Anchors do not define actual rules. However, when an anchor
+is set, any [tile] WML child tag may use, instead of \fBx\fP and \fBy\fP, the WML
+element \fBpos=<anchor>\fP, where anchor is the index of the anchor, from 0 to 9.
+This will define a rule as normal, except that its offset will be the offset of
+the anchor.
+.sp
+An useful feature is that a same anchor may be specified multiple times. When a
+[tile] tag uses this anchor, this will create several rules at once! For
+example: the following notations are equivalent:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   map="
+  1
+1   1
+  2
+1   1
+  1"
+   [tile]
+      pos=1
+      type=m
+      set_flag=adjacent_to_foo
+   [tile]
+   [tile]
+      pos=2
+      type=m
+      no_flag=adjacent_to_foo
+      [image]
+         name=foo
+      [/image]
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+And:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=1
+      y=0
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=1
+      y=1
+      no_flag=adjacent_to_foo
+      [image]
+         name=foo
+      [/image]
+   [/tile]
+   [tile]
+      x=2
+      y=1
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=0
+      y=2
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=1
+      y=2
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=1
+      y=3
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Rule parameters
+.sp
+The 2 elements \fBprobability\fP, and \fBprecedence\fP, and the \fBx\fP and \fBy\fP
+couple, may be added directly under the [terrain_graphics] WML tag. Those
+affect the rule as a whole, and have the following meaning:
+.SS Position: x and y
+.sp
+If a rule defines the \fBx\fP and \fBy\fP elements, it may only match on this
+position of the screen (provided all other conditions are met). May be useful
+for some scenario\-specific terrains that only may appear at one given position.
+.SS Probability
+.sp
+The \fBprobability\fP element defines the probability of a rule to match, when
+all other conditions are met. It is a number from 0 to 100, 0 meaning "this
+rule will never match", and 100 "this rules always matches, provided all other
+conditions are met."
+.SS Precedence
+.sp
+Usually, rules do not define any precedence, and are executed in the order they
+are defined. rules with a lower precedence will always be executed before rules
+with a higher precedence. This allows for custom scenario to define custom
+rules and to choose whether they have to be defined before, or after generic
+rules.
+.SS Layering images
+.sp
+When images are defined like what was explained above, without any layering
+information, they will be displayed on\-screen in a first\-to\-last way, that is,
+images which are added first go into the background, and images which are added
+last go into the foreground. This may not be what we expect; so, in general,
+some "layering"\-related elements are added to the images, directly into the
+[image] WML tags.
+.sp
+2 layering models exist; an image can use either model. The two layering models
+are the horizontal model, and the vertical model. Model is selected with the
+\fBposition\fP element.
+.SS Horizontal\-layered images
+.sp
+The simplest, default layering model is called the "horizontal" model. Images
+are set to usie the horizontal model by either specifying
+\fBposition=horizontal\fP in the [image] tag, or by not specifying a position at
+all.
+.sp
+The horizontal layering model is pretty simple: each image may define, using
+the \fBlayer\fP element, which layer it is in. The layer index is an integer
+number going from \-1000 (most background) to +1000 (most foreground) (actually,
+using higher and lower number should work, but this may change.) Images which
+have negative layeris are displayed behind unit graphics; images which have
+positive layers are displayed in front of unit graphics.
+.sp
+Images which are in the same layer are ordered the classic way, in the order
+they are defined. If an image does not specify a layer, it will be assumed to
+be in layer 0.
+.sp
+For example, suppose the two following rules:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=t
+      [image]
+         position=horizontal
+         layer=\-500
+         name=village_foreground
+      [/image]
+   [/tile]
+[/terrain_graphics]
+
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=t
+      [image]
+         position=horizontal
+         layer=\-1000
+         name=village_background
+      [/image]
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+In this case, village_background will be drawn behind village_foreground, even
+if it is defined after it.
+.SS Vertical\-layered images
+.sp
+Images may also specify \fBposition=vertical\fP in the [image] tag, so they use
+the "vertical" model. Vertical\-layered images are not disposed in flat, stacked
+layers, but are instead assumed, when they are rendered, to have an (x, y)
+position on the screen. They are, then, drawn according the rule which states
+that objects in the bottom are hidden by objects in the front.
+.sp
+To use the vertical model, [image] tags should contain the \fBbase\fP element,
+like this:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+base=x,y
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Where x, and y, are the coordinates, in pixels, of the base of the image (that
+is, the virtual point at which the image would be in contact of the ground).
+Those coordinates are relative to the top\-left\-corner of the image.
+.sp
+If the image is a single\-hex image, this means that the \fBbase\fP coordinates
+are relative to the top\-left corner of the smallest square containing the tile
+hex.
+.sp
+If the image is a multi\-hex image (see the \fI\%[image] tags directly into the rule\fP
+section for more info,) this means that the \fBbase\fP coordinates are relative
+to the top\-left corner of the multi\-hex image. Please note that, when using
+multi\-hex images, the top\-left hex of the image always is assumed to ihave hex
+coordinates (0,0) (see above). The coordinates of \fBbase\fP will always be
+relative to the top\-left of  \fBthis hex\fP, even if the rules contains no
+constraint regarding (0, 0).
+.sp
+\fBNote\fP: for positioning purposes, units are supposed to be in the position
+(36,54) relative to the top\-left corner of the square containing their hex.
+This means that any image in front of this may hide units.
+.sp
+\fBNote\fP: vertical\-layered images are always drawn in front of
+horizontal\-layered images which have a negative layer, whatever their
+respective layers and base coordinates may otherwise be. Vertical\-layered
+images are always drawn behind horizontal\-layered images which have a positive
+layer. [\(dg]
+.IP [\(dg] 5
+However, this may be broken in wesnoth up to 0.8.11
+.SS Using rotation templates
+.sp
+Rules sometimes are rotated versions of other, similar rules. To simplify the
+definition of such rules, the notion of "rotation templates" was introduced.
+Those are [terrain_graphics] definitions which do not define one rule, but may
+define up to 6 rules, each one rotated by a Pi/3 [‡] angle.
+.sp
+To define a rotation template, defines a [terrain_graphics] rule, as usual,
+except that this rule should contain the \fBrotations\fP element, followed by a
+list of 6 comma\-separated strings (usually short ones.)
+.sp
+The image names and flag names of the rule and of its constraints may contain
+template strings of the form \fB@Rn\fP, n being a number from 0 to 5.
+.sp
+A template rule will generate 6 rules, which are similar to the template,
+except that:
+.INDENT 0.0
+.IP \(bu 2
+The map of constraints of this rule will be rotated by an angle, from 0 to 5
+pi / 6. Note that the relative positions of the constraints will be rotated,
+too; and so will the "base" of images whose position is set to "vertical".
+.sp
+After being rotated, each set of constraint will be translated, so that:
+.INDENT 2.0
+.IP \(bu 2
+There is no constraint with negative coordinates
+.IP \(bu 2
+There is at least one constraint which has x=0
+.IP \(bu 2
+There is at least one constraint which has y=0
+.UNINDENT
+.sp
+This is important, because, for example, rules about multi\-hex images will
+then apply as usual, using the modified set of constraints
+.IP \(bu 2
+On the rule which is rotated to 0rad, the template strings @R0, @R1, @R2,
+@R3, @R4, @R5, will be replaced by the corresponding r0, r1, r2, r3, r4, r5
+variables given in the rotations= element.
+.IP \(bu 2
+On the rule which is rotated to pi/3 rad, the template strings @R0, @R1, @R2
+etc. will be replaced by the corresponding \fIr1, r2, r3, r4, r5, r0\fP (note the
+shift in indices).
+.IP \(bu 2
+On the rule rotated 2pi/3, those will be replaced by r2, r3, r4, r5, r0, r1
+and so on.
+.UNINDENT
+.sp
+For example, the following notations are equivalent
+.sp
+The compact template\-based rotation:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+    map="
+1
+  g"
+    [tile]
+       pos=1
+       image=bar\-@R0\-@R3
+    [/tile]
+    rotations=se,s,sw,nw,n,ne
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+And the quite verbose classic notation:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+    map="
+1
+  g"
+    [tile]
+       pos=1
+       image=bar\-se\-nw
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map="
+1
+
+g"
+    [tile]
+       pos=1
+       image=bar\-s\-n
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map="
+  1
+g"
+    [tile]
+       pos=1
+       image=bar\-sw\-ne
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map="
+g
+  1"
+    [tile]
+       pos=1
+       image=bar\-nw\-se
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map="
+  g
+
+  1"
+    [tile]
+       pos=1
+       image=bar\-n\-s
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map="
+  g
+1"
+    [tile]
+       pos=1
+       image=bar\-ne\-sw
+    [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP [‡] 5
+All angles will here be expressed in radians.
+.SS Animating images
+.sp
+Images may may be animated instead of being static. To do this, specify a list
+of comma\-separated images in the \fBname\fP element of the \fBimage\fP tag. This
+will generate an animation, each frame being displayed during 100ms.
+.sp
+The duration of each frame may be specified, to have a different value than the
+default 100 ms, by adding, after the image name, a colon (:), followed by a
+number representing a time in milliseconds.
+.sp
+For example, take the following declaration:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[image]
+   name=frame1,frame2,frame3:300,frame4:200,frame5
+[/image]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+It will define an animation composed of the following 5 frames:
+.sp
+Image  Duration
+====== ========
+frame1 100 ms
+frame2 100 ms
+frame3 300 ms
+frame4 200 ms
+frame5 100 ms
+.SS Time\-of\-day\-specific variants of images
+.sp
+It is possible, for images, to have several variants; the actual variant
+displayed being selected according to the current time\-of\-day. The notation
+introduced above, using the \fBname\fP attribute to define the image used,
+actually defines the default variant of the image; that is, the variant that
+will be used, either if there is no time\-of\-day (for example, in the editor,)
+or if the current time\-of\-day is not specified in another variant.
+.sp
+Variants may be defined by adding the [variant] child tag to the [image] tag.
+[variant] child tags have 2 elements:
+.INDENT 0.0
+.IP \(bu 2
+The \fBtod\fP elements which specifies the time\-of\-day this variant applies to
+(see the file data/schedules.cfg for the list of times\-of\-day.
+.IP \(bu 2
+The \fBname\fP element which has the same exact meaning as the \fBname\fP element
+of the [image] tag (and may, for example, carry animations etc), which will
+be used in place of the default \fBname\fP when the time\-of\-day matches.
+.UNINDENT
+.sp
+For example, the following WML code specifies a village which has smoke when it
+is the night:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=t
+      [image]
+         name=village
+         [variant]
+            tod=first_watch
+            name=village\-dusk,village\-dusk2,village\-dusk3,village\-dusk4
+         [/variant]
+         [variant]
+            tod=second_watch
+            name=village\-dusk,village\-dusk2,village\-dusk3,village\-dusk4
+         [/variant]
+      [/image]
+   [/tile]
+[/terrain_graphics]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Using macros
+.SS Macros for base terrains
+.SS Macros for adjacent terrains
+.SS Macros for castles
+.SS Macros for canyons
+.SS Macros for bridges
+.SH REFERENCE DOCUMENTATION
+.SS Rule structure synopsis
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+| Rule                     |
+|  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+  |
+|  | Constraint         |  |
+|  |                    |  |
+|  | * offset           |  |
+|  | * typestring       |  |
+|  | * has_flags        |  |
+|  | * set_flags        |  |
+|  | * no_flags         |  |
+|  |                    |  |
+|  |  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+  |  |
+|  |  | Image        |  |  |
+|  |  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+  |  |
+|  |  | Image        |  |  |
+|  |  | ...          |  |  |
+|  |  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+  |  |
+|  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+  |
+|  | Constraint         |  |
+|  | ...                |  |
+|  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+  |
+|                          |
+| * position               |
+| * probability            |
+| * precedence             |
+|                          |
+|  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+        |
+|  | Image        |        |
+|  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+        |
+|  | Image        |        |
+|  | ...          |        |
+|  +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+        |
++\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Rule matching algorithm
+.sp
+Each rule will be tested against each hex of the map. For a rule to match on a
+given hex (let name this hex H), the following conditions have to be met:
+.INDENT 0.0
+.IP \(bu 2
+Some random, 1 to 100 number must be inferior to the rule "probability"
+.IP \(bu 2
+If the rule has a position set, it may only match on this very location.
+.IP \(bu 2
+All constraints of the rule must match.
+.UNINDENT
+.sp
+For a constraint of the rule to match, the following conditions have to be met:
+.INDENT 0.0
+.IP \(bu 2
+The hex corresponding to this constraint must have a type which matches the
+constraint\(aqs typestring:
+.INDENT 2.0
+.IP \(bu 2
+We define the "hex corresponding to this constraint" as the hex, on the
+map, whose location is the hex H + ofs, ofs being the offset of the
+constraint.
+.IP \(bu 2
+The hex matches the constraint\(aqs typestring if any of those is true.
+.INDENT 2.0
+.IP \(bu 2
+The typestring contains the metacharacter *.
+.IP \(bu 2
+The typestring does not start with the character \(aq!\(aq, and the hex\(aqs
+terrain character is included in the typestring.
+.IP \(bu 2
+The typestring starts with the character \(aq!\(aq, and the hex\(aqs terrain
+character is \fInot\fP included in the typestring.
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+The hex corresponding to this constraint must not have any flag in the
+constraint\(aqs "no_flag" list.
+.IP \(bu 2
+The hex corresponding to this contraint must have all the flags present in
+the constraint\(aqs "has_flag" list.
+.UNINDENT
+.SH WML REFERENCE
+.SS [terrain_graphics]
+.sp
+The [terrain_graphics] tag represents a terrain graphics rule. It may contain
+the following child tags:
+.INDENT 0.0
+.TP
+.B \fI\%[image]\fP
+when an image is defined in a [terrain_graphics] tag, it defines a
+multi\-hex image which will be applied over all tiles of the rule.
+.TP
+.B \fI\%[tile]\fP
+adds one (or several) constraints to the rule.
+.UNINDENT
+.sp
+Additionnaly, the [terrain_graphics] tag may have the following elements:
+.INDENT 0.0
+.TP
+.B \fBx\fP and \fBy\fP
+format: <number>
+.sp
+Specifies the coordinates at which this rule can match. A rule which has
+x\-y coordinates may only match at this position in the map, and nowhere
+else.
+.TP
+.B \fBprobability\fP
+format: <number>
+.sp
+A number from 0 to 100. Means that this rule will only match, when all
+other conditions are met, if a random number from 0 to 100 is inferior to
+the \fBprobability\fP value. Obviously, 0 means this rule will never match,
+and 100 means this rule will always match if all other conditions are met.
+.TP
+.B \fBprecedence\fP
+format: <number>
+.sp
+An optional tag which allows to specify in which order rules are to be
+tested. Generally, rules are tested in the order they are defined. However,
+rules with a lower precedence will always de tested before rules with
+higher precedence.
+.TP
+.B \fBmap\fP
+format: see below
+.sp
+A string, generally a multi\-line one, graphically representing the
+constraints of this rule. Maps are a shorthand notation to defining several
+constraints using the \fI\%[tile]\fP element. Those have a special structure; see
+below (\fI\%Map Format\fP\&.)
+.TP
+.B \fBset_flag\fP
+Defining a \fBset_flag\fP element in a rule is identical to defining it on
+each constraint of this rule.
+.TP
+.B \fBhas_flag\fP
+Defining a \fBhas_flag\fP element in a rule is identical to defining it on
+each constraint of this rule.
+.TP
+.B \fBno_flag\fP
+Defining a \fBno_flag\fP element in a rule is identical to defining it on
+each constraint of this rule.
+.TP
+.B \fBrotations\fP
+format: <r0> "," <r1> "," <r2> "," <r3> "," <r4> "," <r5>
+.sp
+<r0> to <r5> being (usually short) strings.
+.sp
+Specifies that this [terrain_graphics] element does not define an actual
+rule, but will serve as a template for creating up to 6 rotated rules.
+.sp
+Template rules are defined like normal rules, except that flags and image
+filenames may contain template strings of the form \fB@Rn\fP, n being a
+number from 0 to 5.
+.sp
+A template rule will generate 6 rules, which are similar to the
+template, except that:
+.INDENT 7.0
+.IP \(bu 2
+The map of constraints of this rule will be rotated by an angle, of 0 to
+5 pi / 6
+.IP \(bu 2
+On the rule which is rotated to 0rad, the template strings @R0, @R1, @R2,
+@R3, @R4, @R5, will be replaced by the corresponding r0, r1, r2, r3, r4,
+r5 variables given in the rotations= element.
+.IP \(bu 2
+On the rule which is rotated to pi/3 rad, the template strings @R0, @R1,
+@R2 etc. will be replaced by the corresponding \fIr1, r2, r3, r4,
+r5, r0\fP (note the shift in indices).
+.IP \(bu 2
+On the rule rotated 2pi/3, those will be replaced by r2, r3, r4, r5, r0,
+r1 and so on.
+.UNINDENT
+.UNINDENT
+.SS [tile]
+.sp
+The [tile] element, in a [terrain_graphics] rule, adds one (or more) new
+constraints to a rule. It may contain the following child tags:
+.INDENT 0.0
+.TP
+.B \fI\%[image]\fP
+Defining an [image] element inside of a [tile] element will define a
+single\-hex image which will only be applied to the tile the constraint
+applies to.
+.UNINDENT
+.sp
+Additionally, the [tile] tag may contain the following elements:
+.INDENT 0.0
+.TP
+.B \fBx\fP and \fBy\fP
+format: <number>
+.sp
+Specify the offset of the constraint.
+.TP
+.B \fBloc\fP
+format: <number>, <number>
+.sp
+An alternative notation for specifying the offset of the constraint.
+.TP
+.B \fBpos\fP
+format: <number>
+.sp
+Specifies that this [tile] tag does not define a single constraint, but
+instead, acts as a template for all constraints defined, on the map, with
+an anchor of the same number (See \fI\%Map format\fP\&.)
+.sp
+Only meaningful if the [terrain_graphics] parent tag contains a \fBmap\fP
+element.
+.TP
+.B \fBtype\fP
+format: <string>
+.sp
+Defines the typestring for this constraint. This value represents a list of
+characters. For the constraint to match, the corresponding terrain tile\(aqs
+type must be one of those characters.
+.sp
+This string may contain the metacharacter "*" meaning "all terrains", and
+the metacharacter "!", meaning "all terrains except those present in the
+list."
+.TP
+.B \fBset_flag\fP
+format: <flag> [ "," <flag> ] +
+.sp
+Specifies that, if the rule which contains this constraint matches, the
+given flags will be applied to the corresponding terrain tile.
+.TP
+.B \fBhas_flag\fP
+format: <flag> [ "," <flag> ] +
+.sp
+Specifies that this constraint will only match if the corresponding terrain
+tile already has all the given flags.
+.TP
+.B \fBno_flag\fP
+format: <flag> [ "," <flag> ] +
+.sp
+Specifies that this constraint will only match if the corresponding terrain
+tile does \fInot\fP have any of the given flags.
+.UNINDENT
+.SS [image]
+.sp
+The [image] element, in the [terrain_graphics] element, or in a [tile]
+elements, specify an image which will be added on the terrain, if the
+corresponding rule does match.
+.sp
+It may contain the following child tags:
+.INDENT 0.0
+.TP
+.B \fI\%[variant]\fP
+A time\-of\-day specific variant of the image.
+.UNINDENT
+.sp
+Images may contain the following elements:
+.INDENT 0.0
+.TP
+.B \fBname\fP
+format: <timed_image> ( "," <timed_image> ) +
+.sp
+<timed_image> ::= <image_name> [ ":" <timing> ]
+.sp
+If the name only contains one timed_image, it will be used as a base to
+build the filename of the image corresponding to this [image] tag, with
+"images/terrain/" prepended, and ".png" appended.
+.sp
+If the name contains several timed_images, it will correspond to an
+animated image, each timed_image being a frame of the animation. For each
+frame of the animation the <image_name> part corresponds to the base of the
+filename, which will be built as shown above, and the <timing> part will
+correspond to the duration, in milliseconds, of this frame.
+.TP
+.B \fBposition\fP
+format: "horizontal" | "vertical"
+.sp
+The type of layering this image will use. If set to "horizontal", it will
+use a layer\-based stack model. If set to vertical, images will be assumed
+to have an (x,y) position on the screen, and will be layered according to
+their coordinates.
+.TP
+.B \fBlayer\fP
+format: <number>
+.sp
+Only meaningful if the \fBposition\fP tag was set to \fBhorizontal\fP\&. Images
+with an horizontal position will be drawn, lower layer to upper layer,
+without taking their position into account.
+.TP
+.B \fBbase\fP
+format: <number> "," <number>
+.sp
+Only meaningful if the \fBposition\fP tag was set to \fBvertical\fP\&. Specifies
+the coordinates of the "base" of the image, which is, the imaginary pixel
+at which the image reaches the "floor", relative either to the top\-left
+corner of the rule, or to the top\-left corner of the constraint hex,
+depending on whether the image applies to a rule, or to a constraint.
+.UNINDENT
+.SS [variant]
+.sp
+[variant] tags represent a time\-of\-day\-specific version of an image. Variants
+may contain the following elements:
+.INDENT 0.0
+.TP
+.B \fBtod\fP
+format: <string>
+.sp
+The identifier of the time\-of\-day this variant applies to. When the turn\(aqs
+top is equal to this, the "name" element of this variant will replace the
+"name" element of the parent image.
+.TP
+.B \fBname\fP
+format: <timed_image> ( "," <timed_image> ) +
+.sp
+<timed_image> ::= <image_name> [ ":" <timing> ]
+.sp
+The image string, which will replace the "name" element of the parent image
+on the right time\-of\-day.
+.UNINDENT
+.SS Map format
+.\" Generated by docutils manpage writer.
+.

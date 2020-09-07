@@ -900,7 +900,7 @@ Macros for adjacent terrains
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Macros for castles
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Macros for canyons
 ~~~~~~~~~~~~~~~~~~

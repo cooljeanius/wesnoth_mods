@@ -1,0 +1,1566 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>Terrain Graphics WML</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="terrain-graphics-wml">
+<h1 class="title">Terrain Graphics WML</h1>
+
+<!-- vim:ft=rst: -->
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tutorial-documentation" id="id7">Tutorial documentation</a><ul>
+<li><a class="reference internal" href="#defining-a-rule" id="id8">Defining a rule</a></li>
+<li><a class="reference internal" href="#adding-constraints-to-rules" id="id9">Adding constraints to rules</a></li>
+<li><a class="reference internal" href="#the-hex-coordinate-system" id="id10">The hex coordinate system</a></li>
+<li><a class="reference internal" href="#type-strings" id="id11">Type strings</a></li>
+<li><a class="reference internal" href="#adding-images-to-terrains" id="id12">Adding images to terrains</a><ul>
+<li><a class="reference internal" href="#image-tags-into-constraints" id="id13">[image] tags into constraints</a></li>
+<li><a class="reference internal" href="#image-tags-directly-into-the-rule" id="id14">[image] tags directly into the rule</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-flags" id="id15">Using flags</a><ul>
+<li><a class="reference internal" href="#setting-flags" id="id16">Setting flags</a></li>
+<li><a class="reference internal" href="#testing-for-flags" id="id17">Testing for flags</a></li>
+<li><a class="reference internal" href="#flags-under-terrain-graphics" id="id18">Flags under [terrain_graphics]</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-map-strings" id="id19">Using map-strings</a><ul>
+<li><a class="reference internal" href="#map-string-format" id="id20">Map string format</a></li>
+<li><a class="reference internal" href="#anchors" id="id21">Anchors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rule-parameters" id="id22">Rule parameters</a><ul>
+<li><a class="reference internal" href="#position-x-and-y" id="id23">Position: x and y</a></li>
+<li><a class="reference internal" href="#probability" id="id24">Probability</a></li>
+<li><a class="reference internal" href="#precedence" id="id25">Precedence</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#layering-images" id="id26">Layering images</a><ul>
+<li><a class="reference internal" href="#horizontal-layered-images" id="id27">Horizontal-layered images</a></li>
+<li><a class="reference internal" href="#vertical-layered-images" id="id28">Vertical-layered images</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-rotation-templates" id="id29">Using rotation templates</a></li>
+<li><a class="reference internal" href="#animating-images" id="id30">Animating images</a></li>
+<li><a class="reference internal" href="#time-of-day-specific-variants-of-images" id="id31">Time-of-day-specific variants of images</a></li>
+<li><a class="reference internal" href="#using-macros" id="id32">Using macros</a><ul>
+<li><a class="reference internal" href="#macros-for-base-terrains" id="id33">Macros for base terrains</a></li>
+<li><a class="reference internal" href="#macros-for-adjacent-terrains" id="id34">Macros for adjacent terrains</a></li>
+<li><a class="reference internal" href="#macros-for-castles" id="id35">Macros for castles</a></li>
+<li><a class="reference internal" href="#macros-for-canyons" id="id36">Macros for canyons</a></li>
+<li><a class="reference internal" href="#macros-for-bridges" id="id37">Macros for bridges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reference-documentation" id="id38">Reference documentation</a><ul>
+<li><a class="reference internal" href="#rule-structure-synopsis" id="id39">Rule structure synopsis</a></li>
+<li><a class="reference internal" href="#rule-matching-algorithm" id="id40">Rule matching algorithm</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wml-reference" id="id41">WML Reference</a><ul>
+<li><a class="reference internal" href="#terrain-graphics" id="id42">[terrain_graphics]</a></li>
+<li><a class="reference internal" href="#tile" id="id43">[tile]</a></li>
+<li><a class="reference internal" href="#image" id="id44">[image]</a></li>
+<li><a class="reference internal" href="#variant" id="id45">[variant]</a></li>
+<li><a class="reference internal" href="#map-format" id="id46">Map format</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="tutorial-documentation">
+<h1><a class="toc-backref" href="#id7">Tutorial documentation</a></h1>
+<p>The [terrain_graphics] tags describes a terrain graphics rule, which associates
+a set of images to a given terrain configuration. Those are used to define how
+to translate a map into a set of bitmap images which will be displayed to the
+user.</p>
+<p>[terrain_graphics] WML tags may be either top-level tags, or defined as direct
+children of scenarios.</p>
+<div class="section" id="defining-a-rule">
+<h2><a class="toc-backref" href="#id8">Defining a rule</a></h2>
+<p>To define a terrain graphics rule, just add one [terrain_graphics] element. The
+simplest terrain_graphics rule looks like this:</p>
+<pre class="literal-block">
+[terrain_graphics]
+[/terrain_graphics]
+</pre>
+<p>Of course, this rule does absolutely nothing, so it is completely useless.</p>
+</div>
+<div class="section" id="adding-constraints-to-rules">
+<h2><a class="toc-backref" href="#id9">Adding constraints to rules</a></h2>
+<p>For rules to do anything useful, one must first add some conditions which will
+specify where they will match. This is done using the [tile] WML tag.
+[tile] WML elements define what we will name, in the rest of this document, a
+&quot;constraint&quot;.</p>
+<p>For example, the following WML code adds a constraint to our empty rule:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+[/terrain_graphics]
+</pre>
+<p>Let's describe the elements defined inside this WML tag:</p>
+<ul class="simple">
+<li>x and y define the /offset/ of the constraint.</li>
+<li>type defines the type of the terrain which will be matched.</li>
+</ul>
+<p>Supposed, the terrain map is the following one (the letter inside the hexes
+representing the terrain type):</p>
+<pre class="literal-block">
+ __    __
+/g \__/g \
+\__/m \__/
+/g \__/c \
+\__/c \__/
+/c \__/c \
+\__/  \__/
+</pre>
+<p>The rule we defined will match on each terrains marked &quot;g&quot;</p>
+<p>What is the use of those &quot;offsets&quot;, then? Those allow for a rule to match, a
+combination of terrains and not a single terrain. Suppose, for example, we want
+the rule to match the following terrain configuration:</p>
+<pre class="literal-block">
+ __
+/g \__
+\__/c \
+   \__/
+</pre>
+<p>To achieve this, we will define the rule like this:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=c
+   [/tile]
+[/terrain_graphics]
+</pre>
+<p>Here, this rule has 2 constraints:</p>
+<ul class="simple">
+<li>The first one which specifies that the terrain at the offset (0, 0), should
+be of type &quot;g&quot;</li>
+<li>The second one which specifies that the terrain at the offset (1, 0) should
+be of type &quot;c&quot;</li>
+</ul>
+</div>
+<div class="section" id="the-hex-coordinate-system">
+<h2><a class="toc-backref" href="#id10">The hex coordinate system</a></h2>
+<p>To reference hexes with a system of 2 coordinates, the Wesnoth map model is
+used. The top-left hex is numbered (0, 0), then the hex immediately to its SE
+side is numbered (1, 0), then the hex immediately to its NE side is numbered
+(2, 0), etc. The hex immediately behind the hex numbered (0, 0) is (1, 0), and
+so on. Here is a picture representing coordinates of hexes:</p>
+<pre class="literal-block">
+  ____        ____        ____        ____
+ /    \      /    \      /    \      /    \
+/ 0,0  \____/ 2,0  \____/ 4,0  \____/ 6,0  \
+\      /    \      /    \      /    \      /
+ \____/ 1,0  \____/ 3,0  \____/ 5,0  \____/
+ /    \      /    \      /    \      /    \
+/ 0,1  \____/ 2,1  \____/ 4,1  \____/ 6,1  \
+\      /    \      /    \      /    \      /
+ \____/ 1,1  \____/ 3,1  \____/ 5,1  \____/
+ /    \      /    \      /    \      /    \
+/ 0,2  \____/ 2,2  \____/ 4,2  \____/ 6,2  \
+\      /    \      /    \      /    \      /
+ \____/ 1,2  \____/ 3,2  \____/ 5,2  \____/
+ /    \      /    \      /    \      /    \
+/ 0,3  \____/ 2,3  \____/ 4,3  \____/ 6,3  \
+\      /    \      /    \      /    \      /
+ \____/ 1,3  \____/ 3,3  \____/ 5,3  \____/
+      \      /    \      /    \      /
+       \____/      \____/      \____/
+</pre>
+<p>When we talk about an offset OF (xo, yo) FROM (xf, yf), we talk about the point
+which would be at the position  (xo, yo) if (xf, yf) was (0, 0). This is <em>not</em>
+always the sum of coordinates! For example, the offset (1,0) from (2,0) is (3,
+0), but the offset (1, 0) from (3, 0) is (4, 1)</p>
+</div>
+<div class="section" id="type-strings">
+<h2><a class="toc-backref" href="#id11">Type strings</a></h2>
+<p>What if we want a constraint to be able to match several terrain types? To do
+this, just put the list of types we want to match in the <tt class="docutils literal">type=</tt> element of
+the [tile] tag. For example, the following rule will match any terrain with is
+either grassland (g), or dirt (r):</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=gr
+   [/tile]
+[/terrain_graphics]
+</pre>
+<p>The following characters are also possible:</p>
+<ul class="simple">
+<li>The <tt class="docutils literal">*</tt> character means 'any terrain'. Any constraint with the
+<tt class="docutils literal">type=*</tt> element will match any possible terrain type. We'll see below for
+actual uses of such constraints.</li>
+<li>The <tt class="docutils literal">!</tt> character inverts the meaning of the terrain type list. Instead of
+matching terrains which are in the list, the constraint will match terrains
+which are not in the list.</li>
+</ul>
+</div>
+<div class="section" id="adding-images-to-terrains">
+<h2><a class="toc-backref" href="#id12">Adding images to terrains</a></h2>
+<p>Now that we have &quot;rules&quot; which can &quot;match&quot;, we need to make the do something
+useful, that is, adding new images to terrains. This is done using the
+<tt class="docutils literal">[image]</tt> tag. The basic syntax for <tt class="docutils literal">[image]</tt> tags is the following one:</p>
+<pre class="literal-block">
+[image]
+   name=&lt;name&gt;
+[/image]
+</pre>
+<p>Where &lt;name&gt; is to be replaced by the base filename of the image. The string
+&quot;terrain/&quot; will be prepended to this name, and the string &quot;.png&quot; will be
+appended to it, to generate the actual filename of the image.</p>
+<p>Image tags may appear into constraints, or into rules; those have slightly
+different meanings.</p>
+<div class="section" id="image-tags-into-constraints">
+<h3><a class="toc-backref" href="#id13">[image] tags into constraints</a></h3>
+<p>When [image] tags are placed into constraints, they must specify a single-hex
+image (currently, that means the ipmage must be 72x72). When the rule which
+contains the given contraint matches (that is, when all the rule's constraint
+match,) the image will be added to the hex corresponding to the constraint. For
+example, if our rule looks like this:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=c
+      [image]
+         name=foobar
+      [/image]
+   [/tile]
+[/terrain_graphics]
+</pre>
+<p>And if the terrain looks like this:</p>
+<pre class="literal-block">
+ __    __
+/g \__/g \
+\__/m \__/
+/g \__/c \
+\__/c*\__/
+/c \__/c \
+\__/  \__/
+</pre>
+<p>Then the tile at coordinate (1,1) (the one marked with a star) will get the
+image &quot;terrains/foobar.png&quot;. The other tiles will get nothing from this rule,
+even the tile at the coordinates (0,1), which corresponds to the first
+constraint of this rule.</p>
+<p>Several images may appear in a single constraint. Images may appear each
+constraint of a rule.</p>
+</div>
+<div class="section" id="image-tags-directly-into-the-rule">
+<h3><a class="toc-backref" href="#id14">[image] tags directly into the rule</a></h3>
+<p>When [image] tags are directly placed into a rule, they may specify a multi-hex
+image. The image will be split into sub-images the size of a hex, and each of
+those sub-images will be added to the corresponding hex, if the rule contains a
+constraint in that position.</p>
+<p>For example, consider the following rule:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=c
+   [/tile]
+   [image]
+      name=foobar
+   [/image]
+[/terrain_graphics]
+</pre>
+<p>The foobar image being a 126x108 image which looks like this:</p>
+<pre class="literal-block">
+________________
+| /    \       |
+|/  A   \____  |
+|\ (0,0)/    \ |
+| \____/  B   \|
+|      \ (1,0)/|
+|_______\____/_|
+</pre>
+<p>The terrain, still is the same map:</p>
+<pre class="literal-block">
+ __    __
+/g \__/g \
+\__/m \__/
+/g+\__/c \
+\__/c*\__/
+/c \__/c \
+\__/  \__/
+</pre>
+<p>Here, the part marked &quot;A&quot; of the image will be applied to the hex marked with a
++, whereas the part marked &quot;B&quot; of the image will be added to the hex marked
+with a *.</p>
+<p>However, suppose we wish to define a village which casts a shadow on nearby
+tiles. We draw a 126x144 image like the following one <a class="footnote-reference" href="#id2" id="id1">[*]</a>:</p>
+<pre class="literal-block">
+________________
+|              |
+|        ____  |
+|       /    \ |
+|  ____/  V   \|
+| /    \ (1,0)/|
+|/shadow\____/ |
+|\ (0,1)/      |
+|_\____/_______|
+</pre>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[*]</a></td><td>Notice that, when maps are cut, the top-left part of the map always is a
+full hex, namely the hex marked (0,0), even if it doesn't correspond to
+anything on the map.</td></tr>
+</tbody>
+</table>
+<p>The rule only matches villages, so we should be tempted to write something like
+that (assuming B is the village tile):</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=1
+      y=0
+      type=B
+   [/tile]
+   [image]
+      name=shadow-village
+   [/image]
+[/terrain_graphics]
+</pre>
+<p>However, this will <strong>not</strong> work: the village will be displayed, but not the
+shadow! Remember what was written before: <em>those sub-images will be added to
+the corresponding hex, if the rule contains a constraint in that position.</em> As
+there is no constraint at the location (0,1), there will be no image either.</p>
+<p>So, the solution is to add a match-all constraint, like this:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=1
+      y=0
+      type=B
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=*
+   [/tile]
+   [image]
+      name=shadow-village
+   [/image]
+[/terrain_graphics]
+</pre>
+<p>Here, everything will work correctly.</p>
+</div>
+</div>
+<div class="section" id="using-flags">
+<h2><a class="toc-backref" href="#id15">Using flags</a></h2>
+<p>Rules may also set flags upon matching, and check for the absence, or presence,
+of flags, before being applied. This allows, for example, to make some
+mutually-exclusive rules. Flags are character strings whicy may be added to
+each hex of the map. Flags are not visible to the user, and only are used for
+the purpose of calculating terrain graphics.</p>
+<div class="section" id="setting-flags">
+<h3><a class="toc-backref" href="#id16">Setting flags</a></h3>
+<p>A [tile] tag may have the <tt class="docutils literal">set_flag</tt> element present, followed by a
+comma-separated list of flags. This specifies that, when the rule which
+contains this constraint does match, the following flags are to be set to the
+terrain corrsponding to this constraint.</p>
+</div>
+<div class="section" id="testing-for-flags">
+<h3><a class="toc-backref" href="#id17">Testing for flags</a></h3>
+<p>A [tile] tag may have the <tt class="docutils literal">has_flag</tt> element present, followed by a
+comma-separated list of flags. This specifies that this constraint will only
+match if the corresponding hex has <em>each</em> of the flags present in the list.
+Those flags may have been set be previous rules.</p>
+<p>A [tile] tag may have the <tt class="docutils literal">no_flag</tt> element present, followed by a
+comma-separated list of flags. This specifies that this constraint will only
+match if <em>none</em> of the flags present in the list are present on the
+corresponding hex.</p>
+</div>
+<div class="section" id="flags-under-terrain-graphics">
+<h3><a class="toc-backref" href="#id18">Flags under [terrain_graphics]</a></h3>
+<p><tt class="docutils literal">set_flag</tt>, <tt class="docutils literal">has_flag</tt> and <tt class="docutils literal">no_flag</tt> may also be defined as children of
+[terrain_graphics] WML elements. Doing this is equivalent to defining those
+same flags in each constraint.</p>
+<p>A common use for flags is to make mutually-exclusive rules. For example, if we
+have one rule which defines a 2-hex grassland tile, and another rule which
+defines a 1-hex grassland tile, we do not want both to appear on the same hex.
+So, the rules may be defined like that:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=g
+   [/tile]
+   [image]
+      name=2-tile-grassland
+   [/image]
+   set_flag=base
+[/terrain_graphics]
+
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [image]
+      name=1-tile-grassland
+   [/image]
+   no_flag=base
+[/terrain_graphics]
+</pre>
+<p>Here, the first rule, regarding the 2-tile grassland, will be checked first. If
+it does match, it will set, on both hexes, the flag &quot;base&quot;. Hence, the second
+rule won't match on any of those hexes, because it has &quot;no_flag=base&quot;.</p>
+<p>It is quite common to add, in the same rule, <tt class="docutils literal">set_flag=flag</tt> and
+<tt class="docutils literal">no_flag=flag</tt>. This allows to define a set of mutually-exclusive rules,
+irrespectively of the order in which they will be applied.</p>
+</div>
+</div>
+<div class="section" id="using-map-strings">
+<h2><a class="toc-backref" href="#id19">Using map-strings</a></h2>
+<p>Defining large multi-hex terrains may be rather confusing when the number of
+tiles increase. To make this simpler, a shortcut notation was introduced:
+map-strings. Map strings are defined by adding a <tt class="docutils literal">map</tt> element under a
+<tt class="docutils literal">terrain_graphics</tt> tag.</p>
+<div class="section" id="map-string-format">
+<h3><a class="toc-backref" href="#id20">Map string format</a></h3>
+<p>Map strings are stings, generally multi-line, which are parsed the following
+way:</p>
+<ul class="simple">
+<li>Starting empty lines are discarded.</li>
+<li>If the first non-empty line starts with a space, it is given the line number
+&quot;1&quot;. Else, it is given the line-number &quot;0&quot;</li>
+<li>If the line is odd-numbered, its first 2 characters are discarded</li>
+<li>The rest of the line is split into 4-character chunks (or smaller if less
+characters are left in the current line.)</li>
+<li>For each of those 4-character chunks:<ul>
+<li>If the chunk consists in a dot, it is ignored.</li>
+<li>If the chunk consists a combination of any characters except digits, a new
+rule is created.</li>
+<li>If the chunk consists in digits, a new <a class="reference internal" href="#anchor">anchor</a> is created (see below.)</li>
+<li>The column-number is increased by one.</li>
+</ul>
+</li>
+</ul>
+<p>A rule created by a map will be the exact equivalent of the following WML:</p>
+<pre class="literal-block">
+[tile]
+   x=&lt;x&gt;
+   y=&lt;y&gt;
+   type=&lt;type&gt;
+[/time]
+</pre>
+<p>Where &lt;type&gt; is the 4-character string of the current chunk, and where x and y
+are given by the following formula:</p>
+<p>x = (lineno % 2) + colno * 2
+y = lineno / 2</p>
+<p>&quot;%&quot; being the modulus operator, and &quot;/&quot; the integer division operator.</p>
+<p>For example, the following notations will be equivalent.</p>
+<p>Map notation:</p>
+<pre class="literal-block">
+[terrain_graphics]
+  map=&quot;
+g   !c
+  mh
+gd&quot;
+[/terrain_graphics]
+</pre>
+<p>Classic notation:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=g
+   [/tile]
+   [tile]
+      x=1
+      y=0
+      type=mh
+   [/tile]
+   [tile]
+      x=2
+      y=0
+      type=!c
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=gd
+   [/tile]
+[/terrain_graphics]
+</pre>
+</div>
+<div class="section" id="anchors">
+<h3><a class="toc-backref" href="#id21">Anchors</a></h3>
+<p id="anchor">As was stated before, maps may, instead of specifying terrains, may also
+specify &quot;anchors&quot;. Anchors do not define actual rules. However, when an anchor
+is set, any [tile] WML child tag may use, instead of <tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt>, the WML
+element <tt class="docutils literal"><span class="pre">pos=&lt;anchor&gt;</span></tt>, where anchor is the index of the anchor, from 0 to 9.
+This will define a rule as normal, except that its offset will be the offset of
+the anchor.</p>
+<p>An useful feature is that a same anchor may be specified multiple times. When a
+[tile] tag uses this anchor, this will create several rules at once! For
+example: the following notations are equivalent:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   map=&quot;
+  1
+1   1
+  2
+1   1
+  1&quot;
+   [tile]
+      pos=1
+      type=m
+      set_flag=adjacent_to_foo
+   [tile]
+   [tile]
+      pos=2
+      type=m
+      no_flag=adjacent_to_foo
+      [image]
+         name=foo
+      [/image]
+   [/tile]
+[/terrain_graphics]
+</pre>
+<p>And:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=1
+      y=0
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=0
+      y=1
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=1
+      y=1
+      no_flag=adjacent_to_foo
+      [image]
+         name=foo
+      [/image]
+   [/tile]
+   [tile]
+      x=2
+      y=1
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=0
+      y=2
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=1
+      y=2
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+   [tile]
+      x=1
+      y=3
+      type=m
+      set_flag=adjacent_to_foo
+   [/tile]
+[/terrain_graphics]
+</pre>
+</div>
+</div>
+<div class="section" id="rule-parameters">
+<h2><a class="toc-backref" href="#id22">Rule parameters</a></h2>
+<p>The 2 elements <tt class="docutils literal">probability</tt>, and <tt class="docutils literal">precedence</tt>, and the <tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt>
+couple, may be added directly under the [terrain_graphics] WML tag. Those
+affect the rule as a whole, and have the following meaning:</p>
+<div class="section" id="position-x-and-y">
+<h3><a class="toc-backref" href="#id23">Position: x and y</a></h3>
+<p>If a rule defines the <tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt> elements, it may only match on this
+position of the screen (provided all other conditions are met). May be useful
+for some scenario-specific terrains that only may appear at one given position.</p>
+</div>
+<div class="section" id="probability">
+<h3><a class="toc-backref" href="#id24">Probability</a></h3>
+<p>The <tt class="docutils literal">probability</tt> element defines the probability of a rule to match, when
+all other conditions are met. It is a number from 0 to 100, 0 meaning &quot;this
+rule will never match&quot;, and 100 &quot;this rules always matches, provided all other
+conditions are met.&quot;</p>
+</div>
+<div class="section" id="precedence">
+<h3><a class="toc-backref" href="#id25">Precedence</a></h3>
+<p>Usually, rules do not define any precedence, and are executed in the order they
+are defined. rules with a lower precedence will always be executed before rules
+with a higher precedence. This allows for custom scenario to define custom
+rules and to choose whether they have to be defined before, or after generic
+rules.</p>
+</div>
+</div>
+<div class="section" id="layering-images">
+<h2><a class="toc-backref" href="#id26">Layering images</a></h2>
+<p>When images are defined like what was explained above, without any layering
+information, they will be displayed on-screen in a first-to-last way, that is,
+images which are added first go into the background, and images which are added
+last go into the foreground. This may not be what we expect; so, in general,
+some &quot;layering&quot;-related elements are added to the images, directly into the
+[image] WML tags.</p>
+<p>2 layering models exist; an image can use either model. The two layering models
+are the horizontal model, and the vertical model. Model is selected with the
+<tt class="docutils literal">position</tt> element.</p>
+<div class="section" id="horizontal-layered-images">
+<h3><a class="toc-backref" href="#id27">Horizontal-layered images</a></h3>
+<p>The simplest, default layering model is called the &quot;horizontal&quot; model. Images
+are set to usie the horizontal model by either specifying
+<tt class="docutils literal">position=horizontal</tt> in the [image] tag, or by not specifying a position at
+all.</p>
+<p>The horizontal layering model is pretty simple: each image may define, using
+the <tt class="docutils literal">layer</tt> element, which layer it is in. The layer index is an integer
+number going from -1000 (most background) to +1000 (most foreground) (actually,
+using higher and lower number should work, but this may change.) Images which
+have negative layeris are displayed behind unit graphics; images which have
+positive layers are displayed in front of unit graphics.</p>
+<p>Images which are in the same layer are ordered the classic way, in the order
+they are defined. If an image does not specify a layer, it will be assumed to
+be in layer 0.</p>
+<p>For example, suppose the two following rules:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=t
+      [image]
+         position=horizontal
+         layer=-500
+         name=village_foreground
+      [/image]
+   [/tile]
+[/terrain_graphics]
+
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=t
+      [image]
+         position=horizontal
+         layer=-1000
+         name=village_background
+      [/image]
+   [/tile]
+[/terrain_graphics]
+</pre>
+<p>In this case, village_background will be drawn behind village_foreground, even
+if it is defined after it.</p>
+</div>
+<div class="section" id="vertical-layered-images">
+<h3><a class="toc-backref" href="#id28">Vertical-layered images</a></h3>
+<p>Images may also specify <tt class="docutils literal">position=vertical</tt> in the [image] tag, so they use
+the &quot;vertical&quot; model. Vertical-layered images are not disposed in flat, stacked
+layers, but are instead assumed, when they are rendered, to have an (x, y)
+position on the screen. They are, then, drawn according the rule which states
+that objects in the bottom are hidden by objects in the front.</p>
+<p>To use the vertical model, [image] tags should contain the <tt class="docutils literal">base</tt> element,
+like this:</p>
+<pre class="literal-block">
+base=x,y
+</pre>
+<p>Where x, and y, are the coordinates, in pixels, of the base of the image (that
+is, the virtual point at which the image would be in contact of the ground).
+Those coordinates are relative to the top-left-corner of the image.</p>
+<p>If the image is a single-hex image, this means that the <tt class="docutils literal">base</tt> coordinates
+are relative to the top-left corner of the smallest square containing the tile
+hex.</p>
+<p>If the image is a multi-hex image (see the <a class="reference internal" href="#image-tags-directly-into-the-rule">[image] tags directly into the rule</a>
+section for more info,) this means that the <tt class="docutils literal">base</tt> coordinates are relative
+to the top-left corner of the multi-hex image. Please note that, when using
+multi-hex images, the top-left hex of the image always is assumed to ihave hex
+coordinates (0,0) (see above). The coordinates of <tt class="docutils literal">base</tt> will always be
+relative to the top-left of  <strong>this hex</strong>, even if the rules contains no
+constraint regarding (0, 0).</p>
+<p><strong>Note</strong>: for positioning purposes, units are supposed to be in the position
+(36,54) relative to the top-left corner of the square containing their hex.
+This means that any image in front of this may hide units.</p>
+<p><strong>Note</strong>: vertical-layered images are always drawn in front of
+horizontal-layered images which have a negative layer, whatever their
+respective layers and base coordinates may otherwise be. Vertical-layered
+images are always drawn behind horizontal-layered images which have a positive
+layer. <a class="footnote-reference" href="#id4" id="id3">[†]</a></p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[†]</a></td><td>However, this may be broken in wesnoth up to 0.8.11</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="using-rotation-templates">
+<h2><a class="toc-backref" href="#id29">Using rotation templates</a></h2>
+<p>Rules sometimes are rotated versions of other, similar rules. To simplify the
+definition of such rules, the notion of &quot;rotation templates&quot; was introduced.
+Those are [terrain_graphics] definitions which do not define one rule, but may
+define up to 6 rules, each one rotated by a Pi/3 <a class="footnote-reference" href="#id6" id="id5">[‡]</a> angle.</p>
+<p>To define a rotation template, defines a [terrain_graphics] rule, as usual,
+except that this rule should contain the <tt class="docutils literal">rotations</tt> element, followed by a
+list of 6 comma-separated strings (usually short ones.)</p>
+<p>The image names and flag names of the rule and of its constraints may contain
+template strings of the form <tt class="docutils literal">&#64;Rn</tt>, n being a number from 0 to 5.</p>
+<p>A template rule will generate 6 rules, which are similar to the template,
+except that:</p>
+<ul>
+<li><p class="first">The map of constraints of this rule will be rotated by an angle, from 0 to 5
+pi / 6. Note that the relative positions of the constraints will be rotated,
+too; and so will the &quot;base&quot; of images whose position is set to &quot;vertical&quot;.</p>
+<p>After being rotated, each set of constraint will be translated, so that:</p>
+<ul class="simple">
+<li>There is no constraint with negative coordinates</li>
+<li>There is at least one constraint which has x=0</li>
+<li>There is at least one constraint which has y=0</li>
+</ul>
+<p>This is important, because, for example, rules about multi-hex images will
+then apply as usual, using the modified set of constraints</p>
+</li>
+<li><p class="first">On the rule which is rotated to 0rad, the template strings &#64;R0, &#64;R1, &#64;R2,
+&#64;R3, &#64;R4, &#64;R5, will be replaced by the corresponding r0, r1, r2, r3, r4, r5
+variables given in the rotations= element.</p>
+</li>
+<li><p class="first">On the rule which is rotated to pi/3 rad, the template strings &#64;R0, &#64;R1, &#64;R2
+etc. will be replaced by the corresponding <em>r1, r2, r3, r4, r5, r0</em> (note the
+shift in indices).</p>
+</li>
+<li><p class="first">On the rule rotated 2pi/3, those will be replaced by r2, r3, r4, r5, r0, r1
+and so on.</p>
+</li>
+</ul>
+<p>For example, the following notations are equivalent</p>
+<p>The compact template-based rotation:</p>
+<pre class="literal-block">
+[terrain_graphics]
+    map=&quot;
+1
+  g&quot;
+    [tile]
+       pos=1
+       image=bar-&#64;R0-&#64;R3
+    [/tile]
+    rotations=se,s,sw,nw,n,ne
+[/terrain_graphics]
+</pre>
+<p>And the quite verbose classic notation:</p>
+<pre class="literal-block">
+[terrain_graphics]
+    map=&quot;
+1
+  g&quot;
+    [tile]
+       pos=1
+       image=bar-se-nw
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map=&quot;
+1
+
+g&quot;
+    [tile]
+       pos=1
+       image=bar-s-n
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map=&quot;
+  1
+g&quot;
+    [tile]
+       pos=1
+       image=bar-sw-ne
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map=&quot;
+g
+  1&quot;
+    [tile]
+       pos=1
+       image=bar-nw-se
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map=&quot;
+  g
+
+  1&quot;
+    [tile]
+       pos=1
+       image=bar-n-s
+    [/tile]
+[/terrain_graphics]
+[terrain_graphics]
+    map=&quot;
+  g
+1&quot;
+    [tile]
+       pos=1
+       image=bar-ne-sw
+    [/tile]
+[/terrain_graphics]
+</pre>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[‡]</a></td><td>All angles will here be expressed in radians.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="animating-images">
+<h2><a class="toc-backref" href="#id30">Animating images</a></h2>
+<p>Images may may be animated instead of being static. To do this, specify a list
+of comma-separated images in the <tt class="docutils literal">name</tt> element of the <tt class="docutils literal">image</tt> tag. This
+will generate an animation, each frame being displayed during 100ms.</p>
+<p>The duration of each frame may be specified, to have a different value than the
+default 100 ms, by adding, after the image name, a colon (:), followed by a
+number representing a time in milliseconds.</p>
+<p>For example, take the following declaration:</p>
+<pre class="literal-block">
+[image]
+   name=frame1,frame2,frame3:300,frame4:200,frame5
+[/image]
+</pre>
+<p>It will define an animation composed of the following 5 frames:</p>
+<p>Image  Duration
+====== ========
+frame1 100 ms
+frame2 100 ms
+frame3 300 ms
+frame4 200 ms
+frame5 100 ms</p>
+</div>
+<div class="section" id="time-of-day-specific-variants-of-images">
+<h2><a class="toc-backref" href="#id31">Time-of-day-specific variants of images</a></h2>
+<p>It is possible, for images, to have several variants; the actual variant
+displayed being selected according to the current time-of-day. The notation
+introduced above, using the <tt class="docutils literal">name</tt> attribute to define the image used,
+actually defines the default variant of the image; that is, the variant that
+will be used, either if there is no time-of-day (for example, in the editor,)
+or if the current time-of-day is not specified in another variant.</p>
+<p>Variants may be defined by adding the [variant] child tag to the [image] tag.
+[variant] child tags have 2 elements:</p>
+<ul class="simple">
+<li>The <tt class="docutils literal">tod</tt> elements which specifies the time-of-day this variant applies to
+(see the file data/schedules.cfg for the list of times-of-day.</li>
+<li>The <tt class="docutils literal">name</tt> element which has the same exact meaning as the <tt class="docutils literal">name</tt> element
+of the [image] tag (and may, for example, carry animations etc), which will
+be used in place of the default <tt class="docutils literal">name</tt> when the time-of-day matches.</li>
+</ul>
+<p>For example, the following WML code specifies a village which has smoke when it
+is the night:</p>
+<pre class="literal-block">
+[terrain_graphics]
+   [tile]
+      x=0
+      y=0
+      type=t
+      [image]
+         name=village
+         [variant]
+            tod=first_watch
+            name=village-dusk,village-dusk2,village-dusk3,village-dusk4
+         [/variant]
+         [variant]
+            tod=second_watch
+            name=village-dusk,village-dusk2,village-dusk3,village-dusk4
+         [/variant]
+      [/image]
+   [/tile]
+[/terrain_graphics]
+</pre>
+</div>
+<div class="section" id="using-macros">
+<h2><a class="toc-backref" href="#id32">Using macros</a></h2>
+<div class="section" id="macros-for-base-terrains">
+<h3><a class="toc-backref" href="#id33">Macros for base terrains</a></h3>
+</div>
+<div class="section" id="macros-for-adjacent-terrains">
+<h3><a class="toc-backref" href="#id34">Macros for adjacent terrains</a></h3>
+</div>
+<div class="section" id="macros-for-castles">
+<h3><a class="toc-backref" href="#id35">Macros for castles</a></h3>
+</div>
+<div class="section" id="macros-for-canyons">
+<h3><a class="toc-backref" href="#id36">Macros for canyons</a></h3>
+</div>
+<div class="section" id="macros-for-bridges">
+<h3><a class="toc-backref" href="#id37">Macros for bridges</a></h3>
+</div>
+</div>
+</div>
+<div class="section" id="reference-documentation">
+<h1><a class="toc-backref" href="#id38">Reference documentation</a></h1>
+<div class="section" id="rule-structure-synopsis">
+<h2><a class="toc-backref" href="#id39">Rule structure synopsis</a></h2>
+<pre class="literal-block">
++--------------------------+
+| Rule                     |
+|  +--------------------+  |
+|  | Constraint         |  |
+|  |                    |  |
+|  | * offset           |  |
+|  | * typestring       |  |
+|  | * has_flags        |  |
+|  | * set_flags        |  |
+|  | * no_flags         |  |
+|  |                    |  |
+|  |  +--------------+  |  |
+|  |  | Image        |  |  |
+|  |  +--------------+  |  |
+|  |  | Image        |  |  |
+|  |  | ...          |  |  |
+|  |  +--------------+  |  |
+|  +--------------------+  |
+|  | Constraint         |  |
+|  | ...                |  |
+|  +--------------------+  |
+|                          |
+| * position               |
+| * probability            |
+| * precedence             |
+|                          |
+|  +--------------+        |
+|  | Image        |        |
+|  +--------------+        |
+|  | Image        |        |
+|  | ...          |        |
+|  +--------------+        |
++--------------------------+
+</pre>
+</div>
+<div class="section" id="rule-matching-algorithm">
+<h2><a class="toc-backref" href="#id40">Rule matching algorithm</a></h2>
+<p>Each rule will be tested against each hex of the map. For a rule to match on a
+given hex (let name this hex H), the following conditions have to be met:</p>
+<ul class="simple">
+<li>Some random, 1 to 100 number must be inferior to the rule &quot;probability&quot;</li>
+<li>If the rule has a position set, it may only match on this very location.</li>
+<li>All constraints of the rule must match.</li>
+</ul>
+<p>For a constraint of the rule to match, the following conditions have to be met:</p>
+<ul class="simple">
+<li>The hex corresponding to this constraint must have a type which matches the
+constraint's typestring:<ul>
+<li>We define the &quot;hex corresponding to this constraint&quot; as the hex, on the
+map, whose location is the hex H + ofs, ofs being the offset of the
+constraint.</li>
+<li>The hex matches the constraint's typestring if any of those is true.<ul>
+<li>The typestring contains the metacharacter *.</li>
+<li>The typestring does not start with the character '!', and the hex's
+terrain character is included in the typestring.</li>
+<li>The typestring starts with the character '!', and the hex's terrain
+character is <em>not</em> included in the typestring.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The hex corresponding to this constraint must not have any flag in the
+constraint's &quot;no_flag&quot; list.</li>
+<li>The hex corresponding to this contraint must have all the flags present in
+the constraint's &quot;has_flag&quot; list.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="wml-reference">
+<h1><a class="toc-backref" href="#id41">WML Reference</a></h1>
+<div class="section" id="terrain-graphics">
+<h2><a class="toc-backref" href="#id42">[terrain_graphics]</a></h2>
+<p>The [terrain_graphics] tag represents a terrain graphics rule. It may contain
+the following child tags:</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="#image">[image]</a></dt>
+<dd>when an image is defined in a [terrain_graphics] tag, it defines a
+multi-hex image which will be applied over all tiles of the rule.</dd>
+<dt><a class="reference internal" href="#tile">[tile]</a></dt>
+<dd>adds one (or several) constraints to the rule.</dd>
+</dl>
+<p>Additionnaly, the [terrain_graphics] tag may have the following elements:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt></dt>
+<dd><p class="first">format: &lt;number&gt;</p>
+<p class="last">Specifies the coordinates at which this rule can match. A rule which has
+x-y coordinates may only match at this position in the map, and nowhere
+else.</p>
+</dd>
+<dt><tt class="docutils literal">probability</tt></dt>
+<dd><p class="first">format: &lt;number&gt;</p>
+<p class="last">A number from 0 to 100. Means that this rule will only match, when all
+other conditions are met, if a random number from 0 to 100 is inferior to
+the <tt class="docutils literal">probability</tt> value. Obviously, 0 means this rule will never match,
+and 100 means this rule will always match if all other conditions are met.</p>
+</dd>
+<dt><tt class="docutils literal">precedence</tt></dt>
+<dd><p class="first">format: &lt;number&gt;</p>
+<p class="last">An optional tag which allows to specify in which order rules are to be
+tested. Generally, rules are tested in the order they are defined. However,
+rules with a lower precedence will always de tested before rules with
+higher precedence.</p>
+</dd>
+<dt><tt class="docutils literal">map</tt></dt>
+<dd><p class="first">format: see below</p>
+<p class="last">A string, generally a multi-line one, graphically representing the
+constraints of this rule. Maps are a shorthand notation to defining several
+constraints using the <a class="reference internal" href="#tile">[tile]</a> element. Those have a special structure; see
+below (<a class="reference internal" href="#map-format">Map Format</a>.)</p>
+</dd>
+<dt><tt class="docutils literal">set_flag</tt></dt>
+<dd>Defining a <tt class="docutils literal">set_flag</tt> element in a rule is identical to defining it on
+each constraint of this rule.</dd>
+<dt><tt class="docutils literal">has_flag</tt></dt>
+<dd>Defining a <tt class="docutils literal">has_flag</tt> element in a rule is identical to defining it on
+each constraint of this rule.</dd>
+<dt><tt class="docutils literal">no_flag</tt></dt>
+<dd>Defining a <tt class="docutils literal">no_flag</tt> element in a rule is identical to defining it on
+each constraint of this rule.</dd>
+<dt><tt class="docutils literal">rotations</tt></dt>
+<dd><p class="first">format: &lt;r0&gt; &quot;,&quot; &lt;r1&gt; &quot;,&quot; &lt;r2&gt; &quot;,&quot; &lt;r3&gt; &quot;,&quot; &lt;r4&gt; &quot;,&quot; &lt;r5&gt;</p>
+<p>&lt;r0&gt; to &lt;r5&gt; being (usually short) strings.</p>
+<p>Specifies that this [terrain_graphics] element does not define an actual
+rule, but will serve as a template for creating up to 6 rotated rules.</p>
+<p>Template rules are defined like normal rules, except that flags and image
+filenames may contain template strings of the form <tt class="docutils literal">&#64;Rn</tt>, n being a
+number from 0 to 5.</p>
+<p>A template rule will generate 6 rules, which are similar to the
+template, except that:</p>
+<ul class="last simple">
+<li>The map of constraints of this rule will be rotated by an angle, of 0 to
+5 pi / 6</li>
+<li>On the rule which is rotated to 0rad, the template strings &#64;R0, &#64;R1, &#64;R2,
+&#64;R3, &#64;R4, &#64;R5, will be replaced by the corresponding r0, r1, r2, r3, r4,
+r5 variables given in the rotations= element.</li>
+<li>On the rule which is rotated to pi/3 rad, the template strings &#64;R0, &#64;R1,
+&#64;R2 etc. will be replaced by the corresponding <em>r1, r2, r3, r4,
+r5, r0</em> (note the shift in indices).</li>
+<li>On the rule rotated 2pi/3, those will be replaced by r2, r3, r4, r5, r0,
+r1 and so on.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="tile">
+<h2><a class="toc-backref" href="#id43">[tile]</a></h2>
+<p>The [tile] element, in a [terrain_graphics] rule, adds one (or more) new
+constraints to a rule. It may contain the following child tags:</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="#image">[image]</a></dt>
+<dd>Defining an [image] element inside of a [tile] element will define a
+single-hex image which will only be applied to the tile the constraint
+applies to.</dd>
+</dl>
+<p>Additionally, the [tile] tag may contain the following elements:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt></dt>
+<dd><p class="first">format: &lt;number&gt;</p>
+<p class="last">Specify the offset of the constraint.</p>
+</dd>
+<dt><tt class="docutils literal">loc</tt></dt>
+<dd><p class="first">format: &lt;number&gt;, &lt;number&gt;</p>
+<p class="last">An alternative notation for specifying the offset of the constraint.</p>
+</dd>
+<dt><tt class="docutils literal">pos</tt></dt>
+<dd><p class="first">format: &lt;number&gt;</p>
+<p>Specifies that this [tile] tag does not define a single constraint, but
+instead, acts as a template for all constraints defined, on the map, with
+an anchor of the same number (See <a class="reference internal" href="#map-format">Map format</a>.)</p>
+<p class="last">Only meaningful if the [terrain_graphics] parent tag contains a <tt class="docutils literal">map</tt>
+element.</p>
+</dd>
+<dt><tt class="docutils literal">type</tt></dt>
+<dd><p class="first">format: &lt;string&gt;</p>
+<p>Defines the typestring for this constraint. This value represents a list of
+characters. For the constraint to match, the corresponding terrain tile's
+type must be one of those characters.</p>
+<p class="last">This string may contain the metacharacter &quot;*&quot; meaning &quot;all terrains&quot;, and
+the metacharacter &quot;!&quot;, meaning &quot;all terrains except those present in the
+list.&quot;</p>
+</dd>
+<dt><tt class="docutils literal">set_flag</tt></dt>
+<dd><p class="first">format: &lt;flag&gt; [ &quot;,&quot; &lt;flag&gt; ] +</p>
+<p class="last">Specifies that, if the rule which contains this constraint matches, the
+given flags will be applied to the corresponding terrain tile.</p>
+</dd>
+<dt><tt class="docutils literal">has_flag</tt></dt>
+<dd><p class="first">format: &lt;flag&gt; [ &quot;,&quot; &lt;flag&gt; ] +</p>
+<p class="last">Specifies that this constraint will only match if the corresponding terrain
+tile already has all the given flags.</p>
+</dd>
+<dt><tt class="docutils literal">no_flag</tt></dt>
+<dd><p class="first">format: &lt;flag&gt; [ &quot;,&quot; &lt;flag&gt; ] +</p>
+<p class="last">Specifies that this constraint will only match if the corresponding terrain
+tile does <em>not</em> have any of the given flags.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="image">
+<h2><a class="toc-backref" href="#id44">[image]</a></h2>
+<p>The [image] element, in the [terrain_graphics] element, or in a [tile]
+elements, specify an image which will be added on the terrain, if the
+corresponding rule does match.</p>
+<p>It may contain the following child tags:</p>
+<dl class="docutils">
+<dt><a class="reference internal" href="#variant">[variant]</a></dt>
+<dd>A time-of-day specific variant of the image.</dd>
+</dl>
+<p>Images may contain the following elements:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">name</tt></dt>
+<dd><p class="first">format: &lt;timed_image&gt; ( &quot;,&quot; &lt;timed_image&gt; ) +</p>
+<p>&lt;timed_image&gt; ::= &lt;image_name&gt; [ &quot;:&quot; &lt;timing&gt; ]</p>
+<p>If the name only contains one timed_image, it will be used as a base to
+build the filename of the image corresponding to this [image] tag, with
+&quot;images/terrain/&quot; prepended, and &quot;.png&quot; appended.</p>
+<p class="last">If the name contains several timed_images, it will correspond to an
+animated image, each timed_image being a frame of the animation. For each
+frame of the animation the &lt;image_name&gt; part corresponds to the base of the
+filename, which will be built as shown above, and the &lt;timing&gt; part will
+correspond to the duration, in milliseconds, of this frame.</p>
+</dd>
+<dt><tt class="docutils literal">position</tt></dt>
+<dd><p class="first">format: &quot;horizontal&quot; | &quot;vertical&quot;</p>
+<p class="last">The type of layering this image will use. If set to &quot;horizontal&quot;, it will
+use a layer-based stack model. If set to vertical, images will be assumed
+to have an (x,y) position on the screen, and will be layered according to
+their coordinates.</p>
+</dd>
+<dt><tt class="docutils literal">layer</tt></dt>
+<dd><p class="first">format: &lt;number&gt;</p>
+<p class="last">Only meaningful if the <tt class="docutils literal">position</tt> tag was set to <tt class="docutils literal">horizontal</tt>. Images
+with an horizontal position will be drawn, lower layer to upper layer,
+without taking their position into account.</p>
+</dd>
+<dt><tt class="docutils literal">base</tt></dt>
+<dd><p class="first">format: &lt;number&gt; &quot;,&quot; &lt;number&gt;</p>
+<p class="last">Only meaningful if the <tt class="docutils literal">position</tt> tag was set to <tt class="docutils literal">vertical</tt>. Specifies
+the coordinates of the &quot;base&quot; of the image, which is, the imaginary pixel
+at which the image reaches the &quot;floor&quot;, relative either to the top-left
+corner of the rule, or to the top-left corner of the constraint hex,
+depending on whether the image applies to a rule, or to a constraint.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="variant">
+<h2><a class="toc-backref" href="#id45">[variant]</a></h2>
+<p>[variant] tags represent a time-of-day-specific version of an image. Variants
+may contain the following elements:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">tod</tt></dt>
+<dd><p class="first">format: &lt;string&gt;</p>
+<p class="last">The identifier of the time-of-day this variant applies to. When the turn's
+top is equal to this, the &quot;name&quot; element of this variant will replace the
+&quot;name&quot; element of the parent image.</p>
+</dd>
+<dt><tt class="docutils literal">name</tt></dt>
+<dd><p class="first">format: &lt;timed_image&gt; ( &quot;,&quot; &lt;timed_image&gt; ) +</p>
+<p>&lt;timed_image&gt; ::= &lt;image_name&gt; [ &quot;:&quot; &lt;timing&gt; ]</p>
+<p class="last">The image string, which will replace the &quot;name&quot; element of the parent image
+on the right time-of-day.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="map-format">
+<h2><a class="toc-backref" href="#id46">Map format</a></h2>
+</div>
+</div>
+</div>
+</body>
+</html>
