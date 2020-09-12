@@ -1,0 +1,27 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Dead_Water/scenarios/06_Uncharted_Islands.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Dead_Water/06_Uncharted_Islands.cfg	2020-08-06 02:31:43.000000000 -0400
+@@ -39,11 +39,11 @@
+     {DW_TRACK {JOURNEY_06_NEW} }
+ 
+     {DEFAULT_SCHEDULE_DAWN}
+-    {TURNS4 25 24 23 22}
++    {TURNS4 28 27 26 25}
+ 
+     [side]
+         {SIDE_1}
+-        {GOLD4 240 200 180 160}
++        {GOLD4 250 200 180 160}
+     [/side]
+     {STARTING_VILLAGES 1 6}
+ 
+@@ -67,8 +67,8 @@
+             x=1
+             y=2
+         [/village]
+-        {GOLD4 280 340 380 460}
+-        {INCOME4 22 24 28 30}
++        {GOLD4 250 340 380 460}
++        {INCOME4 20 22 24 26}
+     [/side]
+ 
+     # I want mostly cuttle fish and water serpents, so I'll limit
