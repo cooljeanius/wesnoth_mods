@@ -2,8 +2,11 @@
 
 I am bad at The Battle For Wesnoth. This repository contains my edits to its
 campaign files to make them easy enough for me to be able to beat, along with
-other various tweaks I felt like doing. Based on 1.14.12; I meant to include
-diffs against the originals, too, but I forgot to save those.
+other various tweaks I felt like doing. Based on 1.14.12. I've been meaning to
+include diffs against the originals, too, and I've started to do that for the
+mainline campaigns now that I have a separate installation of it, but it's
+slow-going and fragile (i.e., I'll have to remember to update them), and I
+still can't do them for add-ons yet.
 
 Versions of Add-ons based upon:
 - Ashen Hearts: 2.41.0
