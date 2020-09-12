@@ -1,0 +1,20 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/units/monsters/Alien_Body.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/units/Alien_Body.cfg	2020-09-11 00:16:07.000000000 -0400
+@@ -49,7 +49,7 @@
+         [specials]
+             {WEAPON_SPECIAL_MAGICAL}
+         [/specials]
+-        damage=7
++        damage={ON_DIFFICULTY 5 6 7}
+         number=3
+     [/attack]
+     [attack]
+@@ -61,7 +61,7 @@
+         [specials]
+             {WEAPON_SPECIAL_MAGICAL}
+         [/specials]
+-        damage=7
++        damage={ON_DIFFICULTY 5 6 7}
+         number=3
+     [/attack]
+     [attack_anim]

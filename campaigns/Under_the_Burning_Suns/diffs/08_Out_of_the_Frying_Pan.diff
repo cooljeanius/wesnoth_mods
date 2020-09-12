@@ -1,0 +1,163 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/scenarios/08_Out_of_the_Frying_Pan.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/scenarios/08_Out_of_the_Frying_Pan.cfg	2020-09-03 07:09:56.000000000 -0400
+@@ -25,8 +25,8 @@
+         id=Kaleh
+         type=Quenoth Youth
+         canrecruit=yes
+-        gold=200
+-        {INCOME 4 2 0}
++        {GOLD 220 210 200}
++        {INCOME 5 3 1}
+         controller=human
+         shroud=yes
+         fog=no
+@@ -380,9 +380,67 @@
+ 
+ #ifdef EASY
+         [terrain]
+-            x,y=17,51
++            x,y=19,51 #17,51 is already Re; do this instead
+             terrain=Re
+         [/terrain]
++
++        # ...and elsewhere:
++        [terrain]
++            x,y=27,49
++            terrain=Re
++        [/terrain]
++        [terrain]
++            x,y=35,49
++            terrain=Re
++        [/terrain]
++        [terrain]
++            x,y=37,49
++            terrain=Re
++        [/terrain]
++        [terrain]
++            x,y=40,49
++            terrain=Re
++        [/terrain]
++        [terrain]
++            x,y=45,47
++            terrain=Re
++        [/terrain]
++        [terrain]
++            x,y=49,47
++            terrain=Re
++        [/terrain]
++        # I thought converting deep water to shallow would delay the flood a bit,
++        # but apparently it actually accelerates it, so ifdef this out for now:
++#ifdef __UNUSED__
++        [terrain]
++            x,y=44,52
++            terrain=Wwg
++        [/terrain]
++        [terrain]
++            x,y=59,42
++            terrain=Wwg
++        [/terrain]
++        [terrain]
++            x,y=57,44
++            terrain=Wwg
++        [/terrain]
++        [terrain]
++            x,y=54,48
++            terrain=Wwg
++        [/terrain]
++        [terrain]
++            x,y=37,42-43
++            terrain=Wwg
++        [/terrain]
++        [terrain]
++            x,y=7,47-50
++            terrain=Wwg
++        [/terrain]
++        [terrain]
++            x,y=8,48-49
++            terrain=Wwg
++        [/terrain]
++#endif
+ #endif
+ 
+         # set starting scenario objectives
+@@ -3739,13 +3797,16 @@
+ 
+     # Event 18: Sending for Reinforcements
+ 
+-    # EASY: 1 dragoon, 2 cavalryman, 2 spearmen
+-    # NORMAL: 1 dragoon, 2 cavaliers, 1 javelineer, 1 longbowman
+-    # HARD: 3 dragoons, 1 swordsman, 1 longbowman
+-
+-    # EASY: once every 8 turns
+-    # NORMAL: once every 7 turns
+-    # HARD: once every 6 turns
++    # EASY: 1 dragoon (L2), 2 cavalryman (L1), 2 spearmen (L1)
++    # NORMAL: 3 dragoons (L2), 1 javelineer (L2), 1 longbowman (L2)
++    # HARD: 1 dragoon (L2), 2 cavaliers (L3), 1 swordsman (L2), 1 master bowman (L3)
++
++    # EASY: once every 9 turns
++    # NORMAL: once every 8 turns
++    # HARD: once every 7 turns
++
++    # FIXME: Messenger has more Movement Points than any of your units, meaning he can just outrun you when he spawns if you don't
++    # already have units in front of his spawn point, which feels really unfair. Maybe consider slowing him?
+ 
+     [event]
+         name=messengers
+@@ -3760,7 +3821,7 @@
+         [if]
+             [variable]
+                 name=messenger_timer
+-                numerical_equals={ON_DIFFICULTY 8 7 6}
++                numerical_equals={ON_DIFFICULTY 9 8 7}
+             [/variable]
+ 
+             [then]
+@@ -3785,7 +3846,7 @@
+                 [/set_variable]
+ 
+                 [unit]
+-                    type=Dragoon
++                    type=Dragoon # (L2)
+                     id=messenger
+                     name= _ "Human Messenger"
+                     canrecruit=yes
+@@ -3795,7 +3856,8 @@
+                 [/unit]
+ 
+                 [unit]
+-                    type={ON_DIFFICULTY (Cavalryman) (Cavalier) (Dragoon)}
++                    # I think this was backwards originally; Dragoons come before Cavaliers on the advancement path:
++                    type={ON_DIFFICULTY (Cavalryman) (Dragoon) (Cavalier)} 
+                     name= _ "Human Escort"
+                     upkeep=free
+                     x=$loc_x
+@@ -3804,7 +3866,8 @@
+                 [/unit]
+ 
+                 [unit]
+-                    type={ON_DIFFICULTY (Cavalryman) (Cavalier) (Dragoon)}
++                    # Likewise:
++                    type={ON_DIFFICULTY (Cavalryman) (Dragoon) (Cavalier)}
+                     name= _ "Human Escort"
+                     upkeep=free
+                     x=$loc_x
+@@ -4078,6 +4141,8 @@
+     # 3. destroy any items in the new deep water
+     # 4. kill any units in deep water
+ 
++    # FIXME: find a way to make this go slower on EASY?
++
+     [event]
+         name=new turn
+         id=do_flooding
+@@ -4145,6 +4210,9 @@
+ 
+                 # Only units which cannot move in deep water can drown
+                 movement_cost=99
++                [not]
++                    movement_type=quenoth_float
++                [/not]
+             [/filter]
+ 
+             kill=no

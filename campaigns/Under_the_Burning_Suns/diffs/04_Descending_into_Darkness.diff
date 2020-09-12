@@ -1,0 +1,22 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/scenarios/04_Descending_into_Darkness.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/scenarios/04_Descending_into_Darkness.cfg	2020-08-28 17:29:35.000000000 -0400
+@@ -21,8 +21,8 @@
+         id=Kaleh
+         type=Quenoth Youth
+         canrecruit=yes
+-        gold=200
+-        {INCOME 6 4 2}
++        {GOLD 280 240 200}
++        {INCOME 9 6 3}
+         controller=human
+         shroud=yes
+         fog=no
+@@ -46,7 +46,7 @@
+ #endif
+         canrecruit=yes
+ 
+-        {INCOME 3 5 7}
++        {INCOME 1 4 7}
+         {GOLD 75 100 125}
+         controller=ai
+         shroud=no

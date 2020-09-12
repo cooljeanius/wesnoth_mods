@@ -1,0 +1,60 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/scenarios/09_Blood_is_Thicker_Than_Water.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/scenarios/09_Blood_is_Thicker_Than_Water.cfg	2020-09-03 07:23:46.000000000 -0400
+@@ -22,8 +22,8 @@
+         id=Kaleh
+         type=Quenoth Youth
+         canrecruit=yes
+-        gold=200
+-        {INCOME 2 0 0}
++        {GOLD 220 210 200}
++        {INCOME 3 2 1}
+         controller=human
+         shroud=yes
+         fog=no
+@@ -43,7 +43,7 @@
+             {TRAIT_RESILIENT}
+         [/modifications]
+         {GOLD 100 125 150}
+-        {INCOME 7 9 11}
++        {INCOME 5 8 11}
+         controller=ai
+         shroud=no
+         fog=no
+@@ -134,7 +134,7 @@
+             {TRAIT_STRONG}
+         [/modifications]
+         {GOLD 75 100 125}
+-        {INCOME 5 6 7}
++        {INCOME 3 5 7}
+         controller=ai
+         shroud=no
+         fog=no
+@@ -170,7 +170,7 @@
+             {TRAIT_INTELLIGENT}
+         [/modifications]
+         {GOLD 75 100 125}
+-        {INCOME 5 6 7}
++        {INCOME 3 5 7}
+         controller=ai
+         shroud=no
+         fog=no
+@@ -589,7 +589,9 @@
+         #add a few human soldiers to islands
+ 
+         #two southern islands with caged merfolk
+-        #{NAMED_GENERIC_UNIT 6 (Spearman) 25 34 () ( _ "Human Soldier")}
++#ifdef __UNUSED__
++        {NAMED_GENERIC_UNIT 6 (Spearman) 25 34 () ( _ "Human Soldier")}
++#endif
+         {NAMED_GENERIC_UNIT 5 (Bowman) 34 30 () ( _ "Human Soldier")}
+ 
+         #western island with base
+@@ -717,7 +719,7 @@
+     # 3 Merman Spearman Yantili (2nd NW sandy island) - resilient
+     # 4 Mermaid Priestess  Il-tian (2nd NE grass island) - quick
+ 
+-    # 5 Mermaid Enchantress is in NE cave 9 - intelliegt
++    # 5 Mermaid Enchantress is in NE cave 9 - intelligent
+ 
+     [event]
+         name=first_rescue_response_male

@@ -1,0 +1,99 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/scenarios/02_Across_the_Harsh_Sands.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/scenarios/02_Across_the_Harsh_Sands.cfg	2020-08-28 14:45:51.000000000 -0400
+@@ -5,7 +5,7 @@
+     name= _ "Across the Harsh Sands"
+     {UTBS_MAP 02_Across_the_Harsh_Sands.map}
+     next_scenario=03_Stirring_in_the_Night
+-    {TURNS 62 60 58}
++    {TURNS 69 60 58}
+     victory_when_enemies_defeated=no
+ 
+     {TWO_SUNS_DEFAULT_SCHEDULE}
+@@ -24,8 +24,8 @@
+         id=Kaleh
+         type=Quenoth Youth
+         canrecruit=yes
+-        gold=200
+-        {INCOME 17 14 11}
++        {GOLD 220 210 200}
++        {INCOME 19 15 11}
+         controller=human
+         recruit=Quenoth Fighter,Tauroch Rider,Quenoth Scout,Quenoth Mystic
+         shroud=yes
+@@ -292,6 +292,7 @@
+             message= _ "But between here and there is a particularly barren stretch of the sands, with only a few oases and watering holes. Luckily I think there used to be an old caravan route leading north, which went from oasis to oasis. The oases aren’t easy to find but occasionally the sands blow away, revealing old stone roads that lead from oasis to oasis. Once the path must have formed a great thoroughfare for commerce."
+         [/message]
+ 
++#ifndef EASY
+         [place_shroud]
+             side=1
+             x=19-23,20-22,21
+@@ -301,6 +302,7 @@
+         [redraw]
+             side=1
+         [/redraw]
++#endif
+ 
+         [message]
+             speaker=Zhul
+@@ -1076,7 +1078,7 @@
+             unrenamable=yes
+             profile=portraits/elyssa.png
+             gender=female
+-            experience=15
++            experience={ON_DIFFICULTY 17 16 15}
+             [modifications]
+                 {TRAIT_LOYAL}
+                 {TRAIT_QUICK}
+@@ -1486,7 +1488,7 @@
+     [/event]
+ 
+     #Encounter 7 Mirage
+-    #Oasis disappears as soon as player moves to the location
++    #Oasis disappears as soon as player moves to the location (unless on EASY)
+     [event]
+         name=moveto
+ 
+@@ -1496,20 +1498,41 @@
+             y=18-19
+         [/filter]
+ 
++#ifndef EASY
+         #x coor: 9 to 13
+         #y coor: 19 to 18
+-
+         [terrain]
+             terrain=Dd
+             x=10,10,11,11,11,12,12
+             y=14,15,15,16,17,15,16
+         [/terrain]
++#endif
+ 
+         {CHECK_EXPLORER}
++#ifdef EASY
++        [message]
++            speaker=$explorer.id
++            message= _ "Phew, thank goodness that this oasis is here! After hearing about the bandits in this area, I was beginning to worry that they had created a mirage to trick thirsty travelers such as ourselves!"
++        [/message]
++        [message]
++            speaker=Nym
++            message= _ "I know these bandits are evil, but do you really think they'd stoop so low as to get their victims' hopes up before crushing them?"
++            image=portraits/nym_moody.png
++        [/message]
++        [message]
++            speaker=Zhul
++            message= _ "It has been known to happen before."
++        [/message]
++        [message]
++            speaker=Kaleh
++            message= _ "Truly, there are some depraved and cruel individuals in this world."
++        [/message]
++#else
+         [message]
+             speaker=$explorer.id
+             message= _ "Dang. I was sure I saw an oasis here. Must have been a mirage. I’ve been out in the sand for too long."
+         [/message]
++#endif
+         {CLEAR_VARIABLE explorer}
+     [/event]
+ 

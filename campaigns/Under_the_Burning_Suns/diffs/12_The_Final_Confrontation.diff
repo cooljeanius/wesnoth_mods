@@ -1,0 +1,84 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/scenarios/12_The_Final_Confrontation.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/scenarios/12_The_Final_Confrontation.cfg	2020-09-11 00:21:47.000000000 -0400
+@@ -399,7 +399,7 @@
+             x,y=10,13
+         [/remove_item]
+ 
+-        {VARIABLE_OP stored_kaleh.hitpoints sub 10}
++        {VARIABLE_OP stored_kaleh.hitpoints sub {ON_DIFFICULTY 7 8 9}}
+         {VARIABLE stored_kaleh.facing n}
+ 
+         [unstore_unit]
+@@ -775,13 +775,14 @@
+         [/item]
+ 
+         # add roots around central body
+-
+-        #{PLACE_IMAGE scenery/castle-ruins.png 9 11}
+-        #{PLACE_IMAGE scenery/castle-ruins.png 10 11}
+-        #{PLACE_IMAGE scenery/castle-ruins.png 11 11}
+-        #{PLACE_IMAGE scenery/castle-ruins.png 9 10}
+-        #{PLACE_IMAGE scenery/castle-ruins.png 10 9}
+-        #{PLACE_IMAGE scenery/castle-ruins.png 11 10}
++#ifdef __ADD_ROOTS__
++        {PLACE_IMAGE scenery/castle-ruins.png 9 11}
++        {PLACE_IMAGE scenery/castle-ruins.png 10 11}
++        {PLACE_IMAGE scenery/castle-ruins.png 11 11}
++        {PLACE_IMAGE scenery/castle-ruins.png 9 10}
++        {PLACE_IMAGE scenery/castle-ruins.png 10 9}
++        {PLACE_IMAGE scenery/castle-ruins.png 11 10}
++#endif
+ 
+         # Pulsing Spires appear
+ 
+@@ -924,17 +925,17 @@
+         # Start spawning minions, increasing the number each turn.
+         {VARIABLE number_minions_to_spawn 1}
+         [event]
+-            name="turn $($turn_number+{ON_DIFFICULTY 2 2 1})"
++            name="turn $($turn_number+{ON_DIFFICULTY 3 2 1})"
+             delayed_variable_substitution=no
+             {VARIABLE number_minions_to_spawn 2}
+         [/event]
+         [event]
+-            name="turn $($turn_number+{ON_DIFFICULTY 4 3 3})"
++            name="turn $($turn_number+{ON_DIFFICULTY 5 4 3})"
+             delayed_variable_substitution=no
+             {VARIABLE number_minions_to_spawn 3}
+         [/event]
+         [event]
+-            name="turn $($turn_number+{ON_DIFFICULTY 6 5 5})"
++            name="turn $($turn_number+{ON_DIFFICULTY 7 6 5})"
+             delayed_variable_substitution=no
+             {VARIABLE number_minions_to_spawn 4}
+         [/event]
+@@ -1060,12 +1061,14 @@
+             value=$stored_alien.hitpoints
+         [/set_variable]
+ 
+-        #        [modify_unit]
+-        #            [filter]
+-        #                type=Central Body
+-        #            [/filter]
+-        #            hitpoints=$this_unit.max_hitpoints
+-        #        [/modify_unit]
++#ifdef __UNUSED__
++        [modify_unit]
++            [filter]
++                type=Central Body
++            [/filter]
++            hitpoints=$this_unit.max_hitpoints
++        [/modify_unit]
++#endif
+ 
+         [if]
+             [variable]
+@@ -1165,7 +1168,7 @@
+                 id=$victim_id
+             [/filter]
+ 
+-            amount={ON_DIFFICULTY 10 11 12}
++            amount={ON_DIFFICULTY 8 9 10}
+             alignment=chaotic
+             damage_type=fire
+             kill=yes

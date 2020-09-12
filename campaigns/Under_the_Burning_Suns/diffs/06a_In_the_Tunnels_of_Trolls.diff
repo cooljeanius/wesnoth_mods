@@ -1,0 +1,164 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Under_the_Burning_Suns/scenarios/06a_In_the_Tunnels_of_Trolls.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Under_the_Burning_Suns/scenarios/06a_In_the_Tunnels_of_Trolls.cfg	2020-08-28 21:33:46.000000000 -0400
+@@ -14,7 +14,7 @@
+     {SCENARIO_MUSIC "the_deep_path.ogg"}
+ 
+     next_scenario=07a_Dealing_with_Dwarves
+-    {TURNS 66 62 60}
++    {TURNS 69 62 60}
+     victory_when_enemies_defeated=no
+ 
+     {UNDERGROUND}
+@@ -28,8 +28,8 @@
+         id=Kaleh
+         type=Quenoth Youth
+         canrecruit=yes
+-        gold=200
+-        {INCOME 5 3 1}
++        {GOLD 220 210 200}
++        {INCOME 9 5 1}
+         controller=human
+         shroud=yes
+         fog=no
+@@ -81,6 +81,8 @@
+         [ai]
+ #ifdef EASY
+             recruitment_pattern=fighter,fighter
++            simple_targeting=yes
++            grouping=no
+ #endif
+ #ifdef NORMAL
+             recruitment_pattern=fighter,fighter,mixed fighter
+@@ -89,7 +91,7 @@
+             recruitment_pattern=fighter,fighter,mixed fighter
+ #endif
+ 
+-            aggression=0.6
++            aggression={ON_DIFFICULTY 0.4 0.5 0.6}
+         [/ai]
+     [/side]
+ 
+@@ -120,7 +122,7 @@
+ 
+         [ai]
+             recruitment_pattern=fighter,fighter,mixed fighter
+-            aggression=0.6
++            aggression={ON_DIFFICULTY 0.4 0.5 0.6}
+         [/ai]
+     [/side]
+ 
+@@ -155,7 +157,7 @@
+ 
+             village_value=0
+ 
+-            #fire guardians can't leave lava cavern
++            #fire guardians cannot leave lava cavern:
+             [avoid]
+                 x=39-46, 30-34
+                 y=77-81,92-100
+@@ -253,6 +255,11 @@
+         [/set_variable]
+ 
+         [set_variable]
++            name=lava_damage
++            value={ON_DIFFICULTY 15 20 25}
++        [/set_variable]
++
++        [set_variable]
+             name=summon_flame
+             value=0
+         [/set_variable]
+@@ -463,8 +470,8 @@
+ 
+             [modify_side]
+                 side=3
+-                {INCOME 10 12 14}
+-                {GOLD 75 100 125}
++                {INCOME 6 10 14}
++                {GOLD 70 95 120}
+             [/modify_side]
+ 
+             # Place troll guards
+@@ -713,14 +720,18 @@
+         name=rogrimir
+ 
+         [unit]
++#ifdef EASY
++            type=Dwarvish Sentinel
++#else
+             type=Dwarvish Stalwart
++#endif
+             id=Rogrimir
+             name= _ "Rogrimir"
+             profile=portraits/dwarves/fighter-2.png
+             x=41
+             y=4
+             side=2
+-            hitpoints=20
++            hitpoints={ON_DIFFICULTY 40 30 20}
+             unrenamable=yes
+             [modifications]
+                 {TRAIT_LOYAL}
+@@ -761,7 +772,7 @@
+ 
+         # Event 2.2: Wounded Dwarf
+ 
+-        # Troll whelp tries to kill wounded Dwarvish Stalwart
++        # Troll whelp tries to kill wounded Dwarvish Stalwart (or Sentinel on EASY)
+ 
+         [event]
+             name=moveto
+@@ -816,7 +827,8 @@
+     # with the exception of shydes which can move 3 hexes
+ 
+     # At the start of each turn, all units except winged ones standing
+-    # on a lava hex take 25 damage. This damage can kill units.
++    # on a lava hex take 15 (EASY), 20 (NORMAL), or 25 (HARD) damage, depending on difficulty.
++    # This damage can kill units.
+ 
+     [event]
+         name=new turn
+@@ -835,7 +847,7 @@
+                     terrain=*^Yl
+                 [/filter_location]
+             [/filter]
+-            amount=25
++            amount=$lava_damage
+             damage_type=fire
+             animate=yes
+         [/harm_unit]
+@@ -974,7 +986,7 @@
+ 
+         [message]
+             speaker=narrator
+-            message= _ "Any unit that ends its turn on a lava hex, except those who can fly over the lava, will take 25 damage at the beginning of the next turn. This lava damage can kill units. Flying units will just take $heat_damage damage per turn when flying over lava, though they too can die if they spend too much time over it. Also because of the heat in the cavern, all units on cave floor hexes will take $heat_damage damage at the start of each turn. This heat damage can reduce a unit to 1 hit point, but it can’t kill it."
++            message= _ "Any unit that ends its turn on a lava hex, except those who can fly over the lava, will take $lava_damage damage at the beginning of the next turn. This lava damage can kill units. Flying units will just take $heat_damage damage per turn when flying over lava, though they too can die if they spend too much time over it. Also because of the heat in the cavern, all units on cave floor hexes will take $heat_damage damage at the start of each turn. This heat damage can reduce a unit to 1 hit point, but it can’t kill it."
+             image=wesnoth-icon.png
+         [/message]
+ 
+@@ -1029,7 +1041,7 @@
+     [/event]
+ 
+     # This function fires each turn and checks to see if it should summon
+-    # a "Fire Pheonix" fire guardian, based on the value of the summon_flame
++    # a "Fire Phoenix" fire guardian, based on the value of the summon_flame
+     # variable and on the value of the flame_counter
+ 
+     # when the fire guardian unit dies, the flame_counter is reset to 0
+@@ -1495,7 +1507,7 @@
+         [modify_side]
+             side=4
+             {INCOME 2 4 6}
+-            {GOLD 120 140 160}
++            {GOLD 100 130 160}
+         [/modify_side]
+ 
+         #capture troll chieftan's villages
+@@ -1929,6 +1941,7 @@
+         name=victory
+ 
+         {CLEAR_VARIABLE heat_damage}
++        {CLEAR_VARIABLE lava_damage}
+         {CLEAR_VARIABLE summon_flame}
+         {CLEAR_VARIABLE flame_counter}
+     [/event]
