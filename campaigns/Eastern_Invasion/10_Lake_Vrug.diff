@@ -1,0 +1,29 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Eastern_Invasion/scenarios/10_Lake_Vrug.cfg	2020-09-06 20:56:30.000000000 -0400
++++ campaigns/Eastern_Invasion/10_Lake_Vrug.cfg	2020-08-06 00:38:22.000000000 -0400
+@@ -3,7 +3,7 @@
+     id=10_Lake_Vrug
+     name= _ "Lake Vrug"
+     map_data="{campaigns/Eastern_Invasion/maps/10_Lake_Vrug.map}"
+-    turns=30
++    {TURNS 42 36 32}
+ 
+     {DEFAULT_SCHEDULE_MORNING}
+ 
+@@ -30,7 +30,7 @@
+         team_name=good
+         user_team_name=_"Wesnothians"
+         shroud=yes
+-        gold=200
++        {GOLD 250 225 200}
+         {FLAG_VARIANT loyalist}
+     [/side]
+ 
+@@ -47,7 +47,7 @@
+ #endif
+         team_name=monster
+         user_team_name=_"Monsters"
+-        {GOLD 200 250 300}
++        {GOLD 180 250 300}
+     [/side]
+ 
+     [side]

@@ -1,0 +1,32 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Eastern_Invasion/scenarios/01_The_Outpost.cfg	2020-09-06 20:56:30.000000000 -0400
++++ campaigns/Eastern_Invasion/01_The_Outpost.cfg	2020-08-05 01:32:42.000000000 -0400
+@@ -62,7 +62,7 @@
+         side=1
+         controller=human
+         recruit=Spearman,Cavalryman,Mage,Heavy Infantryman
+-        {GOLD 180 130 120}
++        {GOLD 190 130 120}
+         team_name=wesnothians
+         user_team_name= _ "Wesnothians"
+         {FLAG_VARIANT loyalist}
+@@ -336,7 +336,7 @@
+ 
+         [gold]
+             side=2,3,4
+-            amount=25
++            amount=20
+         [/gold]
+ 
+         {REPLACE_SCENARIO_MUSIC the_dangerous_symphony.ogg}
+@@ -408,7 +408,11 @@
+ 
+         [gold]
+             side=2,3,4
++#ifdef EASY
++            amount=50
++#else
+             amount=100
++#endif
+         [/gold]
+ 
+         [modify_side]

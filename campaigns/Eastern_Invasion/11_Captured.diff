@@ -1,0 +1,109 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Eastern_Invasion/scenarios/11_Captured.cfg	2020-09-06 20:56:30.000000000 -0400
++++ campaigns/Eastern_Invasion/11_Captured.cfg	2020-08-21 22:09:49.000000000 -0400
+@@ -32,6 +32,7 @@
+         team_name=good
+         user_team_name=_"Wesnothians"
+         shroud=yes
++        # Nowhere to recruit so no gold needed:
+         gold=0
+         {FLAG_VARIANT loyalist}
+     [/side]
+@@ -46,11 +47,12 @@
+         canrecruit=yes
+         controller=ai
+         recruit=
++        # No recruiting means no gold:
+         gold=0
+         [ai]
+             passive_leader=yes
+             grouping=no
+-            aggression=0.4
++            {QUANTITY aggression 0.2 0.3 0.4}
+             [aspect]
+                 id=attacks
+                 [facet]
+@@ -344,8 +346,8 @@
+ 
+         {CLEAR_VARIABLE possible_prisoners,prisoner_locations,new_prisoner}
+ 
+-        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll" "Troll" "Troll Warrior"} 23 10}
+-        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll" "Troll" "Troll Warrior"} 23 16}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll Whelp" "Troll" "Troll Warrior"} 23 10}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll Whelp" "Troll" "Troll Warrior"} 23 16}
+         [+unit]
+             # This one must not be quick, or it might see an escapee before the
+             # escapee sees it... it still can, if the escapee is a non-quick HI
+@@ -356,19 +358,19 @@
+             [/modifications]
+         [/unit]
+ 
+-        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll" "Troll Warrior" "Troll Warrior"} 28 18}
+-        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll" "Troll Warrior" "Troll Warrior"} 26 7}
+-        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll" "Troll Warrior" "Troll Warrior"} 19 12}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll Whelp" "Troll" "Troll Warrior"} 28 18}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll Whelp" "Troll" "Troll Warrior"} 26 7}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Troll Whelp" "Troll" "Troll Warrior"} 19 12}
+ 
+-        {LOYAL_UNIT 2 "Orcish Warrior" 24 13}
+-        {LOYAL_UNIT 2 "Orcish Warrior" 26 12}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Orcish Grunt" "Orcish Warrior" "Orcish Warrior"} 24 13}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Orcish Grunt" "Orcish Warrior" "Orcish Warrior"} 26 12}
+ 
+-        {LOYAL_UNIT 2 "Orcish Warrior" 29 16}
+-        {LOYAL_UNIT 2 "Orcish Warrior" 31 15}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Orcish Grunt" "Orcish Warrior" "Orcish Warrior"} 29 16}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Orcish Grunt" "Orcish Warrior" "Orcish Warrior"} 31 15}
+ 
+-        {LOYAL_UNIT 2 "Orcish Warrior" 34 13}
++        {LOYAL_UNIT 2 {ON_DIFFICULTY "Orcish Grunt" "Orcish Warrior" "Orcish Warrior"} 34 13}
+ 
+-        {GENERIC_UNIT 2 "Orcish Grunt" 11 4}
++        {GENERIC_UNIT 2 {ON_DIFFICULTY "Goblin Spearman" "Orcish Grunt" "Orcish Grunt"} 11 4}
+ 
+         [modify_unit]
+             [filter]
+@@ -611,7 +613,7 @@
+ 
+         [filter_condition]
+             [have_unit]
+-                type=Troll,Troll Warrior
++                type=Troll Whelp,Troll,Troll Warrior
+                 [filter_vision]
+                     side=1
+                 [/filter_vision]
+@@ -770,7 +772,7 @@
+ 
+         # Ignore bats and the Orcish Grunt on 11,4 (in the bat cave)
+         [filter_second]
+-            type=Troll,Troll Warrior,Orcish Warrior,Orcish Warlord
++            type=Troll Whelp,Troll,Troll Warrior,Orcish Warrior,Orcish Warlord
+         [/filter_second]
+ 
+         [fire_event]
+@@ -790,7 +792,7 @@
+                 side=1
+ 
+                 [filter_adjacent]
+-                    type=Troll,Troll Warrior,Orcish Warrior,Orcish Warlord
++                    type=Troll Whelp,Troll,Troll Warrior,Orcish Warrior,Orcish Warlord
+                 [/filter_adjacent]
+             [/have_unit]
+         [/filter_condition]
+@@ -802,7 +804,7 @@
+                 side=1
+ 
+                 [filter_adjacent]
+-                    type=Troll,Troll Warrior,Orcish Warrior,Orcish Warlord
++                    type=Troll Whelp,Troll,Troll Warrior,Orcish Warrior,Orcish Warlord
+                 [/filter_adjacent]
+             [/primary_unit]
+         [/fire_event]
+@@ -1073,6 +1075,8 @@
+             [/or]
+         ) side 1}
+ 
++        # TODO: I want to increase Gweddry's health here but am not sure how to do so yet
++
+         [redraw]
+             side=1
+         [/redraw]

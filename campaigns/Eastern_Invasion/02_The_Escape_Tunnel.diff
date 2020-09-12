@@ -1,0 +1,69 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Eastern_Invasion/scenarios/02_The_Escape_Tunnel.cfg	2020-09-06 20:56:30.000000000 -0400
++++ campaigns/Eastern_Invasion/02_The_Escape_Tunnel.cfg	2020-08-05 01:39:04.000000000 -0400
+@@ -4,7 +4,7 @@
+     id=02_The_Escape_Tunnel
+     name= _ "The Escape Tunnel"
+     map_data="{campaigns/Eastern_Invasion/maps/02_The_Escape_Tunnel.map}"
+-    {TURNS 26 24 22}
++    {TURNS 28 24 22}
+     next_scenario=03_An_Unexpected_Appearance
+     victory_when_enemies_defeated=no
+ 
+@@ -20,7 +20,7 @@
+     [side]
+         side=1
+         controller=human
+-        {GOLD 180 140 100}
++        {GOLD 190 140 100}
+         team_name=wesnothians
+         user_team_name= _ "Wesnothians"
+         {FLAG_VARIANT loyalist}
+@@ -37,7 +37,7 @@
+         side=2
+         controller=ai
+         recruit=Troll Whelp
+-        {GOLD 55 70 80}
++        {GOLD 50 70 80}
+         {INCOME 2 3 4}
+         team_name=monster
+         user_team_name= _ "Monsters"
+@@ -58,8 +58,8 @@
+         side=3
+         controller=ai
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Scout
+-        {GOLD 65 50 45}
+-        {INCOME 6 4 4}
++        {GOLD 95 50 45}
++        {INCOME 9 4 4}
+         team_name=wesnothians
+         user_team_name= _ "Wesnothians"
+         {FLAG_VARIANT knalgan}
+@@ -97,8 +97,8 @@
+ #else
+         recruit=Vampire Bat,Ghost,Skeleton,Ghoul
+ #endif
+-        {GOLD 140 185 230}
+-        {INCOME 8 10 12}
++        {GOLD 120 185 230}
++        {INCOME 6 10 12}
+         team_name=undead
+         user_team_name= _ "Undead"
+         {FLAG_VARIANT undead}
+@@ -106,7 +106,7 @@
+         no_leader=yes
+         hidden=yes
+ 
+-        village_gold=3
++        village_gold=2
+         village_support=2
+ 
+         [ai]
+@@ -392,7 +392,7 @@
+ 
+     # Mal-Bakral arrives
+     [event]
+-        name=turn 6
++        name=turn 7
+ 
+         {VARIABLE undead yes}
+ 
