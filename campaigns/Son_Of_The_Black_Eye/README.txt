@@ -71,4 +71,5 @@ Here's a description of my changes:
   but Howgarth still got to Shan Taum before me though.
 
 Note: now that I am going ahead with making an add-on version of this campaign,
-any further changes will be made in a separate repository.
+any further changes have been moved to a separate repository:
+https://github.com/cooljeanius/Son_Of_The_Black_Eye_Easy_Edition

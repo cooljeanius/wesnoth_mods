@@ -1,0 +1,42 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Sceptre_of_Fire/scenarios/4_Gathering_Materials.cfg	2020-09-06 20:56:29.000000000 -0400
++++ campaigns/Sceptre_of_Fire/4_Gathering_Materials.cfg	2020-08-07 22:06:21.000000000 -0400
+@@ -206,6 +206,8 @@
+         {FLAG_VARIANT knalgan}
+         team_name=dwarves
+         user_team_name= _ "Dwarves"
++        {GOLD 50 30 10}
++        {INCOME 5 3 1}
+     [/side]
+     [side]
+ #ifdef HARD
+@@ -232,7 +234,7 @@
+         recruit=Troll Whelp,Goblin Spearman,Troll Rocklobber
+         team_name=trolls1
+         user_team_name=_"Trolls"
+-        {GOLD 75 125 175}
++        {GOLD 60 125 175}
+     [/side]
+     [side]
+ #ifdef HARD
+@@ -259,7 +261,7 @@
+         recruit=Troll Whelp,Goblin Spearman,Young Ogre,Ogre
+         team_name=trolls2
+         user_team_name=_"Trolls"
+-        {GOLD 75 125 175}
++        {GOLD 60 125 175}
+     [/side]
+     [side]
+ #ifdef HARD
+@@ -286,10 +288,10 @@
+         recruit=Goblin Spearman,Goblin Rouser,Goblin Impaler
+         team_name=trolls3
+         user_team_name=_"Trolls"
+-        {GOLD 75 125 175}
++        {GOLD 60 125 175}
+     [/side]
+ 
+-    {TURNS 40 37 34}
++    {TURNS 69 37 34}
+     victory_when_enemies_defeated=no
+ 
+     {SCENARIO_MUSIC underground.ogg}
