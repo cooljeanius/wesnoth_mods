@@ -11,6 +11,7 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   taking a second pass at this I figure I might as well edit this one, too, for
   completeness.
 05a Blue River: Restricted clippers that Omandro can recruit to 1 on EASY
+06a Southern Shore: See note for 04a Caravan above.
 08 Landfall: OK this one was a pain. The enemies ganged up on me and just
   wrecked me on my first try, so I tweaked their AIs to try to make them fight
   each other more. Also, tweaks to gold, income, and turns.
