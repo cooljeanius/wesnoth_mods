@@ -12,6 +12,7 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   completeness.
 05a Blue River: Restricted clippers that Omandro can recruit to 1 on EASY
 06a Southern Shore: See note for 04a Caravan above.
+07a Open Ocean: Likewise.
 08 Landfall: OK this one was a pain. The enemies ganged up on me and just
   wrecked me on my first try, so I tweaked their AIs to try to make them fight
   each other more. Also, tweaks to gold, income, and turns.
@@ -30,6 +31,8 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   so... well, maybe someone else can help me do some work on it. Also, on EASY,
   I removed the event where the storeroom ceiling caves in on you and kills a
   unit randomly, because, wtf was that doing in there in the first place?
+  (update: apparently it was to discourage you from stopping to smell the
+  roses, so I edited the message displayed on EASY to that effect.)
   Finally, because the turn limit is increased, I changed the turns on which
   Kogw gives you your progress notifications.
 12 Rockfall: Made the dwarves fight the lava monsters. Also gave the player
