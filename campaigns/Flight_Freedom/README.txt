@@ -7,6 +7,9 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   make it easier to keep them alive
 03a Manor: un-commented out code that had weakened some of the guardians and
   instead made it guarded by "ifdef EASY"
+04a Caravan: I didn't actually edit this one my first time thru, but since I'm
+  taking a second pass at this I figure I might as well edit this one, too, for
+  completeness.
 05a Blue River: Restricted clippers that Omandro can recruit to 1 on EASY
 08 Landfall: OK this one was a pain. The enemies ganged up on me and just
   wrecked me on my first try, so I tweaked their AIs to try to make them fight
