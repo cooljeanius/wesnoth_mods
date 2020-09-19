@@ -17,7 +17,13 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   wrecked me on my first try, so I tweaked their AIs to try to make them fight
   each other more. Also, tweaks to gold, income, and turns.
 10 Underground: This one was too chokepoint-y, so I edited the map to make
-  some of the corridors wider. I also added some more villages.
+  some of the corridors wider, and the terrain more passable for drakes.
+  I also added some more villages. I also added a (vague) warning for units
+  approaching the statue that revives the skeletal dragon so that players will
+  maybe get the idea that they might lose a unit and choose an appropriate one
+  accordingly. I didn't want to make it TOO scary of a warning, though, as the
+  skeletal dragon is definitely worth the sacrifice, and players should still
+  definitely go for it.
 11 River of Skulls: Somehow the original 100 turn limit wasn't enough for me,
   so in my rage my first reaction was to set the turns as {TURNS 300 200 100}.
   This gave me such a huge early finish bonus when I finished with these edits
