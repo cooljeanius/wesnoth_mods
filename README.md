@@ -29,3 +29,4 @@ Versions of Add-ons based upon:
   with 2.1.9 after that.
 - Mercenary Band: 0.7.0
 - To Lands Unknown: 3.1.3
+- Sepulchre of Elran: 1.0.1
