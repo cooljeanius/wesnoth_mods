@@ -31,16 +31,16 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   been, so I will have to keep tweaking the turn limit here. I also nerfed all
   the enemies majorly and made them fight against each other more, but there
   might have been some bugs with this, as now only the first few golems
-  survive, but none of the farther-in ones do. Also the spider failed to spawn,
-  so I added some (untested) code to try to get the dwarves to avoid its
-  spawnpoint, but I'm really not looking forward to testing this one again,
-  so... well, maybe someone else can help me do some work on it. Also, on EASY,
-  I removed the event where the storeroom ceiling caves in on you and kills a
-  unit randomly, because, wtf was that doing in there in the first place?
-  (update: apparently it was to discourage you from stopping to smell the
-  roses, so I edited the message displayed on EASY to that effect.)
-  Finally, because the turn limit is increased, I changed the turns on which
-  Kogw gives you your progress notifications.
+  survive, but none of the farther-in ones do. Also I had some problems with
+  the spider failing to spawn, but then I made the dwarves avoid it and it
+  seems to work again. At least, the spider spawns again, but now it sometimes
+  behaves oddly, like for example by moving into the lava and just hanging out
+  with the nagas. Also, on EASY, I removed the event where the storeroom
+  ceiling caves in on you and kills a unit randomly, because, wtf was that
+  doing in there in the first place? (update: apparently it was to discourage
+  you from stopping to smell the roses, so I edited the message displayed on
+  EASY to that effect.) Finally, because the turn limit is increased, I
+  changed the turns on which Kogw gives you your progress notifications.
 12 Rockfall: Made the dwarves fight the lava monsters. Also gave the player
   more time to escape.
 18 Return to Morogor: I had finally run thru my massive gold reserves left
