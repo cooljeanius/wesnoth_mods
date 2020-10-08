@@ -43,19 +43,31 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
   changed the turns on which Kogw gives you your progress notifications.
 12 Rockfall: Made the dwarves fight the lava monsters. Also gave the player
   more time to escape.
+13 Betrayal: See note for 04a Caravan above.
+14 Hordes of the Fould Undead: Likewise.
+15 Gate of Storms: Likewise.
+16 Exodus: Likewise.
+17 Blockade: I tried to make the Merfolk and Nagas focus more on each other
+  than the player. Also I've noticed the whole thing where the WML messes with
+  the team colors doesn't exactly work, so I might want to change that, both
+  here and in other scenarios where it's done similarly.
 18 Return to Morogor: I had finally run thru my massive gold reserves left
-  over from River of Skulls by this point, but since all my spending of it
-  previously had given me a large recall list, I needed to add more gold
-  again to let me actually use it.
+  over from River of Skulls by this point (on my first playthru), but since
+  all my spending of it previously had given me a large recall list, I
+  needed to add more gold again to let me actually use it. Also I tweaked the
+  AI to try to make the enemy humans protect their leaders more, so that
+  they'd fight the arriving AI drakes more than you, but that didn't really
+  work. Also I edited the map to add more villages because I needed more
+  places to heal.
 19 Liberation: I actually debugged my way thru this level originally, instead
-  of editing it first, so these edits are untested, but they should still
-  mostly reflect the debugging commands I used. Basically, I needed to up the
+  of editing it first, so these edits were untested on my first playthru, but
+  I have since tested them on a second playthru. Basically, I needed to up the
   turn limit again, because the original author liked chokepoints too much.
   I might want to edit the map later to widen some of the corridors...
-20 Endgame: These changes aren't all entirely tested, either. Mostly gold
-  tweaks. The changes I made to the "enemy gold" event varied the amounts too
-  much on difficulty in the changes I actually played thru with, so hopefully
-  these newer amounts will be small enough in terms of their differences.
+20 Endgame: Mostly gold tweaks. The changes I made to the "enemy gold" event
+  varied the amounts too much on difficulty in the changes I did my first
+  playthru with, so these newer amounts should now be small enough in terms
+  of their differences. I still might want to reduce them again though.
 
 Also, this doesn't exactly fit in any particular scenario, but I gave the
 Drake Guard the Steadfast ability, because otherwise at first glance it looks
