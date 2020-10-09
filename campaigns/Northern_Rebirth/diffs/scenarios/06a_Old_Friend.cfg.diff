@@ -1,0 +1,11 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Northern_Rebirth/scenarios/06a_Old_Friend.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Northern_Rebirth/scenarios/06a_Old_Friend.cfg	2020-08-15 08:35:53.000000000 -0400
+@@ -37,7 +37,7 @@
+     [side]
+         side=1
+         controller=human
+-        recruit=Thug,Poacher,Spearman,Bowman,Footpad
++        recruit=Thug,Poacher,Spearman,Bowman,Footpad,Fencer,Heavy Infantryman
+         {GOLD 350 300 250}
+         team_name=knalgans
+         user_team_name= _ "Knalgans"

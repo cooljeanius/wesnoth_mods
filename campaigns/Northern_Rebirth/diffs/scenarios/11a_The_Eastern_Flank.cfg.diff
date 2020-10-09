@@ -1,0 +1,93 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Northern_Rebirth/scenarios/11a_The_Eastern_Flank.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Northern_Rebirth/scenarios/11a_The_Eastern_Flank.cfg	2020-08-23 11:08:56.000000000 -0400
+@@ -30,8 +30,9 @@
+     [side]
+         side=1
+         controller=human
+-        recruit=Thug,Poacher,Spearman,Bowman,Gryphon,Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker,Dwarvish Scout,Footpad
++        recruit=Thug,Poacher,Spearman,Bowman,Gryphon,Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker,Dwarvish Scout,Footpad,Fencer,Heavy Infantryman
+         {GOLD 250 200 150}
++        {INCOME 3 2 1}
+         team_name=knalgans
+         user_team_name= _ "Alliance"
+ 
+@@ -46,7 +47,7 @@
+         controller=ai
+         recruit=Troll Whelp,Troll,Troll Rocklobber
+         {GOLD 500 600 700}
+-        {INCOME 25 35 45}
++        {INCOME 20 35 45}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+ 
+@@ -70,7 +71,7 @@
+         controller=ai
+         recruit=Orcish Grunt,Orcish Warrior,Orcish Archer,Orcish Crossbowman,Wolf Rider,Orcish Assassin
+         {GOLD 400 500 600}
+-        {INCOME 25 35 45}
++        {INCOME 20 35 45}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+         {FLAG_VARIANT6 ragged}
+@@ -86,7 +87,7 @@
+         controller=ai
+         recruit=Orcish Grunt,Orcish Warrior,Orcish Archer,Orcish Crossbowman,Wolf Rider,Orcish Assassin
+         {GOLD 400 500 600}
+-        {INCOME 25 35 45}
++        {INCOME 20 35 45}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+         {FLAG_VARIANT6 ragged}
+@@ -102,7 +103,7 @@
+         controller=ai
+         recruit=Orcish Grunt,Orcish Warrior,Orcish Archer,Orcish Crossbowman,Wolf Rider,Orcish Assassin
+         {GOLD 400 500 600}
+-        {INCOME 25 35 45}
++        {INCOME 20 35 45}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+         {FLAG_VARIANT6 ragged}
+@@ -118,7 +119,7 @@
+         controller=ai
+         recruit=Orcish Grunt,Orcish Warrior,Orcish Archer,Orcish Crossbowman,Wolf Rider,Orcish Assassin
+         {GOLD 400 500 600}
+-        {INCOME 25 35 45}
++        {INCOME 20 35 45}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+         {FLAG_VARIANT6 ragged}
+@@ -145,7 +146,8 @@
+         {FLAG_VARIANT long}
+     [/side]
+ 
+-    {STARTING_VILLAGES 1 6}
++    # 1 = Tallin, so reduce radius with difficulty:
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 8 7 6}}
+ 
+     # Here’s where we edit out Krash's side if he's dead.
+     [event]
+@@ -178,10 +180,11 @@
+                     side=2,3,4,5,6
+                     amount={ON_DIFFICULTY -125 -100 -75}
+                 [/gold]
+-                {CAPTURE_VILLAGES 1 30 3 5}
++                {CAPTURE_VILLAGES 1 30 3 {ON_DIFFICULTY 7 6 5}}
+             [/then]
+             [else]
+-                {CAPTURE_VILLAGES 7 30 3 5}
++                # give them to Krash instead if he is in fact still alive:
++                {CAPTURE_VILLAGES 7 30 3 {ON_DIFFICULTY 7 6 5}}
+             [/else]
+         [/if]
+     [/event]
+@@ -228,6 +231,10 @@
+             id="Ro'Sothian"
+         [/recall]
+ 
++        [recall]
++            id=Varem
++        [/recall]
++
+         [message]
+             speaker=Tallin
+             message= _ "Gods of Light! Look at that fortress. The castle Angthurim is even grimmer than its reputation."

@@ -1,0 +1,11 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg	2020-08-15 08:28:53.000000000 -0400
+@@ -112,7 +112,7 @@
+         # From now on level 0 units can not be recruited anymore.
+         # However, all of their level 1 advancements are now availaible.
+         [disallow_recruit]
+-            type=Peasant,Woodsman
++            type=Peasant,Woodsman,Ruffian
+         [/disallow_recruit]
+ 
+         [lock_view][/lock_view]
