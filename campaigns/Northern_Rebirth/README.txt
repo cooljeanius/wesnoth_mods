@@ -1,6 +1,7 @@
 First playthru done. I had major mixed feelings about this one. On the one
 hand, all the different branching paths (as in, scenarios playing out
-differently, like Krash getting an extra side, or Eryssa being hostile) depending on who you have alive make me want to replay it to see some of the
+differently, like Krash getting an extra side, or Eryssa being hostile)
+depending on who you have alive make me want to replay it to see some of the
 different ways it can play out, but OTOH, that desire is counteracted by just
 how much of a grueling slog the campaign is to actually play. Also, the
 existence of Northern Rebirth Remake on the add-ons server kind of complicates
