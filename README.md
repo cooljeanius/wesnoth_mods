@@ -30,3 +30,4 @@ Versions of Add-ons based upon:
 - Mercenary Band: 0.7.0
 - To Lands Unknown: 3.1.3
 - Sepulchre of Elran: 1.0.1
+- After the Storm: 0.10.11
