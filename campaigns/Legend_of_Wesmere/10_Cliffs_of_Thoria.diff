@@ -1,0 +1,44 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Legend_of_Wesmere/scenarios/chapter3/10_Cliffs_of_Thoria.cfg	2020-09-06 20:56:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Legend_of_Wesmere/10_Cliffs_of_Thoria.cfg	2020-08-08 06:08:15.000000000 -0400
+@@ -10,7 +10,7 @@
+     experience_modifier=100
+     name= _ "Cliffs of Thoria"
+     {LOW_MAP 10_Cliffs_of_Thoria.map}
+-    {TURNS 32 30 28}
++    {TURNS 36 30 28}
+ 
+     {DEFAULT_SCHEDULE}
+ 
+@@ -31,10 +31,10 @@
+     {LOW_TRACK ( {FLIGHT_COMPLETE} {TREASURY_COMPLETE} {BOOK_STAGE3} ) }
+ 
+ #define PLAYER_GOLD
+-    {GOLD 280 240 220}
++    {GOLD 290 240 220}
+ #enddef
+ #define MULTIPLAYER_GOLD
+-    {GOLD 90 85 80}
++    {GOLD 95 85 80}
+ #enddef
+ 
+     [side]
+@@ -113,8 +113,8 @@
+         side=5
+         allow_player=no
+         canrecruit=yes
+-        {GOLD 260 320 380}
+-        {INCOME 4 8 12}
++        {GOLD 210 320 380}
++        {INCOME 2 8 12}
+         team_name=trolls
+         user_team_name= _ "Enemies"
+ #ifdef EASY
+@@ -155,7 +155,7 @@
+         [ai]
+             recruitment_pattern=scout
+             grouping=offensive
+-            aggression=0.75
++            aggression=0.5
+         [/ai]
+     [/side]
+ 
