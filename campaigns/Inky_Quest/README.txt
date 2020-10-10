@@ -13,3 +13,7 @@ them a bit so I could have a chance to explore first. I kind of wanted to edit
 editing 12 (Burial at Sea). I brought back the fungus-to-water transformation
 mechanic to give the cuttlefish more favorable terrain to fight in closer to
 the lich's keep.
+
+If I go back and give this one another playthru I'll want to do something about
+the weird spacing and indentation style used here; there's too much whitespace
+which makes it hard to focus on the actual code.

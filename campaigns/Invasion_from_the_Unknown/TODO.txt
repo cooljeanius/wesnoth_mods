@@ -1,0 +1,10 @@
+With the update from 2.1.5 to 2.1.9 all my changes got overwritten, so to
+restore them I will want to do the following:
+
+1. clone the IftU git repo from GitHub
+2. checkout the 2.1.5 tag
+3. generate diffs between my changes and the 2.1.5 tag
+4. apply the diffs against 2.1.9
+
+(alternatively I could just overwrite the 2.1.9 changes, but idk what exactly
+they consist of)
