@@ -1,0 +1,155 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Delfadors_Memoirs/scenarios/06_Swamps_of_Illuven.cfg	2020-09-06 20:56:30.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Delfadors_Memoirs/06_Swamps_of_Illuven.cfg	2020-09-25 22:34:15.000000000 -0400
+@@ -4,7 +4,7 @@
+     id=06_Swamps_of_Illuven
+     next_scenario=07_Night_in_the_Swamp
+     {MEMOIRS_MAP 06_The_Swamps_of_Illuven.map}
+-    turns=28
++    {TURNS 32 30 28}
+     {DEFAULT_SCHEDULE}
+ 
+     {SCENARIO_MUSIC underground.ogg}    # No story part, so no intro music
+@@ -24,6 +24,8 @@
+         team_name=allies
+         user_team_name= _ "Loyalists"
+         {FLAG_VARIANT loyalist}
++        # 100 is the default when left unspecified:
++        {GOLD 120 110 100}
+     [/side]
+     [event]
+         name=prestart
+@@ -33,7 +35,7 @@
+         [/recall]
+         {MODIFY_UNIT (side=1) facing ne}
+     [/event]
+-    {STARTING_VILLAGES 1 4}
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 6 5 4}}
+ 
+     [side]
+         type=Rogue
+@@ -45,13 +47,13 @@
+         recruit=Thief,Poacher,Thug
+         team_name=enemies
+         user_team_name= _ "Bandits"
+-        {GOLD 80 100 150}
++        {GOLD 50 100 150}
+         [ai]
+             villages_per_scout=15
+         [/ai]
+         {FLAG_VARIANT6 ragged}
+     [/side]
+-    {STARTING_VILLAGES 2 4}
++    {STARTING_VILLAGES 2 {ON_DIFFICULTY 2 3 4}}
+ 
+     [side]
+         type=Bandit
+@@ -63,13 +65,13 @@
+         recruit=Footpad,Poacher,Thug
+         team_name=enemies
+         user_team_name= _ "Bandits"
+-        {GOLD 80 100 150}
++        {GOLD 50 100 150}
+         [ai]
+             villages_per_scout=10
+         [/ai]
+         {FLAG_VARIANT6 ragged}
+     [/side]
+-    {STARTING_VILLAGES 3 4}
++    {STARTING_VILLAGES 3 {ON_DIFFICULTY 2 3 4}}
+ 
+     victory_when_enemies_defeated=no
+     {MEMOIRS_VICTORY_POSITION 38 3 yes}
+@@ -128,7 +130,7 @@
+             side=1
+             variable=fee
+         [/store_gold]
+-        {VARIABLE_OP fee multiply 8}
++        {VARIABLE_OP fee multiply {ON_DIFFICULTY 6 7 8}}
+         {VARIABLE_OP fee divide 10}
+         {VARIABLE_OP fee round 0}
+         [message]
+@@ -137,11 +139,49 @@
+             [option]
+                 label=_"Thanks very much. Here’s the gold..."
+                 [command]
+-                    {VARIABLE_OP fee multiply -1}
+                     [gold]
+                         side=1
++                        amount=-$fee
++                    [/gold]
++                    # take his gold:
++                    [remove_item]
++                        x=4
++                        y=3
++                    [/remove_item]
++#ifdef EASY
++                    [message]
++                        speaker=Garrath
++                        message=_"You know, you really ought to be more careful before handing over money to suspicious strangers like me. But, since I'm feeling nice at the moment, I think I will actually keep my word and offer you some protection."
++                    [/message]
++                    [message]
++                        speaker=Harold
++                        message=_"Hey, what's your problem, Garrath? I thought we had a deal!"
++                    [/message]
++                    [message]
++                        speaker=Garrath
++                        message=_"Yeah, well, I changed my mind."
++                    [/message]
++                    [modify_side]
++                        side=2
++                        team_name=allies
++                    [/modify_side]
++                    [gold]
++                        side=2
+                         amount=$fee
+                     [/gold]
++                    # we are already inside an "ifdef EASY" block, so no need to vary this on difficulty:
++                    {CAPTURE_VILLAGES 2 4 3 4}
++                    [redraw]
++                    [/redraw]
++                    [message]
++                        speaker=Delfador
++                        message=_"...I'm not entirely sure what just happened here, but I guess I should be grateful?"
++                    [/message]
++                    [message]
++                        speaker=Lionel
++                        message=_"While it appears we lucked out this time, I fear for the travelers for whom this man does NOT keep his word..."
++                    [/message]
++#else
+                     [message]
+                         speaker=Garrath
+                         message=_"It’s been a pleasure doing business with you... Bye!"
+@@ -149,11 +189,6 @@
+                     [kill]
+                         side=2
+                     [/kill]
+-                    # take his gold too
+-                    [remove_item]
+-                        x=4
+-                        y=3
+-                    [/remove_item]
+                     [redraw]
+                     [/redraw]
+                     [delay]
+@@ -171,10 +206,11 @@
+                         speaker=Lionel
+                         message=_"Well, at least we only have to deal with one of them now..."
+                     [/message]
++#endif
+                     # give the remaining enemy a boost, for balance
+                     [gold]
+                         side=3
+-                        amount=40
++                        amount={ON_DIFFICULTY 20 30 40}
+                     [/gold]
+                 [/command]
+             [/option]
+@@ -208,7 +244,7 @@
+                         [/sound]
+                         [gold]
+                             side=1
+-                            amount=100
++                            amount={ON_DIFFICULTY 120 110 100}
+                         [/gold]
+                         [message]
+                             speaker=unit

@@ -1,0 +1,114 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Delfadors_Memoirs/scenarios/13_The_Return_of_Trouble.cfg	2020-09-06 20:56:30.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Delfadors_Memoirs/13_The_Return_of_Trouble.cfg	2020-10-14 21:07:42.000000000 -0400
+@@ -3,7 +3,8 @@
+     id=13_The_Return_of_Trouble
+     name= _ "The Return of Trouble"
+     {MEMOIRS_MAP 13_The_Return_of_Trouble.map}
+-    {TURNS 24 27 30}
++    # I think this was backwards originally; this is a "defeat all enemies" map, not a defensive map:
++    {TURNS 30 27 24}
+     {DEFAULT_SCHEDULE}
+ 
+     {INTRO_AND_SCENARIO_MUSIC northerners.ogg elvish-theme.ogg}
+@@ -47,11 +48,14 @@
+             y=2
+             canrecruit=yes
+         [/unit]
+-        {GOLD 320 310 380}
++        {GOLD 350 320 380}
++        {INCOME 5 3 1}
+         {FLAG_VARIANT wood-elvish}
+     [/side]
+     #wmllint: validate-on
+ 
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 5 4 3}}
++
+     # wmllint: recognize Chantal
+     # wmllint: recognize Delfador
+ 
+@@ -80,7 +84,7 @@
+ #ifdef HARD
+         recruit=Orcish Archer, Orcish Assassin, Orcish Grunt, Wolf Rider, Orcish Crossbowman, Orcish Warrior, Goblin Knight, Goblin Pillager, Orcish Slayer, Goblin Spearman
+ #endif
+-        {GOLD 150 230 300}
++        {GOLD 140 220 300}
+         team_name=enemies
+         user_team_name= _ "Pillagers"
+         [ai]
+@@ -89,11 +93,11 @@
+         [/ai]
+         [ai]
+             time_of_day=dusk,first_watch,second_watch
+-            aggression=0.75
+-            caution=0.0
++            aggression={ON_DIFFICULTY 0.71 0.73 0.75}
++            caution={ON_DIFFICULTY 0.2 0.1 0.0}
+             grouping=no
+         [/ai]
+-        {INCOME 4 8 12}
++        {INCOME 2 7 12}
+         {FLAG_VARIANT6 ragged}
+     [/side]
+ 
+@@ -116,7 +120,7 @@
+ #ifdef HARD
+         recruit=Orcish Archer, Orcish Assassin, Orcish Grunt, Wolf Rider, Orcish Crossbowman, Orcish Warrior, Goblin Knight, Goblin Pillager, Orcish Slayer, Goblin Spearman
+ #endif
+-        {GOLD 250 300 380}
++        {GOLD 220 300 380}
+         team_name=enemies
+         user_team_name= _ "Pillagers"
+         [ai]
+@@ -125,11 +129,11 @@
+         [/ai]
+         [ai]
+             time_of_day=dusk,first_watch,second_watch
+-            aggression=0.75
+-            caution=0.0
++            aggression={ON_DIFFICULTY 0.71 0.73 0.75}
++            caution={ON_DIFFICULTY 0.2 0.1 0.0}
+             grouping=no
+         [/ai]
+-        {INCOME 4 8 12}
++        {INCOME 2 7 12}
+         {FLAG_VARIANT6 ragged}
+     [/side]
+ 
+@@ -152,7 +156,7 @@
+ #ifdef HARD
+         recruit=Orcish Archer, Orcish Assassin, Orcish Grunt, Wolf Rider, Orcish Crossbowman, Orcish Warrior, Goblin Knight, Goblin Pillager, Orcish Slayer, Goblin Spearman
+ #endif
+-        {GOLD 250 300 380}
++        {GOLD 220 300 380}
+         team_name=enemies
+         user_team_name= _ "Pillagers"
+         [ai]
+@@ -161,11 +165,11 @@
+         [/ai]
+         [ai]
+             time_of_day=dusk,first_watch,second_watch
+-            aggression=0.75
+-            caution=0.0
++            aggression={ON_DIFFICULTY 0.71 0.73 0.75}
++            caution={ON_DIFFICULTY 0.2 0.1 0.0}
+             grouping=no
+         [/ai]
+-        {INCOME 4 8 12}
++        {INCOME 2 7 12}
+         {FLAG_VARIANT6 ragged}
+     [/side]
+ 
+@@ -179,10 +183,12 @@
+         recruit={ELVES}
+         team_name=allies
+         user_team_name= _ "Elves"
+-        {GOLD 250 250 290}
++        {GOLD 270 250 290}
+         {FLAG_VARIANT long}
+     [/side]
+ 
++    {STARTING_VILLAGES 5 {ON_DIFFICULTY 8 7 6}}
++
+     [event]
+         name=prestart
+         [objectives]

@@ -1,0 +1,125 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Delfadors_Memoirs/scenarios/18_The_Portal_of_Doom.cfg	2020-09-06 20:56:30.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Delfadors_Memoirs/18_The_Portal_of_Doom.cfg	2020-10-14 23:13:22.000000000 -0400
+@@ -4,7 +4,7 @@
+     id=18_The_Portal_of_Doom
+     next_scenario=19_Showdown_in_the_Northern_Swamp
+     {MEMOIRS_MAP 18_The_Portal_of_Doom.map}
+-    turns=40
++    {TURNS 44 42 40}
+     victory_when_enemies_defeated=no
+     {DEFAULT_SCHEDULE}
+ 
+@@ -53,7 +53,8 @@
+         recruit={LOYALISTS}
+         team_name=allies
+         user_team_name= _ "Loyalists"
+-        {GOLD 200 180 160}
++        {GOLD 220 190 160}
++        {INCOME 3 2 1}
+         {FLAG_VARIANT loyalist}
+     [/side]
+     [event]
+@@ -88,21 +89,23 @@
+ #endif
+         [ai]
+             aggression=0.0
+-            #recruitment_pattern=scout, mixed fighter, archer
++#ifdef CUSTOMIZED_AI
++            recruitment_pattern=scout, mixed fighter, archer
+             # there are a lot of close villages
+-            #villages_per_scout=6
++            villages_per_scout=6
++#endif
+ 
+-            # attack Delfador   heavily
+-            leader_value=2.0
++            # attack Delfador heavily
++            leader_value={ON_DIFFICULTY 1.9 2.0 2.1}
+             [goal]
+                 name=target
+                 [criteria]
+                     id=Delfador
+                 [/criteria]
+-                value=3.0
++                value={ON_DIFFICULTY 2.9 3.0 3.1}
+             [/goal]
+         [/ai]
+-        {GOLD 200 200 250}
++        {GOLD 150 200 250}
+         team_name=enemies
+         user_team_name= _ "Undead"
+         {FLAG_VARIANT undead}
+@@ -128,21 +131,23 @@
+ #endif
+         [ai]
+             aggression=0.0
+-            #recruitment_pattern=scout, mixed fighter, archer
++#ifdef CUSTOMIZED_AI
++            recruitment_pattern=scout, mixed fighter, archer
+             # there are a lot of close villages
+-            #villages_per_scout=6
++            villages_per_scout=6
++#endif
+ 
+-            # attack Delfador   heavily
+-            leader_value=2.0
++            # attack Delfador heavily
++            leader_value={ON_DIFFICULTY 1.9 2.0 2.1}
+             [goal]
+                 name=target
+                 [criteria]
+                     id=Delfador
+                 [/criteria]
+-                value=3.0
++                value={ON_DIFFICULTY 2.9 3.0 3.1}
+             [/goal]
+         [/ai]
+-        {GOLD 200 200 250}
++        {GOLD 150 200 250}
+         team_name=enemies
+         user_team_name= _ "Undead"
+         {FLAG_VARIANT undead}
+@@ -174,7 +179,7 @@
+                 [criteria]
+                     id=Delfador
+                 [/criteria]
+-                value=10
++                value={ON_DIFFICULTY 8 9 10}
+             [/goal]
+         [/ai]
+         {FLAG_VARIANT undead}
+@@ -443,10 +448,12 @@
+     #############################
+     # closing dialog
+     #############################
+-    #    [event]
+-    #        name=victory
+-    #
+-    #    [/event]
++#ifdef CLOSING_DIALOG
++    [event]
++        name=victory
++        # TODO
++    [/event]
++#endif
+ 
+     [event]
+         name=iliah-malal
+@@ -470,7 +477,7 @@
+         [modify_side]
+             side=4
+             hidden=no
+-            {INCOME 10 20 30}
++            {INCOME 6 18 30}
+         [/modify_side]
+ 
+         [message]
+@@ -488,7 +495,7 @@
+     [/event]
+ 
+     [event]
+-        name=turn 9
++        name={ON_DIFFICULTY (turn 11) (turn 10) (turn 9)}
+         [fire_event]
+             name=iliah-malal
+         [/fire_event]

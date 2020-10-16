@@ -1,0 +1,29 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Delfadors_Memoirs/scenarios/02_This_Valley_Belongs_to_Me.cfg	2020-09-06 20:56:30.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Delfadors_Memoirs/02_This_Valley_Belongs_to_Me.cfg	2020-09-25 21:09:51.000000000 -0400
+@@ -4,7 +4,7 @@
+     id=02_This_Valley_Belongs_to_Me
+     next_scenario=03_The_Road_to_Weldyn
+     {MEMOIRS_MAP 02_This_Valley_Belongs_to_Me.map}
+-    turns=24
++    {TURNS 26 25 24}
+     {DEFAULT_SCHEDULE}
+ 
+     {INTRO_AND_SCENARIO_MUSIC traveling_minstrels.ogg knolls.ogg}
+@@ -24,6 +24,8 @@
+         team_name=allies
+         user_team_name= _ "Mages"
+         {FLAG_VARIANT long}
++        # 100 is the default when left unspecified:
++        {GOLD 120 110 100}
+     [/side]
+     [event]
+         name=prestart
+@@ -34,7 +36,7 @@
+         [/unit]
+         {MODIFY_UNIT (side=1) facing nw}
+     [/event]
+-    {STARTING_VILLAGES 1 12}
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 16 14 12}}
+ 
+     [side]
+         type=Goblin Pillager

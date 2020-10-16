@@ -1,0 +1,57 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Delfadors_Memoirs/scenarios/04_Leollyn.cfg	2020-09-06 20:56:30.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Delfadors_Memoirs/04_Leollyn.cfg	2020-09-25 21:21:59.000000000 -0400
+@@ -4,7 +4,7 @@
+     id=04_Leollyn
+     next_scenario=05_Council_in_Weldyn
+     {MEMOIRS_MAP 04_Leollyn.map}
+-    turns=24
++    {TURNS 26 25 24}
+     {DEFAULT_SCHEDULE}
+ 
+     {SCENARIO_MUSIC loyalists.ogg} # No story text, so no intro music
+@@ -25,6 +25,8 @@
+ 
+         recruit={LOYALISTS}
+         {FLAG_VARIANT long}
++        # 100 is the default when left unspecified:
++        {GOLD 120 110 100}
+     [/side]
+     [event]
+         name=prestart
+@@ -65,16 +67,16 @@
+             villages_per_scout=6
+ 
+             # attack Delfador more heavily than Leollyn
+-            leader_value=2.0
++            leader_value={ON_DIFFICULTY 1.8 1.9 2.0}
+             [goal]
+                 name=target
+                 [criteria]
+                     id=Delfador
+                 [/criteria]
+-                value=3.0
++                value={ON_DIFFICULTY 2.2 2.6 3.0}
+             [/goal]
+         [/ai]
+-        {GOLD 200 200 300}
++        {GOLD 150 225 300}
+         team_name=enemies
+         user_team_name= _ "Pillagers"
+         {FLAG_VARIANT6 ragged}
+@@ -93,10 +95,13 @@
+         recruit=Red Mage,White Mage
+         [ai]
+             recruitment_pattern=mixed fighter,mixed fighter,healer
+-            aggression=0.0
++            aggression={ON_DIFFICULTY 0.2 0.1 0.0}
++            caution={ON_DIFFICULTY 0.9 0.8 0.7}
++            grouping=defensive
++            support_villages=yes
+         [/ai]
+-        gold=0
+-        income=8
++        {GOLD 20 10 0}
++        {INCOME 10 9 8}
+         team_name=allies
+         user_team_name= _ "Loyalists"
+         {UNIT 3 Spearman 2 18 (ai_special=guardian)}
