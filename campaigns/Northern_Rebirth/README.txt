@@ -51,4 +51,7 @@ Scenario-specific notes:
   added some AI goals to the rest of their orcs to protect their leaders, too,
   and I split the giving of gold between Hamel and the other allied side, so
   that Hamel wouldn't get as much gold as I'm giving to the sides of the
-  liches, but this second set of changes is untested.
+  liches, but even with this second set of changes, Hamel still gets to Rakshas
+  before I do. I'm thinking of tweaking the AI even more, or maybe giving an
+  "attacked" event for Rakshas, to give him guards and more gold if Hamel's
+  side attacks him.
