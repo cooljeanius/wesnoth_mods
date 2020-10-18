@@ -58,9 +58,6 @@ to reflect that (I didn't do that my first time thru though, because it's a
 story-only scenario)
 
 I'm thinking of making a separate add-on for all the edits I want to make,
-since there are a lot, but that might be harder than making an add-on out of
-SotBE, since that was copying over a campaign from mainline, but this would be
-copying a much-bigger add-on that's already in my add-ons directory and comes
-with other stuff besides just the campaign... or maybe instead of copying it,
-I can do like I did with "A Little Adventure" and just create the git repo
-directly in the existing directory?
+since there are a lot... any further changes for this campaign are in a
+separate repo for it, the link for which is here:
+https://github.com/cooljeanius/A_New_Order
