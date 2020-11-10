@@ -31,3 +31,4 @@ Versions of Add-ons based upon:
 - To Lands Unknown: 3.1.3
 - Sepulchre of Elran: 1.0.1
 - After the Storm: 0.10.11
+- Genesis: 0.2.11
