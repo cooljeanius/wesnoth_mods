@@ -32,3 +32,4 @@ Versions of Add-ons based upon:
 - Sepulchre of Elran: 1.0.1
 - After the Storm: 0.10.11
 - Genesis: 0.2.11
+- Norther Reberith Remake: 1.2.10
