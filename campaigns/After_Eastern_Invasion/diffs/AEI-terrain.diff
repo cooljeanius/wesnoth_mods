@@ -1,0 +1,47 @@
+--- /Users/ericgallager/Downloads/AfterEI/utils/AEI-terrain.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/utils/AEI-terrain.cfg	2020-09-13 18:25:12.000000000 -0400
+@@ -715,9 +715,11 @@
+         name=is_player_unit
+         value=yes
+       [/set_variable]
+-#      [fire_event]
+-#        name=mushboot_fire
+-#      [/fire_event]
++#ifdef __UNUSED__
++      [fire_event]
++        name=mushboot_fire
++      [/fire_event]
++#endif
+       [sound]
+         name=squishy-hit.ogg
+       [/sound]
+@@ -843,13 +845,29 @@
+         [then]				# Lower damage range for player units
+           [set_variable]
+             name=mspore_damage
++#ifdef EASY
++            rand=4,5,5,6,6,6,7,7,8,9,10
++#endif
++#ifdef NORMAL
++            rand=5,6,6,6,7,7,8,9,10,11
++#endif
++#ifdef HARD
+             rand=6,6,6,7,7,8,9,10,11,12
++#endif
+           [/set_variable]
+         [/then]
+         [else]				# Higher damage range for enemy units
+           [set_variable]
+             name=mspore_damage
++#ifdef EASY
++            rand=8,9,10,11,12,13,14,15,16,17,18,19,20,21,22
++#endif
++#ifdef NORMAL
++            rand=7,8,9,10,11,12,13,14,15,16,17,18,19,20,21
++#endif
++#ifdef HARD
+             rand=6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
++#endif
+           [/set_variable]
+         [/else]
+         [/if]

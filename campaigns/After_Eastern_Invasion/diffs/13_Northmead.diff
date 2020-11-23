@@ -1,0 +1,324 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/13_Northmead.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/13_Northmead.cfg	2020-09-13 14:33:20.000000000 -0400
+@@ -16,7 +16,7 @@
+   name=_"Northmead"
+   next_scenario=14_Aitsward_South_Gate
+   map_data="{~add-ons/AfterEI/maps/13_Northmead.map}"
+-  turns=32
++  {TURNS 36 34 32}
+   victory_when_enemies_defeated=no
+ 
+   {INTRO_AND_SCENARIO_MUSIC traveling_minstrels.ogg sad.ogg}	# For initial dialogue only
+@@ -73,15 +73,7 @@
+           [value]
+             [limit]			# Limit number of second level units on map by difficulty
+               type=2
+-#ifdef EASY
+-              max=6
+-#endif
+-#ifdef NORMAL
+-              max=7
+-#endif
+-#ifdef HARD
+-              max=8
+-#endif
++              max={ON_DIFFICULTY 6 7 8}
+             [/limit]
+             [recruit]
+ #ifdef EASY
+@@ -111,7 +103,7 @@
+     type=Spearman_i
+     name= _ "Ledhed"
+     profile=portraits/transparent/Ledhed.png
+-    experience=25
++    experience={ON_DIFFICULTY 23 24 25}
+     unrenamable=yes
+     canrecruit=yes
+     controller=ai
+@@ -152,8 +144,8 @@
+     controller=ai
+     team_name=Heroes
+     user_team_name= _ "Rebels"
+-    gold=107				# Well, 100 just seems boring :-)
+-    income=-2
++    {GOLD 109 108 107}				# Well, 100 just seems boring :-)
++    {INCOME 3 2 1}
+     color=green
+   [/side]
+ 
+@@ -172,10 +164,12 @@
+         id=13_messenger
+         count=0
+       [/have_unit]
+-#      [variable]
+-#        name=13_messenger_flag
+-#        equals=yes
+-#      [/variable]
++#ifdef __UNUSED__
++      [variable]
++        name=13_messenger_flag
++        equals=yes
++      [/variable]
++#endif
+     [then]				# Victory
+       [clear_variable]
+         name=13_messenger_flag
+@@ -199,15 +193,15 @@
+           less_than=0
+         [/variable]
+       [then]
+-        [modify_side]			# ... set player gold to 50 ...
++        [modify_side]			# ... set player gold to (70/60/50) ...
+           side=1
+-          gold=50
++          gold={ON_DIFFICULTY 70 60 50}
+         [/modify_side]
+       [/then]
+-      [else]				# ... add 50 gold
++      [else]				# ... add (70/60/50) gold
+         [gold]
+           side=1
+-          amount=50
++          amount={ON_DIFFICULTY 70 60 50}
+         [/gold]
+       [/else]
+       [/if]
+@@ -511,7 +505,11 @@
+       side=2
+       generate_name=no
+       random_gender=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+       [modifications]		# Ensure messenger has 7 movement regardless of type
+ #ifdef EASY
+         {TRAIT_QUICK}
+@@ -700,7 +698,9 @@
+       speaker=Jackery
+       image_pos=right
+       mirror=yes
+-#      image="portraits/transparent/Jackery.png~FL()~RIGHT()"
++#ifdef __UNUSED__
++      image="portraits/transparent/Jackery.png~FL()~RIGHT()"
++#endif
+       message= _ "Ah, Northmead, northernmost of Wesnothian settlements hereabouts and perforce borderguard of the north.  We are safe here.  I shall introduce you first to Flinteye, commander of Northmead's large and capable milita.  Good and honest, if somewhat stern and unimaginative, he would never serve someone like the pretender.  Then we shall all visit Flinteye's favourite tavern-
+  
+ ... is that shouting I hear?  Can't see a thing with these trees in the way..."
+@@ -714,8 +714,8 @@
+       type=Bowman
+       x,y=12,35
+       side=4
+-      experience=18
+-      hitpoints=25
++      experience={ON_DIFFICULTY 19 18 17} # out of 39
++      hitpoints={ON_DIFFICULTY 27 26 25} # out of 33
+       generate_name=yes
+       random_traits=yes
+       random_gender=yes
+@@ -725,8 +725,8 @@
+       type=Spearman
+       x,y=9,37
+       side=4
+-      experience=21
+-      hitpoints=26
++      experience={ON_DIFFICULTY 27 24 21} # out of 42
++      hitpoints={ON_DIFFICULTY 28 27 26} # out of 36
+       generate_name=yes
+       random_traits=yes
+       random_gender=yes
+@@ -736,8 +736,8 @@
+       type=Yeoman
+       x,y=10,36
+       side=4
+-      experience=21
+-      hitpoints=7		# Badly injured, but will level-up if he kills anything...
++      experience={ON_DIFFICULTY 23 22 21} # out of 25
++      hitpoints={ON_DIFFICULTY 9 8 7} # Badly injured, but will level-up if he kills anything...
+       generate_name=yes
+       [modifications]
+         {TRAIT_QUICK}
+@@ -751,9 +751,9 @@
+       type=Yeoman
+       x,y=11,36
+       side=4
+-      experience=20
++      experience={ON_DIFFICULTY 22 21 20} # out of 25
+       generate_name=yes
+-      hitpoints=2		# Badly injured, but will level-up if he kills anything...
++      hitpoints={ON_DIFFICULTY 4 3 2} # Badly injured, but will level-up if he kills anything...
+       [modifications]
+         {TRAIT_QUICK}
+         {TRAIT_FEARLESS}
+@@ -766,9 +766,9 @@
+       type=AEI_Peasant
+       x,y=9,38
+       side=4
+-      experience=13
++      experience={ON_DIFFICULTY 16 15 14} # out of 23
+       generate_name=yes
+-      hitpoints=15
++      hitpoints={ON_DIFFICULTY 17 16 15} # out of 18
+       [modifications]
+         {TRAIT_STRONG}
+         {TRAIT_QUICK}
+@@ -825,7 +825,9 @@
+       speaker=Jackery
+       image_pos=right
+       mirror=yes
+-#      image="portraits/transparent/Jackery.png~FL()~RIGHT()"
++#ifdef __UNUSED__
++      image="portraits/transparent/Jackery.png~FL()~RIGHT()"
++#endif
+       message= {ASIDE _"Oh no, not again.  The pretender's forces are everywhere!  How can this be?"} + " 
+ Where is commander Flinteye?"
+     [/message]
+@@ -841,7 +843,9 @@
+       speaker=Morn
+       image_pos=right
+       mirror=yes
+-#      image="portraits/transparent/young_delfador.png~FL()~RIGHT()"
++#ifdef __UNUSED__
++      image="portraits/transparent/young_delfador.png~FL()~RIGHT()"
++#endif
+       message= _ "We choose neither.  We are all Wesnothians!  Why should we fight each other?  Can we not find a peaceful resolution?"
+     [/message]
+     [message]
+@@ -892,11 +896,7 @@
+     [/sound]
+     [gold]
+       side=1
+-#ifdef EASY
+-      amount=157
+-#else
+-      amount=107
+-#endif
++      amount={ON_DIFFICULTY 157 132 107}
+     [/gold]
+     [store_unit]
+       variable=jn_temp
+@@ -968,7 +968,7 @@
+     name=turn 28
+     [modify_side]
+       side=2
+-      income=10
++      {INCOME 8 9 10}
+     [/modify_side]
+   [/event]
+ 
+@@ -1110,12 +1110,8 @@
+       type=Spearman_i
+       x,y=8,37
+       side=3
+-#ifdef HARD
+-      hitpoints=22
+-#else
+-      hitpoints=14
+-#endif
+-      experience=7
++      hitpoints={ON_DIFFICULTY 14 18 22}
++      experience={ON_DIFFICULTY 5 6 7}
+       generate_name=yes
+       random_traits=no
+       random_gender=yes
+@@ -1124,8 +1120,8 @@
+       type=Heavy Infantryman
+       x,y=11,35
+       side=2
+-      experience=17
+-      hitpoints=12
++      experience={ON_DIFFICULTY 15 16 17}
++      hitpoints={ON_DIFFICULTY 10 11 12}
+       generate_name=yes
+       random_traits=yes
+       random_gender=yes
+@@ -1133,10 +1129,10 @@
+     [unit]
+       id=jackery_neighbour
+       type=Heavy Infantryman
+-      hitpoints=16
++      hitpoints={ON_DIFFICULTY 14 15 16}
+       x,y=9,36
+       side=2
+-      experience=11
++      experience={ON_DIFFICULTY 10 11 12}
+       generate_name=yes
+       random_traits=yes
+       random_gender=yes
+@@ -1145,8 +1141,8 @@
+       type=Bowman_i
+       x,y=10,35
+       side=3
+-      experience=13
+-      hitpoints=5
++      experience={ON_DIFFICULTY 10 11 12}
++      hitpoints={ON_DIFFICULTY 3 4 5}
+       generate_name=yes
+       random_traits=no
+       random_gender=yes
+@@ -1155,8 +1151,8 @@
+       type=Fowler_i
+       x,y=11,37
+       side=3
+-      experience=3
+-      hitpoints=4
++      experience={ON_DIFFICULTY 1 2 3}
++      hitpoints={ON_DIFFICULTY 2 3 4}
+       generate_name=yes
+       random_traits=no
+       random_gender=yes
+@@ -1165,7 +1161,7 @@
+       type=Militiaman_i
+       x,y=13,35
+       side=3
+-      hitpoints=13
++      hitpoints={ON_DIFFICULTY 10 12 14}
+       generate_name=yes
+       random_traits=no
+       random_gender=yes
+@@ -1182,7 +1178,7 @@
+       type=Spearman_i
+       x,y=8,32
+       side=3
+-      experience=17
++      experience={ON_DIFFICULTY 15 16 17}
+       generate_name=yes
+       random_traits=no
+       random_gender=yes
+@@ -1197,7 +1193,7 @@
+ #endif
+       x,y=8,36
+       side=3
+-      experience=15
++      experience={ON_DIFFICULTY 9 12 15}
+       generate_name=yes
+       random_traits=no
+       random_gender=yes
+@@ -1386,15 +1382,17 @@
+       name=13_messenger_flag
+       value=no
+     [/set_variable]
+-#    [heal_unit]
+-#      [filter]
+-#        side=3
+-#        [filter_location]
+-#          terrain=Ch^Edb, Ch^Edt
+-#        [/filter_location]
+-#      [/filter]
+-#      amount=full		# Heal units on castle hexes (i.e. fix any trait related hit point changes)
+-#    [/heal_unit]
++#ifdef __UNUSED__
++    [heal_unit]
++      [filter]
++        side=3
++        [filter_location]
++          terrain=Ch^Edb, Ch^Edt
++        [/filter_location]
++      [/filter]
++      amount=full		# Heal units on castle hexes (i.e. fix any trait related hit point changes)
++    [/heal_unit]
++#endif
+     [hide_unit]
+       side=2,3,4
+     [/hide_unit]

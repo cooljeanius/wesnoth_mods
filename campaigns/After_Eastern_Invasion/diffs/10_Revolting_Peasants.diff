@@ -1,0 +1,46 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/10_Revolting_Peasants.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/10_Revolting_Peasants.cfg	2020-08-12 04:33:06.000000000 -0400
+@@ -71,7 +71,7 @@
+   [side]
+ {FLYNN}
+ {SIDE_PART_TWO Morn}
+-    gold=60
++    {GOLD 80 70 60}
+   [/side]
+ 
+   [side]
+@@ -79,10 +79,10 @@
+     id=Jackery
+     type=Cadet
+ #ifdef EASY
+-      experience=16
++      experience=17
+ #endif
+ #ifdef NORMAL
+-      experience=13
++      experience=14
+ #endif
+ #ifdef HARD
+       experience=10
+@@ -101,7 +101,7 @@
+     [/modifications]
+     random_traits=no
+     recruit=
+-    gold=66
++    {GOLD 88 77 66}
+   [/side]
+ 
+   [side]
+@@ -825,10 +825,10 @@
+       side=1
+       type=Ostler
+ #ifdef EASY
+-      experience=20
++      experience=21
+ #endif
+ #ifdef NORMAL
+-      experience=13
++      experience=14
+ #endif
+ #ifdef HARD
+       experience=6

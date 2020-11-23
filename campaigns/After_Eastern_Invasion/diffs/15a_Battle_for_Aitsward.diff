@@ -1,0 +1,136 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/15a_Battle_for_Aitsward.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/15a_Battle_for_Aitsward.cfg	2020-09-13 18:07:29.000000000 -0400
+@@ -22,11 +22,13 @@
+   name=_"Battle for Aitsward"
+   next_scenario=16_The_Ford
+   map_data="{~add-ons/AfterEI/maps/15_Aitsward_emask.map}"
+-  turns=40
++  {TURNS 44 42 40}
+   victory_when_enemies_defeated=no
+ 
+ # Music from previous scenario continues for first 2 turns
+-#  {INTRO_AND_SCENARIO_MUSIC traveling_minstrels.ogg suspense.ogg}
++#ifdef __UNUSED__
++  {INTRO_AND_SCENARIO_MUSIC traveling_minstrels.ogg suspense.ogg}
++#endif
+   [music]
+     name=calm-before-storm.ogg
+     append=yes
+@@ -48,7 +50,7 @@
+   [side]
+ {FLYNN}
+ {SIDE_PART_TWO Morn}
+-    gold=500				# Or +100% carryover
++    {GOLD 520 510 500}				# Or +100% carryover
+   [/side]
+ 
+   [side]
+@@ -184,15 +186,7 @@
+     [/message]
+     [gold]			# Quietly add extra gold (no gold.ogg)
+       side=3
+-#ifdef EASY
+-      amount=200
+-#endif
+-#ifdef NORMAL
+-      amount=250
+-#endif
+-#ifdef HARD
+-      amount=300
+-#endif
++      amount={ON_DIFFICULTY 200 250 300}
+     [/gold]
+   [/event]
+ 
+@@ -209,16 +203,8 @@
+       extra_recruit={VETERAN_RECRUIT}
+     [/allow_extra_recruit]
+     [gold]			# Quietly add extra gold (no gold.ogg)
+-    side=4
+-#ifdef EASY
+-      amount=200
+-#endif
+-#ifdef NORMAL
+-      amount=250
+-#endif
+-#ifdef HARD
+-      amount=300
+-#endif
++      side=4
++      amount={ON_DIFFICULTY 200 250 300}
+     [/gold]
+   [/event]
+ 
+@@ -236,15 +222,7 @@
+     [/allow_extra_recruit]
+     [gold]			# Quietly add extra gold (no gold.ogg)
+       side=2
+-#ifdef EASY
+-      amount=150
+-#endif
+-#ifdef NORMAL
+-      amount=200
+-#endif
+-#ifdef HARD
+-      amount=250
+-#endif
++      amount={ON_DIFFICULTY 150 200 250}
+     [/gold]
+   [/event]
+ 
+@@ -454,7 +432,7 @@
+       canrecruit=yes
+       unrenamable=yes
+       extra_recruit={VETERAN_RECRUIT}
+-      experience=98
++      experience={ON_DIFFICULTY 92 95 98} # out of 150
+       generate_name=no
+       [modifications]
+         {TRAIT_INTELLIGENT}
+@@ -462,7 +440,11 @@
+       [/modifications]
+       random_traits=no
+       random_gender=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+       animate=yes
+     [/unit]
+     [message]
+@@ -495,7 +477,7 @@
+         {TRAIT_INTELLIGENT}
+         {TRAIT_RESILIENT}
+       [/modifications]
+-      experience=41
++      experience={ON_DIFFICULTY 21 31 41} # out of 150
+       generate_name=no
+       animate=yes
+     [/unit]
+@@ -535,7 +517,7 @@
+           [/effect]
+         [/object]
+       [/modifications]
+-      experience=58
++      experience={ON_DIFFICULTY 42 45 48} # out of... wait I thought the max is 50? I guess the "Dim" trait pushes it higher, but still... 
+       generate_name=no
+       animate=yes
+     [/unit]
+@@ -1066,15 +1048,7 @@
+     [/allow_recruit]
+     [gold]			# Quietly add extra gold (no gold.ogg)
+       side=3
+-#ifdef EASY
+-      amount=200
+-#endif
+-#ifdef NORMAL
+-      amount=225
+-#endif
+-#ifdef HARD
+-      amount=250
+-#endif
++      amount={ON_DIFFICULTY 200 225 250}
+     [/gold]
+   [/then]
+   [else]
