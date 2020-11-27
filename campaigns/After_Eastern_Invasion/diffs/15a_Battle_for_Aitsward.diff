@@ -1,5 +1,5 @@
 --- /Users/ericgallager/Downloads/AfterEI/scenarios/15a_Battle_for_Aitsward.cfg	2020-02-07 07:00:07.000000000 -0500
-+++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/15a_Battle_for_Aitsward.cfg	2020-09-13 18:07:29.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/15a_Battle_for_Aitsward.cfg	2020-11-25 00:15:10.000000000 -0500
 @@ -22,11 +22,13 @@
    name=_"Battle for Aitsward"
    next_scenario=16_The_Ford
@@ -16,16 +16,17 @@
    [music]
      name=calm-before-storm.ogg
      append=yes
-@@ -48,7 +50,7 @@
+@@ -48,7 +50,8 @@
    [side]
  {FLYNN}
  {SIDE_PART_TWO Morn}
 -    gold=500				# Or +100% carryover
 +    {GOLD 520 510 500}				# Or +100% carryover
++    {INCOME 3 2 1}
    [/side]
  
    [side]
-@@ -184,15 +186,7 @@
+@@ -184,15 +187,7 @@
      [/message]
      [gold]			# Quietly add extra gold (no gold.ogg)
        side=3
@@ -42,7 +43,7 @@
      [/gold]
    [/event]
  
-@@ -209,16 +203,8 @@
+@@ -209,16 +204,8 @@
        extra_recruit={VETERAN_RECRUIT}
      [/allow_extra_recruit]
      [gold]			# Quietly add extra gold (no gold.ogg)
@@ -61,7 +62,7 @@
      [/gold]
    [/event]
  
-@@ -236,15 +222,7 @@
+@@ -236,15 +223,7 @@
      [/allow_extra_recruit]
      [gold]			# Quietly add extra gold (no gold.ogg)
        side=2
@@ -78,16 +79,16 @@
      [/gold]
    [/event]
  
-@@ -454,7 +432,7 @@
+@@ -454,7 +433,7 @@
        canrecruit=yes
        unrenamable=yes
        extra_recruit={VETERAN_RECRUIT}
 -      experience=98
-+      experience={ON_DIFFICULTY 92 95 98} # out of 150
++      experience={ON_DIFFICULTY 92 95 98} # out of 150 (probably less due to being intelligent though)
        generate_name=no
        [modifications]
          {TRAIT_INTELLIGENT}
-@@ -462,7 +440,11 @@
+@@ -462,7 +441,11 @@
        [/modifications]
        random_traits=no
        random_gender=yes
@@ -99,16 +100,16 @@
        animate=yes
      [/unit]
      [message]
-@@ -495,7 +477,7 @@
+@@ -495,7 +478,7 @@
          {TRAIT_INTELLIGENT}
          {TRAIT_RESILIENT}
        [/modifications]
 -      experience=41
-+      experience={ON_DIFFICULTY 21 31 41} # out of 150
++      experience={ON_DIFFICULTY 21 31 41} # out of 150 (probably less due to being intelligent though)
        generate_name=no
        animate=yes
      [/unit]
-@@ -535,7 +517,7 @@
+@@ -535,7 +518,7 @@
            [/effect]
          [/object]
        [/modifications]
@@ -117,7 +118,7 @@
        generate_name=no
        animate=yes
      [/unit]
-@@ -1066,15 +1048,7 @@
+@@ -1066,15 +1049,7 @@
      [/allow_recruit]
      [gold]			# Quietly add extra gold (no gold.ogg)
        side=3

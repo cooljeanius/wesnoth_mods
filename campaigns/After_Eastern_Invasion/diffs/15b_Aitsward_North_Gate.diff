@@ -1,0 +1,379 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/15b_Aitsward_North_Gate.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/15b_Aitsward_North_Gate.cfg	2020-11-24 23:11:19.000000000 -0500
+@@ -18,7 +18,7 @@
+   name=_"Aitsward North Gate"
+   next_scenario=15b2_Aitsward_Civil_War
+   map_data="{~add-ons/AfterEI/maps/15b_Aitsward_North_Gate.map}"
+-  turns=30
++  {TURNS 34 32 30}
+   victory_when_enemies_defeated=no
+ 
+   {SCENARIO_MUSIC exploration.ogg}
+@@ -37,7 +37,7 @@
+   [side]
+ {FLYNN}
+ {SIDE_PART_TWO Jackery}
+-    gold=100				# Or +100% carryover
++    {GOLD 120 110 100}				# Or +100% carryover
+     shroud=yes
+     shroud_data="|0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0
+ |0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0
+@@ -122,7 +122,7 @@
+         [/effect]
+       [/object]
+     [/modifications]
+-    experience=58
++    experience={ON_DIFFICULTY 39 40 41} # max for spearman is usually 42, but I guess the "dim" trait makes it higher... still, treat it as though that weren't there, though
+     controller=ai
+     color=lightred
+     {FLAG_VARIANT loyalist}
+@@ -343,7 +343,16 @@
+       side=3
+       controller=ai
+       [ai]
++        grouping=defensive
++        aggression=0.0
++        caution=1.0
+         passive_leader=yes
++        [goal]
++          [criteria]
++            side=5
++          [/criteria]
++          value={ON_DIFFICULTY 7 6 5}
++        [/goal]
+       [/ai]
+       {GOLD 75 100 125}
+       recruit=Bowman, Fencer, Heavy Infantryman, Spearman
+@@ -360,7 +369,7 @@
+       canrecruit=yes
+       random_traits=no
+       random_gender=yes
+-      experience=63
++      experience={ON_DIFFICULTY 51 57 63} # out of 90
+       animate=yes
+     [/unit]
+     [capture_village]
+@@ -368,13 +377,22 @@
+       terrain="*^Vdt"
+     [/capture_village]
+     [modify_side]
+-      side=5
++      side=5 # (rats)
+       controller=ai
+       [ai]
++#ifdef EASY
++        simple_targeting=yes
++#endif
+         passive_leader=yes
++        [goal]
++          [criteria]
++            side=3
++          [/criteria]
++          value={ON_DIFFICULTY 7 6 5}
++        [/goal]
+       [/ai]
+-      gold=100				# Also begins with a fully loaded keep
+-      income=36
++      {GOLD 80 90 100}			# Also begins with a fully loaded keep
++      {INCOME 30 33 36}
+       recruit=corneredrat, hugerat
+     [/modify_side]
+     [unit]
+@@ -389,7 +407,7 @@
+       canrecruit=yes
+       random_traits=no
+       random_gender=yes
+-      experience=27
++      experience={ON_DIFFICULTY 21 24 27} # out of 30
+       animate=yes
+     [/unit]
+     [unit]
+@@ -398,7 +416,11 @@
+       x,y=29,3
+       generate_name=yes
+       random_traits=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=5
+@@ -406,7 +428,11 @@
+       x,y=28,2
+       generate_name=yes
+       random_traits=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=5
+@@ -414,7 +440,11 @@
+       x,y=30,2
+       generate_name=yes
+       random_traits=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=5
+@@ -422,7 +452,11 @@
+       x,y=28,1
+       generate_name=yes
+       random_traits=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=5
+@@ -430,7 +464,11 @@
+       x,y=30,1
+       generate_name=yes
+       random_traits=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=5
+@@ -438,7 +476,11 @@
+       x,y=29,1
+       generate_name=yes
+       random_traits=yes
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+   [/event]
+ 
+@@ -452,6 +494,9 @@
+       x,y=4,4
+       role=new_15b
+       [modifications]
++#ifdef EASY
++        {TRAIT_HEALTHY}
++#endif
+         {TRAIT_STRONG}
+       [/modifications]
+       generate_name=yes
+@@ -471,6 +516,9 @@
+       type=Yeoman
+       role=new_15b
+       [modifications]
++#ifdef EASY
++        {TRAIT_RESILIENT}
++#endif
+         {TRAIT_QUICK}
+         {TRAIT_LOYAL}
+       [/modifications]
+@@ -658,7 +706,7 @@
+         [command]		# Create strong peasant (no dialogue)
+           [set_variable]
+             name=pf_xp
+-            value=0
++            value={ON_DIFFICULTY 2 1 0} # out of 23
+           [/set_variable]
+           [fire_event]
+             name=create_pf
+@@ -674,14 +722,14 @@
+           [/gold]
+           [set_variable]
+             name=pf_xp
+-            value=7
++            value={ON_DIFFICULTY 9 8 7} # out of 23
+           [/set_variable]
+           [fire_event]
+             name=create_pf
+           [/fire_event]
+           [set_variable]
+             name=loyaly_15b_xp
+-            value=9
++            value={ON_DIFFICULTY 11 10 9} # out of 25
+           [/set_variable]
+           [fire_event]
+             name=create_loyaly
+@@ -713,12 +761,12 @@
+             generate_name=yes
+             random_traits=no
+             random_gender=yes
+-            experience=14
++            experience={ON_DIFFICULTY 19 17 15} # out of 23
+             animate=yes
+           [/unit]
+           [set_variable]
+             name=loyaly_15b_xp
+-            value=17
++            value={ON_DIFFICULTY 19 18 17} # out of 25
+           [/set_variable]
+           [fire_event]
+             name=create_loyaly
+@@ -752,6 +800,9 @@
+                   type=App_Mage
+                   unrenamable=yes
+                   [modifications]
++#ifdef EASY
++                    {TRAIT_DEXTROUS}
++#endif
+                     {TRAIT_QUICK}
+                     {TRAIT_LOYAL}
+                   [/modifications]
+@@ -761,7 +812,7 @@
+                   generate_name=yes
+                   random_traits=yes
+                   gender=female
+-                  experience=19
++                  experience={ON_DIFFICULTY 23 21 19} # out of 27
+                   animate=yes
+                 [/unit]
+                 [message]
+@@ -880,15 +931,7 @@
+     [/message]
+     [gold]
+       side=3
+-#ifdef EASY
+-      amount=70
+-#endif
+-#ifdef NORMAL
+-      amount=100
+-#endif
+-#ifdef HARD
+-      amount=130
+-#endif
++      amount={ON_DIFFICULTY 50 90 130}
+     [/gold]
+     [message]
+       speaker=Nippa
+@@ -1000,7 +1043,7 @@
+     [/set_variable]
+     [modify_side]
+       side=3
+-      [ai]			# Side 3 mounts an all-out attack
++      [ai]			# Side 3 (caravan escort) mounts an all-out attack
+         aggression=1.0
+         caution=0.0
+         grouping=no
+@@ -1276,6 +1319,10 @@
+       type=AEI_Peasant
+       role=new_15b
+       [modifications]
++#ifdef EASY
++        {TRAIT_FEARLESS_MUSTHAVE}
++        {TRAIT_HEALTHY}
++#endif
+         {TRAIT_INTELLIGENT}
+       [/modifications]
+       side=2
+@@ -1283,7 +1330,7 @@
+       generate_name=no
+       random_traits=yes
+       random_gender=yes
+-      experience=14
++      experience={ON_DIFFICULTY 17 16 15} # normally it's out of 23, but he's intelligent, so it's actually less (18)
+     [/unit]
+     [unit]
+       type=AEI_Peasant
+@@ -1297,7 +1344,7 @@
+       [/modifications]
+       random_traits=yes
+       random_gender=yes
+-      experience=7
++      experience={ON_DIFFICULTY 9 8 7} # out of 23
+     [/unit]
+     [unit]
+       type=AEI_Peasant
+@@ -1306,12 +1353,20 @@
+       role=new_15b
+       generate_name=yes
+       [modifications]
++#ifdef EASY
++        {TRAIT_DEXTROUS}
++        {TRAIT_RESILIENT}
++#endif
+         {TRAIT_STRONG}
+       [/modifications]
+       random_traits=yes
+       random_gender=yes
+-      experience=8
++      experience={ON_DIFFICULTY 16 12 8} # out of 23
+     [/unit]
++#ifdef EASY
++    {GENERIC_UNIT 2 AEI_Peasant 6 5}
++    {GENERIC_UNIT 2 AEI_Peasant 7 8}
++#endif
+ #ifdef HARD
+     [terrain]			# Extra village and Javelineer on HARD
+       x,y=30,20
+@@ -1326,15 +1381,17 @@
+       upkeep=free
+     [/unit]
+ #endif
+-#    [capture_village]		# Controller=null; can't control villages
+-#      side=4
+-#      x=13,16,19
+-#      y=23,22,24
+-#    [/capture_village]
++#ifdef __UNUSED__
++    [capture_village]		# Controller=null; can't control villages
++      side=4
++      x=13,16,19
++      y=23,22,24
++    [/capture_village]
++#endif
+     [unit]			# Wounded, occupies northernmost village
+       side=3
+       id=hi_nv
+-      hitpoints=11
++      hitpoints={ON_DIFFICULTY 10 11 12} # out of 38
+       type=Heavy Infantryman
+       x,y=19,4
+       [modifications]
+@@ -1348,7 +1405,11 @@
+       generate_name=yes
+       random_traits=no
+       ai_special=guardian
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=3
+@@ -1357,7 +1418,11 @@
+       generate_name=yes
+       random_traits=yes
+       ai_special=guardian
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [unit]
+       side=3
+@@ -1366,7 +1431,11 @@
+       generate_name=yes
+       random_traits=yes
+       ai_special=guardian
++#ifdef EASY
++      upkeep=full
++#else
+       upkeep=free
++#endif
+     [/unit]
+     [store_gold]		# Player has at least 100 gold
+       [filter_side]

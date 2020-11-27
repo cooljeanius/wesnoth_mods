@@ -1,0 +1,183 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/15b2_Aitsward_Civil_War.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/15b2_Aitsward_Civil_War.cfg	2020-11-25 23:34:52.000000000 -0500
+@@ -6,7 +6,7 @@
+ # Loyalists (sides 4&5) have marginally more gold relative
+ #  to militia and outlaws as difficulty gets harder.
+ # Veteran gold: {600 750 900}
+-# Jailers gold: {200 250 300}
++# Jailers gold: {100 200 300}
+ # Militia gold: {400 450 500}
+ # Outlaw  gold: {600 700 800}
+ 
+@@ -15,7 +15,7 @@
+   name=_"Aitsward Civil War"
+   next_scenario=16_The_Ford
+   map_data="{~add-ons/AfterEI/maps/15_Aitsward_emask.map}"
+-  turns=40
++  {TURNS 44 42 40}
+   victory_when_enemies_defeated=no
+ 
+   {INTRO_AND_SCENARIO_MUSIC traveling_minstrels.ogg suspense.ogg}	# First turn
+@@ -36,7 +36,7 @@
+   [side]
+ {FLYNN}
+ {SIDE_PART_TWO Jackery}
+-    gold=400				# Or carryover if higher
++    {GOLD 440 420 400}				# Or carryover if higher
+   [/side]
+ 
+ 
+@@ -54,7 +54,7 @@
+       {TRAIT_RESILIENT}
+     [/modifications]
+     x,y=3,2
+-    experience=41
++    experience={ON_DIFFICULTY 39 40 41} # out of 150 (probably less due to being intelligent though)
+     controller=ai
+     hidden=yes
+     [ai]
+@@ -73,8 +73,8 @@
+     {GOLD 600 650 700}			# Relatively weaker at higher difficulty
+     {FLAG_VARIANT long}
+   [/side]
+-  {LIMIT_CONTEMPORANEOUS_RECRUITS 2 Assassin_nt 2}
+-  {LIMIT_CONTEMPORANEOUS_RECRUITS 2 Huntsman_nt 2}
++  {LIMIT_CONTEMPORANEOUS_RECRUITS 2 Assassin_nt {ON_DIFFICULTY 1 2 3}}
++  {LIMIT_CONTEMPORANEOUS_RECRUITS 2 Huntsman_nt {ON_DIFFICULTY 1 2 3}}
+ 
+   [side]
+     side=3
+@@ -101,7 +101,7 @@
+       [/object]
+     [/modifications]
+     x,y=30,3
+-    experience=58
++    experience={ON_DIFFICULTY 39 40 41} # keep synced with previous scenario
+     controller=ai
+     hidden=yes
+     [ai]
+@@ -117,7 +117,7 @@
+     [/ai]
+     color=lightred
+     {GOLD 400 450 500}			# Relatively weaker at higher difficulty
+-    income=15				# Keep feeding enemies militia...
++    {INCOME 12 14 16}			# Keep feeding enemies militia...
+   [/side]
+ 
+ 
+@@ -128,7 +128,7 @@
+     name="Guard Commander"
+     unrenamable=yes
+     recruit=Swordsman, Pikeman, Longbowman, Duelist, Javelineer, Shock Trooper
+-    experience=98
++    experience={ON_DIFFICULTY 90 94 98} # out of 150 (probably less due to being intelligent though)
+     [modifications]
+       {TRAIT_INTELLIGENT}
+       {TRAIT_STRONG}
+@@ -149,7 +149,7 @@
+         [criteria]
+           side=2,3
+         [/criteria]
+-        value=10
++        value={ON_DIFFICULTY 12 11 10}
+       [/goal]
+       [goal]
+         name=protect_unit
+@@ -157,6 +157,7 @@
+           side=4
+           canrecruit=yes
+         [/criteria]
++        # keep these values constant; not sure how changes would make things easier or harder:
+         protect_radius=6
+         value=7
+       [/goal]
+@@ -176,7 +177,7 @@
+     user_team_name= _ "Jailers"
+     no_leader=yes
+ #ifdef EASY
+-    recruit=Bowman, Spearman, Swordsman, Pikeman, Longbowman
++    recruit=Bowman, Spearman, Heavy Infantryman # I considered giving them Fencers, too, but that makes it too easy for them to reach the caravan
+ #endif
+ #ifdef NORMAL
+     recruit=Bowman, Spearman, Swordsman, Pikeman, Longbowman, Javelineer
+@@ -187,7 +188,7 @@
+     controller=ai
+     color=darkred
+     hidden=yes
+-    {GOLD 200 250 300}
++    {GOLD 100 200 300}
+     {FLAG_VARIANT loyalist}
+   [/side]
+ 
+@@ -248,15 +249,7 @@
+     [/message]
+     [gold]			# Quietly add extra gold (no gold.ogg)
+       side=3
+-#ifdef EASY
+-      amount=200
+-#endif
+-#ifdef NORMAL
+-      amount=250
+-#endif
+-#ifdef HARD
+-      amount=300
+-#endif
++      amount={ON_DIFFICULTY 200 250 300}
+     [/gold]
+   [/event]
+ 
+@@ -406,7 +399,8 @@
+   [/event]
+ 
+ 
+-  [event]			# Moving into or north of southern villages removes ai [avoid]
++  [event]		
++    # Moving into or north of southern villages removes ai [avoid]
+     name=moveto
+     [filter]
+       side=1			# No special treatment for Caravan
+@@ -466,9 +460,13 @@
+       name="Warder"
+       unrenamable=yes
+       canrecruit=yes
+-      experience=44
++      experience={ON_DIFFICULTY 22 33 44} # out of 100 (although probably less if intelligent)
+       [modifications]
++#ifdef EASY
++        {TRAIT_WEAK}
++#else
+         {TRAIT_INTELLIGENT}
++#endif
+       [/modifications]
+       x,y=33,36
+       random_traits=yes
+@@ -805,7 +803,8 @@
+         [/fire_event]
+       [/then]
+       [/if]
+-      [fire_event]		# Cancel [avoid] if still in force (makes things more interesting -:)
++      [fire_event]
++        # Cancel [avoid] if still in force (makes things more interesting -:)
+         name=15b2_noavoid
+       [/fire_event]
+       [clear_variable]
+@@ -1148,8 +1147,8 @@
+       [/and]
+     [/capture_village]
+     {MUSHBOOT_PAD 2}
+-    {MUSHBOOT_SETUP (23-31) (35-41) 3 2 2}	# {3 2 2} boots available near southern ford
+-    {MUSHBOOT_SETUP (26-34) (25-34) 2 2 1}	# {2 2 1} boots available in northern area
++    {MUSHBOOT_SETUP (23-31) (35-41) 3 2 2}      # {3 2 2} boots available near southern ford
++    {MUSHBOOT_SETUP (26-34) (25-34) 2 2 1}      # {2 2 1} boots available in northern area
+     {MUSHBOOT_DISPLAY}				# Display boots on map
+     [label]
+       x,y=31,1
+@@ -1181,7 +1180,7 @@
+     [/set_variable]
+     [set_variable]
+       name=15b2_tracker_turn
+-      rand=8,9,10				# Turn tracker catches up is slightly variable
++      {QUANTITY rand (10,11,12) (9,10,11) (8,9,10)} # Turn tracker catches up is slightly variable
+     [/set_variable]
+   [/event]
+ 
