@@ -1,0 +1,11 @@
+--- /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/Northern_Rebirth_Remake/utils/abyss.cfg	2020-11-28 21:58:23.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Northern_Rebirth_Remake/utils/abyss.cfg	2020-10-09 02:27:54.000000000 -0400
+@@ -3,6 +3,8 @@
+ #define PROTAGONIST_FORCES
+     type=Peasant
+     id=Tallin
++    save_id=Tallin_NRR
++    persistent=yes
+     name= _ "Tallin"
+     canrecruit=yes
+     side=1

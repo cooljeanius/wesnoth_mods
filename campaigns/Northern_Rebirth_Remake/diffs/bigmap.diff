@@ -1,0 +1,11 @@
+--- /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/Northern_Rebirth_Remake/utils/bigmap.cfg	2020-11-28 21:58:23.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Northern_Rebirth_Remake/utils/bigmap.cfg	2020-10-09 02:14:51.000000000 -0400
+@@ -50,7 +50,7 @@
+ #
+ # Hand-hack this section strictly at your own risk.
+ #
+-# trackplacer: map=data/campaigns/Northern_Rebirth/images/maps/nr.png
++# trackplacer: map=data/add-ons/Northern_Rebirth_Remake/images/maps/nr.png
+ #
+ #define PROLOGUE_STAGE1
+     {NEW_REST 1001 619}

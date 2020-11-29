@@ -1,0 +1,73 @@
+--- /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/Northern_Rebirth_Remake/scenarios/02_Infested_Caves.cfg	2020-11-28 21:58:23.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Northern_Rebirth_Remake/scenarios/02_Infested_Caves.cfg	2020-11-17 00:45:43.000000000 -0500
+@@ -36,7 +36,9 @@
+     [/story]
+ 
+     map_data="{~add-ons/Northern_Rebirth_Remake/maps/02_Infested_Caves.map}"
+-    {TURNS4 51 49 47 45}
++
++    # in TEG setting snapshot=no seemed to work in one scenario as a workaround for a bug where the recall list disappeared, but that doesn't seem to work here...
++    {TURNS4 57 53 49 45}
+     # Whole scenario takes place underground thus apropriate time of day.
+     # Ever noticed this green grass where is a Camerin cottage?
+     # But the trick is that if I define it as underground time schedule will not switch
+@@ -288,7 +290,7 @@
+             name={LEADER_NAME}
+             canrecruit=yes
+             side={SIDE}
+-            income=6
++            {INCOME4 3 4 5 6}
+             team_name=foe1
+             user_team_name={S_TROLLS}
+             {FLAG_VARIANT6 ragged}
+@@ -305,7 +307,7 @@
+             team_name=foe2
+             user_team_name={S_UNDEAD}
+             {FLAG_VARIANT undead}
+-            {INCOME4 4 8 12 16}
++            {INCOME4 2 6 10 14}
+             {GOLD4 120 150 180 210}
+         [/side]
+     #enddef
+@@ -337,8 +339,8 @@
+     # Players side - some more recruit options this time.
+     [side]
+         {PROTAGONIST_FORCES}
+-        {GOLD4 350 320 280 250}
+-        recruit=Peasant,Woodsman,Thug,Poacher,Footpad
++        {GOLD4 370 330 290 250}
++        {INCOME4 4 3 2 1}
+         user_team_name=_"Rebels"
+         {FLAG_VARIANT6 ragged}
+         shroud=yes
+@@ -358,8 +360,8 @@
+     [side]
+         {PROTAGONIST_FORCES_ALLIED 4 ai knalgan}
+         no_leader=yes
+-        gold=0
+-        income=4
++        {GOLD4 40 30 20 10}
++        {INCOME4 7 6 5 4}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Guardsman
+         user_team_name=_"Knalgans"
+         [ai]
+@@ -495,6 +497,10 @@
+ 
+         {OBJECTIVES_INFESTED_CAVES ( _ "Find the Dwarves with Tallin") ()}
+ 
++        {ALLIANCE_LEADER_TALLIN (Peasant,Woodsman,Thug,Poacher,Footpad,Ruffian) ()}
++        # FIXME: doesn't seem to work? Actually the entire recall list seems broken... I wonder what happened...
++        # The thing is, though, it's not even the normal "recall list empty" message when refusing to recall, it's
++        # a different "cannot recall at this location" message...
+         {RECALL_SUPPORTER}
+     [/event]
+ 
+@@ -515,7 +521,7 @@
+             y=17,16,15,15
+         [/move_unit_fake]
+         {NOTRAIT_UNIT 9 "Blood Bat" 9 15}
+-        # wmmlint: no spellcheck
++        # wmllint: no spellcheck
+         {SPEAKER_GENERIC (type=Blood Bat) ( _ "Neep Neep!")}
+         {SPEAKER_GENERIC (role=Supporter) ( _ "Ahhhh!")}
+         {SPEAKER_GENERIC (speaker=Tallin) ( _ "Calm down. Come what may, we’ll handle them. Come on now, let’s find those dwarves!")}
