@@ -1,0 +1,215 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/The_Rise_Of_Wesnoth/scenarios/19_The_Vanguard.cfg	2021-02-09 13:29:33.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/The_Rise_Of_Wesnoth/scenarios/19_The_Vanguard.cfg	2021-03-11 18:01:49.000000000 -0500
+@@ -5,7 +5,7 @@
+     next_scenario=20_Return_of_the_Fleet
+     map_data="{campaigns/The_Rise_Of_Wesnoth/maps/19_The_Vanguard.map}"
+ 
+-    {TURNS 41 38 35}
++    {TURNS 43 39 35}
+     {DEFAULT_SCHEDULE}
+ 
+     {SCENARIO_MUSIC loyalists.ogg}
+@@ -25,7 +25,8 @@
+         type=Noble Commander
+         unrenamable=yes
+         canrecruit=yes
+-        gold=200
++        {GOLD 220 210 200}
++        {INCOME 6 4 2}
+         controller=human
+         team_name=Haldric
+         user_team_name=_"Refugees"
+@@ -33,6 +34,8 @@
+         {FLAG_VARIANT loyalist}
+     [/side]
+ 
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 5 4 3}}
++
+     [side]
+         type=Orcish Warlord
+         id=Tan-Erirt
+@@ -50,24 +53,23 @@
+ #ifdef HARD
+         recruit=Orcish Archer, Orcish Assassin, Orcish Grunt, Wolf Rider, Orcish Crossbowman, Orcish Warrior, Goblin Knight, Goblin Pillager, Orcish Slayer, Goblin Spearman, Goblin Impaler
+ #endif
+-        {GOLD 150 190 230}
++        {GOLD 130 180 230}
+         team_name=orcs
+         user_team_name=_"Orcs"
+         [ai]
+-            #{NO_SCOUTS}
+             recruitment_pattern=scout,fighter,fighter,mixed fighter,archer
+-            {ATTACK_DEPTH 5 5 6}
++            {ATTACK_DEPTH 4 5 6}
+         [/ai]
+         [ai]
+             time_of_day=dusk,first_watch,second_watch
+-            aggression=0.75
++            aggression={ON_DIFFICULTY 0.71 0.73 0.75}
+             caution=0.0
+             grouping=no
+         [/ai]
+-        {INCOME 2 4 8}
++        {INCOME 1 4 9}
+     [/side]
+ 
+-    {STARTING_VILLAGES 2 8}
++    {STARTING_VILLAGES 2 {ON_DIFFICULTY 6 7 8}}
+ 
+     [side]
+         type=Orcish Warlord
+@@ -87,24 +89,23 @@
+ #ifdef HARD
+         recruit=Orcish Archer, Orcish Assassin, Orcish Grunt, Wolf Rider, Orcish Crossbowman, Orcish Warrior, Goblin Knight, Goblin Pillager, Orcish Slayer, Goblin Spearman, Goblin Impaler
+ #endif
+-        {GOLD 150 190 230}
++        {GOLD 130 180 230}
+         team_name=orcs
+         user_team_name=_"Orcs"
+         [ai]
+-            #{NO_SCOUTS}
+             recruitment_pattern=scout,fighter,fighter,mixed fighter,archer
+-            {ATTACK_DEPTH 5 5 6}
++            {ATTACK_DEPTH 4 5 6}
+         [/ai]
+         [ai]
+             time_of_day=dusk,first_watch,second_watch
+-            aggression=0.75
++            aggression={ON_DIFFICULTY 0.71 0.73 0.75}
+             caution=0.0
+             grouping=no
+         [/ai]
+-        {INCOME 2 4 8}
++        {INCOME 1 4 9}
+     [/side]
+ 
+-    {STARTING_VILLAGES 3 8}
++    {STARTING_VILLAGES 3 {ON_DIFFICULTY 6 7 8}}
+ 
+     [side]
+         type=Troll Warrior
+@@ -124,7 +125,7 @@
+         recruit=Troll Whelp,Troll,Troll Warrior,Troll Rocklobber
+ #endif
+ 
+-        {GOLD 110 150 190}
++        {GOLD 100 145 190}
+         team_name=orcs
+         user_team_name=_"Orcs"
+         [ai]
+@@ -135,12 +136,14 @@
+             recruitment_pattern=fighter,fighter,mixed fighter
+ #endif
+             grouping=no
+-            {ATTACK_DEPTH 5 5 6}
++            {ATTACK_DEPTH 4 5 6}
+         [/ai]
+ 
+-        {INCOME 2 4 8}
++        {INCOME 1 4 9}
+     [/side]
+ 
++    {STARTING_VILLAGES 4 {ON_DIFFICULTY 6 7 8}}
++
+     [side]
+         side=5
+         no_leader=yes
+@@ -151,8 +154,6 @@
+         [/ai]
+     [/side]
+ 
+-    {STARTING_VILLAGES 4 8}
+-
+     [event]
+         name=prestart
+ 
+@@ -330,17 +331,7 @@
+ 
+         {PLACE_IMAGE (items/chest-plain-open.png) $xx1 $yy1}
+ 
+-#ifdef EASY
+-        {LOOT 125 1}
+-#endif
+-
+-#ifdef NORMAL
+-        {LOOT 100 1}
+-#endif
+-
+-#ifdef HARD
+-        {LOOT 75 1}
+-#endif
++        {LOOT {ON_DIFFICULTY 125 100 75} 1}
+     [/event]
+ 
+     # When an enemy side has less than half of its units left, some undead
+@@ -401,7 +392,9 @@
+             [/variable]
+ 
+             [then]
+-                #{DEBUG_MSG "Side $unit.side only has $this_side_enemies.length|/$side_$unit.side|_top_enemy_count units left, triggering undead reinforcements..."}
++#ifdef DEBUG_MODE
++                {DEBUG_MSG "Side $unit.side only has $this_side_enemies.length|/$side_$unit.side|_top_enemy_count units left, triggering undead reinforcements..."}
++#endif
+ 
+                 {VARIABLE side_$unit.side|_undead_backup_triggered yes}
+ 
+@@ -492,7 +485,9 @@
+                                 x,y=$|possible_undead_locs[$|undead_loc_i].x,$|possible_undead_locs[$|undead_loc_i].y
+                             [/scroll_to]
+ 
+-                            #{DEBUG_MSG "spawning at $|spawn_x|,$|spawn_y"}
++#ifdef DEBUG_MODE
++                            {DEBUG_MSG "spawning at $|spawn_x|,$|spawn_y"}
++#endif
+ 
+                             [switch]
+                                 variable=undead_spawns_so_far
+@@ -574,9 +569,12 @@
+                             {CLEAR_VARIABLE undead_loc_i,spawn_x,spawn_y}
+                         [/then]
+ 
+-                        #[else]
+-                        # Player got lucky, no good spawn location was found
+-                        #[/else]
++                        [else]
++                            # Player got lucky, no good spawn location was found
++#ifdef DEBUG_MODE
++                            {DEBUG_MSG "There are no viable locations for spawning undead!"}
++#endif
++                        [/else]
+                     [/if]
+ 
+                     {CLEAR_VARIABLE search_radius,possible_undead_locs}
+@@ -585,9 +583,11 @@
+                 {CLEAR_VARIABLE side_$unit.side|_top_enemy_count}
+             [/then]
+ 
+-            #[else]
+-            #    {DEBUG_MSG "Side $unit.side has $this_side_enemies.length|/$side_$unit.side|_top_enemy_count units left... Needs to be less or equal to $($side_$unit.side|_top_enemy_count / 2) for reinforcements."}
+-            #[/else]
++            [else]
++#ifdef DEBUG_MODE
++                {DEBUG_MSG "Side $unit.side has $this_side_enemies.length|/$side_$unit.side|_top_enemy_count units left... Needs to be less or equal to $($side_$unit.side|_top_enemy_count / 2) for reinforcements."}
++#endif
++            [/else]
+         [/if]
+ 
+         {CLEAR_VARIABLE this_side_enemies,search_center}
+@@ -610,7 +610,7 @@
+ 
+         [gold]
+             side=3
+-            amount=80
++            amount={ON_DIFFICULTY 60 70 80}
+         [/gold]
+     [/event]
+ 
+@@ -631,7 +631,7 @@
+ 
+         [gold]
+             side=2
+-            amount=80
++            amount={ON_DIFFICULTY 60 70 80}
+         [/gold]
+     [/event]
+ 

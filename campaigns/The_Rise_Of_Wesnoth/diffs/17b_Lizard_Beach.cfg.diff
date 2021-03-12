@@ -1,0 +1,141 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/The_Rise_Of_Wesnoth/scenarios/17b_Lizard_Beach.cfg	2021-02-09 13:29:33.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/The_Rise_Of_Wesnoth/scenarios/17b_Lizard_Beach.cfg	2020-09-27 20:21:35.000000000 -0400
+@@ -5,7 +5,7 @@
+     next_scenario=16_The_Kalian
+     map_data="{campaigns/The_Rise_Of_Wesnoth/maps/17b_Lizard_Beach.map}"
+ 
+-    {TURNS 35 32 29}
++    {TURNS 39 34 29}
+     {DEFAULT_SCHEDULE}
+ 
+     {SCENARIO_MUSIC battle.ogg}
+@@ -23,7 +23,8 @@
+         unrenamable=yes
+         side=1
+         canrecruit=yes
+-        gold=200
++        {GOLD 280 240 200}
++        {INCOME 3 2 1}
+         controller=human
+         team_name=Haldric
+         user_team_name=_"Refugees"
+@@ -37,23 +38,23 @@
+         side=2
+         canrecruit=yes
+         {GOLD 130 190 250}
+-        {INCOME 2 4 8}
++        {INCOME 2 5 8}
+         team_name=Liz
+         user_team_name=_"Monsters"
+ #ifdef EASY
+-        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler,Saurian Augur
++        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler, Saurian Augur
+ #else
+-        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler, Saurian Ambusher, Giant Scorpion,Saurian Augur,Saurian Oracle
++        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler, Saurian Ambusher, Giant Scorpion, Saurian Augur, Saurian Oracle
+ #endif
+         [ai]
+-            #{NO_SCOUTS}
+             recruitment_pattern=scout,archer,fighter,archer,fighter,scout,healer
+             passive_leader=yes
+-            {ATTACK_DEPTH 4 5 5}
++            {ATTACK_DEPTH 3 4 5}
+         [/ai]
+     [/side]
+ 
+-    {STARTING_VILLAGES 2 8}
++    {STARTING_VILLAGES 2 {ON_DIFFICULTY 6 7 8}}
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 2 (Giant Mudcrawler) {ON_DIFFICULTY 1 2 3}}
+ 
+     [side]
+         type=Saurian Flanker
+@@ -62,23 +63,23 @@
+         side=3
+         canrecruit=yes
+         {GOLD 130 190 250}
+-        {INCOME 2 4 8}
++        {INCOME 2 5 8}
+         team_name=Liz
+         user_team_name=_"Monsters"
+ #ifdef EASY
+-        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler,Saurian Augur
++        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler, Saurian Augur
+ #else
+-        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler, Saurian Ambusher, Giant Scorpion,Saurian Augur,Saurian Soothsayer
++        recruit=Naga Fighter, Saurian Skirmisher, Mudcrawler, Giant Mudcrawler, Saurian Ambusher, Giant Scorpion, Saurian Augur, Saurian Soothsayer
+ #endif
+         [ai]
+-            #{NO_SCOUTS}
+             recruitment_pattern=scout,archer,fighter,archer,fighter,scout,healer
+             passive_leader=yes
+-            {ATTACK_DEPTH 4 5 5}
++            {ATTACK_DEPTH 3 4 5}
+         [/ai]
+     [/side]
+ 
+-    {STARTING_VILLAGES 3 8}
++    {STARTING_VILLAGES 3 {ON_DIFFICULTY 6 7 8}}
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 2 (Giant Mudcrawler) {ON_DIFFICULTY 1 2 3}}
+ 
+     {campaigns/The_Rise_Of_Wesnoth/utils/trow-nlmsg.cfg}
+ 
+@@ -122,7 +123,7 @@
+ 
+             [gold_carryover]
+                 bonus=yes
+-                carryover_percentage=40
++                carryover_percentage={ON_DIFFICULTY 60 50 40}
+             [/gold_carryover]
+         [/objectives]
+     [/event]
+@@ -173,8 +174,13 @@
+             type=Giant Mudcrawler
+         [/filter]
+ 
++#ifdef EASY
++        {NOTRAIT_UNIT 2 (Mudcrawler) ($x1) ($y1)}
++        {NOTRAIT_UNIT 3 (Mudcrawler) ($x1) ($y1)}
++#else
+         {LOYAL_UNIT 2 (Mudcrawler) ($x1) ($y1)}
+         {LOYAL_UNIT 3 (Mudcrawler) ($x1) ($y1)}
++#endif
+     [/event]
+ 
+     [event]
+@@ -197,7 +203,7 @@
+         [/filter]
+         [gold]
+             side=3
+-            amount=170
++            amount={ON_DIFFICULTY 130 150 170}
+         [/gold]
+     [/event]
+ 
+@@ -208,7 +214,7 @@
+         [/filter]
+         [gold]
+             side=2
+-            amount=170
++            amount={ON_DIFFICULTY 130 150 170}
+         [/gold]
+     [/event]
+ 
+@@ -243,8 +249,8 @@
+         {LOYAL_UNIT 3 (Naga Fighter) 1 15}
+         {LOYAL_UNIT 2 (Naga Fighter) 1 16}
+ #endif
+-#ifdef HARD
+ 
++#ifdef HARD
+         {LOYAL_UNIT 3 (Naga Fighter) 1 15}
+         {LOYAL_UNIT 2 (Naga Fighter) 1 16}
+         {LOYAL_UNIT 3 (Naga Fighter) 2 14}
+@@ -274,7 +280,7 @@
+         [endlevel]
+             result=victory
+             bonus=yes
+-            {NEW_GOLD_CARRYOVER 40}
++            {NEW_GOLD_CARRYOVER {ON_DIFFICULTY 60 50 40}}
+         [/endlevel]
+     [/event]
+ [/scenario]
