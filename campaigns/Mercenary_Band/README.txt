@@ -20,7 +20,7 @@ ones where I died or otherwise had trouble. Per-scenario notes:
 5 Siege of Elense: This one was mostly AI tweaks, since the enemy AI would
   attack me more than my allied AI, and the allied AI would kill Histen even
   though they're not supposed to.
-6 Orc Attack: I added an extra row to this map because it seemed like the top
+7 Orc Attack: I added an extra row to this map because it seemed like the top
   was just cut off too abruptly. I also added a few extra villages.
 11 The Treaty: again, being ambushed by revenants is annoying, but here I just
   turned down the number of them, which meant that I could leave their ability
