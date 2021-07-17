@@ -1,0 +1,523 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/02a_Rebellion.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/02a_Rebellion.cfg	2020-09-17 19:26:03.000000000 -0400
+@@ -17,6 +17,7 @@
+     [/unit]
+ #enddef
+ #R versions create left-facing units
++#...shouldn't they be "L" versions then?
+ #define RSLAVE X Y
+     [unit]
+         generate_name=yes
+@@ -141,11 +142,12 @@
+             canrecruit=yes
+             controller=human
+             recruit=Drake Slave
+-            income=-2
++            # Being a slave inherently means no income, but that doesn't mean we have to explicitly subtract, either:
++            income=0
+             team_name=drakes
+             unrenamable=yes
+-            #so that he is whipped in the back
+-            facing=sw
++            #so that he is whipped in the back (was "sw" but that didn't work; "nw" fixes it)
++            facing=nw
+             random_traits=no
+             user_team_name= _ "Drake Slaves"
+             fog=no
+@@ -158,7 +160,7 @@
+             {FLAG_VARIANT loyalist}
+             controller=ai
+             canrecruit=yes
+-            gold=40
++            {GOLD 20 30 40}
+             recruit=Driver,Taskmaster
+             team_name=humans
+             #prevents AI from attacking hatchlings prematurely
+@@ -317,7 +319,9 @@
+                 [/modifications]
+                 side=1
+             [/unit]
+-            #{RSLAVE 11 25}
++#ifdef EASY
++            {RSLAVE 11 25}
++#endif
+             {SHIP_INCOMPLETE 37 35}
+             {SHIP_INCOMPLETE 22 23}
+             {SHIP_INCOMPLETE 34 29}
+@@ -402,7 +406,7 @@
+             {HATCHLING 19 4}
+             {HATCHLING 20 4}
+             {HATCHLING 19 5}
+-			#from the old B branch
++            #from the old B branch
+             #wmllint: recognize Hartholar
+             [if]
+                 [have_unit]
+@@ -427,159 +431,162 @@
+             {CLEAR_VARIABLE cavalry_dead}
+         [/event]
+ 
+-		[event]
+-			name=cut_wood
+-			first_time_only=no
+-			[hide_unit]
+-				x=37
+-				y=8
+-			[/hide_unit]
+-			[move_unit_fake]
+-				type=Worker Wood
+-				x=37,38
+-				y=8,7
+-				side=1
+-			[/move_unit_fake]
+-			[sound]
+-				name=dagger-swish.wav
+-			[/sound]
+-			[move_unit_fake]
+-				type=Drake Worker
+-				x=38,37
+-				y=7,8
+-				side=1
+-			[/move_unit_fake]
+-			[unhide_unit]
+-			[/unhide_unit]
+-			[redraw]
+-			[/redraw]
+-			#must account for unit type
++        # FIXME: this usually works, but sometimes it randomly turns them around so they're facing
++        # in an incorrect direction; figure out why:
++        # (maybe I accidentally clicked once and interrupted it?)
++        [event]
++            name=cut_wood
++            first_time_only=no
++            [hide_unit]
++                x=37
++                y=8
++            [/hide_unit]
++            [move_unit_fake]
++                type=Worker Wood
++                x=37,38
++                y=8,7
++                side=1
++            [/move_unit_fake]
++            [sound]
++                name=dagger-swish.wav
++            [/sound]
++            [move_unit_fake]
++                type=Drake Worker
++                x=38,37
++                y=7,8
++                side=1
++            [/move_unit_fake]
++            [unhide_unit]
++            [/unhide_unit]
++            [redraw]
++            [/redraw]
++            #must account for unit type
+ #ifdef EASY
+-			[hide_unit]
+-				x=38
+-				y=8
+-			[/hide_unit]
+-			[move_unit_fake]
+-				type=Worker Wood
+-				x=38,39
+-				y=8,8
+-				side=1
+-			[/move_unit_fake]
+-			[sound]
+-				name=dagger-swish.wav
+-			[/sound]
+-			[move_unit_fake]
+-				type=Drake Worker
+-				x=39,38
+-				y=8,8
+-				side=1
+-			[/move_unit_fake]
+-			[unhide_unit]
+-			[/unhide_unit]
+-			[redraw]
+-			[/redraw]
++            [hide_unit]
++                x=38
++                y=8
++            [/hide_unit]
++            [move_unit_fake]
++                type=Worker Wood
++                x=38,39
++                y=8,8
++                side=1
++            [/move_unit_fake]
++            [sound]
++                name=dagger-swish.wav
++            [/sound]
++            [move_unit_fake]
++                type=Drake Worker
++                x=39,38
++                y=8,8
++                side=1
++            [/move_unit_fake]
++            [unhide_unit]
++            [/unhide_unit]
++            [redraw]
++            [/redraw]
+ #else
+-			[hide_unit]
+-				x=38
+-				y=8
+-			[/hide_unit]
+-			[move_unit_fake]
+-				type=Slave Wood
+-				x=38,39
+-				y=8,8
+-				side=1
+-			[/move_unit_fake]
+-			[sound]
+-				name=dagger-swish.wav
+-			[/sound]
+-			[move_unit_fake]
+-				type=Drake Slave
+-				x=39,38
+-				y=8,8
+-				side=1
+-			[/move_unit_fake]
+-			[unhide_unit]
+-			[/unhide_unit]
+-			[redraw]
+-			[/redraw]
++            [hide_unit]
++                x=38
++                y=8
++            [/hide_unit]
++            [move_unit_fake]
++                type=Slave Wood
++                x=38,39
++                y=8,8
++                side=1
++            [/move_unit_fake]
++            [sound]
++                name=dagger-swish.wav
++            [/sound]
++            [move_unit_fake]
++                type=Drake Slave
++                x=39,38
++                y=8,8
++                side=1
++            [/move_unit_fake]
++            [unhide_unit]
++            [/unhide_unit]
++            [redraw]
++            [/redraw]
+ #endif
+ #ifdef HARD
+-			[hide_unit]
+-				x=39
+-				y=9
+-			[/hide_unit]
+-			[move_unit_fake]
+-				type=Slave Wood
+-				x=39,40
+-				y=9,8
+-				side=1
+-			[/move_unit_fake]
+-			[sound]
+-				name=dagger-swish.wav
+-			[/sound]
+-			[move_unit_fake]
+-				type=Drake Slave
+-				x=40,39
+-				y=8,9
+-				side=1
+-			[/move_unit_fake]
+-			[unhide_unit]
+-			[/unhide_unit]
+-			[redraw]
+-			[/redraw]
++            [hide_unit]
++                x=39
++                y=9
++            [/hide_unit]
++            [move_unit_fake]
++                type=Slave Wood
++                x=39,40
++                y=9,8
++                side=1
++            [/move_unit_fake]
++            [sound]
++                name=dagger-swish.wav
++            [/sound]
++            [move_unit_fake]
++                type=Drake Slave
++                x=40,39
++                y=8,9
++                side=1
++            [/move_unit_fake]
++            [unhide_unit]
++            [/unhide_unit]
++            [redraw]
++            [/redraw]
+ #else
+-			[hide_unit]
+-				x=39
+-				y=9
+-			[/hide_unit]
+-			[move_unit_fake]
+-				type=Worker Wood
+-				x=39,40
+-				y=9,8
+-				side=1
+-			[/move_unit_fake]
+-			[sound]
+-				name=dagger-swish.wav
+-			[/sound]
+-			[move_unit_fake]
+-				type=Drake Worker
+-				x=40,39
+-				y=8,9
+-				side=1
+-			[/move_unit_fake]
+-			[unhide_unit]
+-			[/unhide_unit]
+-			[redraw]
+-			[/redraw]
++            [hide_unit]
++                x=39
++                y=9
++            [/hide_unit]
++            [move_unit_fake]
++                type=Worker Wood
++                x=39,40
++                y=9,8
++                side=1
++            [/move_unit_fake]
++            [sound]
++                name=dagger-swish.wav
++            [/sound]
++            [move_unit_fake]
++                type=Drake Worker
++                x=40,39
++                y=8,9
++                side=1
++            [/move_unit_fake]
++            [unhide_unit]
++            [/unhide_unit]
++            [redraw]
++            [/redraw]
+ #endif
+-		[/event]
++        [/event]
+ 
+-		[event]
+-			name=whip_fx
+-			first_time_only=no
+-			[sound]
+-				name=gunshot.wav
+-			[/sound]
+-			[color_adjust]
+-				red=100
+-				green=0
+-				blue=0
+-			[/color_adjust]
+-			[delay]
+-				time=100
+-			[/delay]
+-			[sound]
+-				name=groan.wav
+-			[/sound]
+-			[color_adjust]
+-				red=0
+-				green=0
+-				blue=0
+-			[/color_adjust]
+-			[delay]
+-				time=100
+-			[/delay]
+-		[/event]
++        [event]
++            name=whip_fx
++            first_time_only=no
++            [sound]
++                name=gunshot.wav
++            [/sound]
++            [color_adjust]
++                red=100
++                green=0
++                blue=0
++            [/color_adjust]
++            [delay]
++                time=100
++            [/delay]
++            [sound]
++                name=groan.wav
++            [/sound]
++            [color_adjust]
++                red=0
++                green=0
++                blue=0
++            [/color_adjust]
++            [delay]
++                time=100
++            [/delay]
++        [/event]
+ 
+         [event]
+             name=start
+@@ -605,7 +612,7 @@
+                 name=horse-canter.wav
+             [/sound]
+             [fire_event]
+-            	name=whip_fx
++                name=whip_fx
+             [/fire_event]
+             [move_unit_fake]
+                 type=Driver
+@@ -618,10 +625,10 @@
+             [redraw]
+             [/redraw]
+             [fire_event]
+-            	name=cut_wood
++                name=cut_wood
+             [/fire_event]
+             [fire_event]
+-            	name=cut_wood
++                name=cut_wood
+             [/fire_event]
+             [hide_unit]
+                 x=34
+@@ -637,7 +644,7 @@
+                 name=horse-canter.wav
+             [/sound]
+             [fire_event]
+-            	name=whip_fx
++                name=whip_fx
+             [/fire_event]
+             [move_unit_fake]
+                 type=Driver
+@@ -650,10 +657,10 @@
+             [redraw]
+             [/redraw]
+             [fire_event]
+-            	name=cut_wood
++                name=cut_wood
+             [/fire_event]
+             [fire_event]
+-            	name=cut_wood
++                name=cut_wood
+             [/fire_event]
+             [message]
+                 x=34
+@@ -678,7 +685,7 @@
+                 name=horse-canter.wav
+             [/sound]
+             [fire_event]
+-            	name=whip_fx
++                name=whip_fx
+             [/fire_event]
+             [move_unit_fake]
+                 type=Driver
+@@ -765,7 +772,7 @@
+             {FOREACH babies i}
+                 {VARIABLE babies[$i].side 1}
+                 #hatchlings have been wounded
+-                {VARIABLE_OP babies[$i].hitpoints multiply 0.5}
++                {VARIABLE_OP babies[$i].hitpoints multiply {ON_DIFFICULTY 0.7 0.6 0.5}}
+                 [unstore_unit]
+                     variable=babies[$i]
+                 [/unstore_unit]
+@@ -867,12 +874,12 @@
+                 side=4
+             [/unit]
+ #else
+-			[move_unit_fake]
+-				x=15,15,16,16,17,17,18,19,20
+-				y=1,2,2,3,4,5,5,6,5
+-				type=Spearman
+-				side=4
+-			[/move_unit_fake]
++            [move_unit_fake]
++                x=15,15,16,16,17,17,18,19,20
++                y=1,2,2,3,4,5,5,6,5
++                type=Spearman
++                side=4
++            [/move_unit_fake]
+             [unit]
+                 #generate_name=yes
+                 name= _ "Guard"
+@@ -883,11 +890,11 @@
+                 side=4
+             [/unit]
+             [move_unit_fake]
+-				x=15,15,16,16,17,17,18
+-				y=1,2,2,3,4,5,5
+-				type=Spearman
+-				side=4
+-			[/move_unit_fake]
++                x=15,15,16,16,17,17,18
++                y=1,2,2,3,4,5,5
++                type=Spearman
++                side=4
++            [/move_unit_fake]
+             [unit]
+                 #generate_name=yes
+                 name= _ "Guard"
+@@ -995,9 +1002,9 @@
+                                         [/variable]
+                                         [then]
+                                             [message]
+-                                                dummy= _ "Note for translators: if this would not work in the target language, feel free to remove the number of hatchlings." #wmllint: ignore
+                                                 speaker=Malakar
+                                                 image=$malakar_image
++                                                #po: if this would not work in the target language, feel free to remove the number of hatchlings:
+                                                 message= _ "Let us make the overseer pay for that hatchling! A life for a life!!"
+                                             [/message]
+                                         [/then]
+@@ -1040,13 +1047,13 @@
+             [filter]
+                 type=Drake Hatchling
+             [/filter]
+-			[count_units]
+-				type=Drake Hatchling
+-				variable=hatchling_count
+-			[/count_units]
+-			#necessary since dead units still exist until all die events finish
+-			{VARIABLE_OP hatchling_count sub 1}
+-			#track this so that Malakar can mention it later, when the guards are killed
++            [count_units]
++                type=Drake Hatchling
++                variable=hatchling_count
++            [/count_units]
++            #necessary since dead units still exist until all die events finish
++            {VARIABLE_OP hatchling_count sub 1}
++            #track this so that Malakar can mention it later, when the guards are killed
+             {VARIABLE_OP hatchlings_killed add 1}
+             [if]
+                 [variable]
+@@ -1064,17 +1071,17 @@
+                     [/endlevel]
+                 [/then]
+                 [elseif]
+-                	[variable]
+-                		name=hatchling_count
+-                		numerical_equals=4
+-                	[/variable]
+-                	[then]
+-                		[message]
+-                			speaker=Malakar
+-                			image=$malakar_image
+-                			message= _ "The thinskins are slaughtering our hatchlings! Our tribe is nearly broken!"
+-                		[/message]
+-                	[/then]
++                    [variable]
++                        name=hatchling_count
++                        numerical_equals=4
++                    [/variable]
++                    [then]
++                        [message]
++                            speaker=Malakar
++                            image=$malakar_image
++                            message= _ "The thinskins are slaughtering our hatchlings! Our tribe is nearly broken!"
++                        [/message]
++                    [/then]
+                 [/elseif]
+             [/if]
+             {CLEAR_VARIABLE hatchling_count}

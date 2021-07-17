@@ -1,0 +1,367 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/11_River_Skulls.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/11_River_Skulls.cfg	2020-10-04 21:33:42.000000000 -0400
+@@ -3,7 +3,9 @@
+ [scenario]
+     name= _ "River of Skulls"
+     {MAP 11}
+-    turns=100
++    # All turn limits need to be divisible by 2, 4, and 10:
++    {TURNS 140 120 100}
++    # (remember to adjust time limit reminder events if adjusting turn limit)
+     {SCENARIO_MUSIC knolls.ogg}
+     id=River_Skulls
+     next_scenario="Rockfall"
+@@ -12,6 +14,29 @@
+ 
+     {UNDERGROUND}
+ 
++#define DWARVEN_AI_THAT_AVOIDS_SPIDER
++    [ai]
++        grouping=no
++        [avoid]
++            # was just 17,44 originally but unfortunately I couldn't get the "aspect" stuff to work, so:
++            x,y=16-18,43-45
++        [/avoid]
++        # The "Invisible" unit is necessary to get the spider to appear; unfortunately this doesn't work
++        # (at least it didn't when I had "id=Invisible" instead of "type=Invisible"):
++        [aspect]
++            id=attacks
++            [facet]
++                invalidate_on_gamestate_change=yes
++                [filter_enemy]
++                    [not]
++                        type=Invisible
++                    [/not]
++                [/filter_enemy]
++            [/facet]
++        [/aspect]
++    [/ai]
++#enddef
++
+     [side]
+         type=Drake Chieftain
+         id=Malakar
+@@ -26,7 +51,10 @@
+         shroud=yes
+         fog=yes
+         user_team_name= _ "Kakatar Tribe"
++        {GOLD 30 20 10}
++        {INCOME 9 6 3}
+     [/side]
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 5 4 3}}
+     [side]
+         type=General
+         id=Grilcyn
+@@ -37,7 +65,11 @@
+         canrecruit=yes
+         {GOLD 100 150 200}
+         recruit=Spearman,Bowman
++#ifdef EASY
++        team_name=foes
++#else
+         team_name=evil
++#endif
+         [ai]
+             passive_leader=yes
+         [/ai]
+@@ -51,10 +83,11 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 75 125 175}
++        {GOLD 25 100 175}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Scout
+         team_name=evil
+         user_team_name= _ "Dwarves"
++        {DWARVEN_AI_THAT_AVOIDS_SPIDER}
+     [/side]
+     [side]
+         type=Dwarvish Lord
+@@ -64,10 +97,11 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 75 125 175}
++        {GOLD 25 100 175}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker
+         team_name=evil
+         user_team_name= _ "Dwarves"
++        {DWARVEN_AI_THAT_AVOIDS_SPIDER}
+     [/side]
+     [side]
+         type=Dwarvish Steelclad
+@@ -77,10 +111,11 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 75 125 175}
++        {GOLD 25 100 175}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer
+         team_name=evil
+         user_team_name= _ "Dwarves"
++        {DWARVEN_AI_THAT_AVOIDS_SPIDER}
+     [/side]
+     [side]
+         type=Dwarvish Lord
+@@ -90,10 +125,11 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 50 100 150}
++        {GOLD 20 85 150}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker
+         team_name=evil
+         user_team_name= _ "Dwarves"
++        {DWARVEN_AI_THAT_AVOIDS_SPIDER}
+     [/side]
+     [side]
+         type=Dwarvish Steelclad
+@@ -103,10 +139,11 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 75 125 175}
++        {GOLD 25 100 175}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker
+         team_name=evil
+         user_team_name= _ "Dwarves"
++        {DWARVEN_AI_THAT_AVOIDS_SPIDER}
+     [/side]
+     [side]
+         type=Dwarvish Lord
+@@ -116,10 +153,11 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 75 125 175}
++        {GOLD 25 100 175}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer
+         team_name=evil
+         user_team_name= _ "Dwarves"
++        {DWARVEN_AI_THAT_AVOIDS_SPIDER}
+     [/side]
+     [side]
+         type=Naga Myrmidon
+@@ -129,9 +167,13 @@
+         {FLAG_VARIANT6 ragged}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 150 200 250}
++        {GOLD 100 175 250}
+         recruit=Cave Naga
++#ifdef EASY
++        team_name=neutral
++#else
+         team_name=evil
++#endif
+         user_team_name= _ "Nagas"
+         [ai]
+             passive_leader=yes
+@@ -150,8 +192,8 @@
+ 
+     [event]
+         name=prestart
+-        #{VARIABLE lava_stepped no}
+         {VARIABLE lava_seen no}
++        {VARIABLE signpost_seen no}
+         {SPIDERWEB 17 44}
+         {SPIDERWEB 16 44}
+         {SPIDERWEB 18 44}
+@@ -314,6 +356,97 @@
+     [/event]
+ 
+     [event]
++        name=attack
++        first_time_only=no
++        [filter]
++            side=9
++            # try to avoid triggering the "lava seen" event:
++            [not]
++                race=naga
++            [/not]
++        [/filter]
++        [filter_second]
++            side=2,3,4,5,6,7,8
++        [/filter_second]
++        [message]
++            speaker=narrator
++            {NARRATOR_ICON}
++            message= _ "Sounds of battle echo through the tunnels."
++            [show_if]
++                [have_unit]
++                    id=$unit.id
++                    [filter_vision]
++                        side=1
++                        visible=no
++                    [/filter_vision]
++                [/have_unit]
++            [/show_if]
++        [/message]
++        [remove_shroud]
++            x=$x1,$x2
++            y=$y1,$y2
++        [/remove_shroud]
++        [lift_fog]
++            x=$x1,$x2
++            y=$y1,$y2
++            multiturn=yes
++        [/lift_fog]
++    [/event]
++
++    [event]
++        name=attack
++        first_time_only=no
++        [filter]
++            side=2,3,4,5,6,7,8
++        [/filter]
++        [filter_second]
++            side=9
++            # try to avoid triggering the "lava seen" event:
++            [not]
++                race=naga
++            [/not]
++        [/filter_second]
++        [message]
++            speaker=narrator
++            {NARRATOR_ICON}
++            message= _ "Sounds of battle echo through the tunnels."
++            [show_if]
++                [have_unit]
++                    id=$unit.id
++                    [filter_vision]
++                        side=1
++                        visible=no
++                    [/filter_vision]
++                [/have_unit]
++            [/show_if]
++        [/message]
++        [remove_shroud]
++            x=$x1,$x2
++            y=$y1,$y2
++        [/remove_shroud]
++        [lift_fog]
++            x=$x1,$x2
++            y=$y1,$y2
++            multiturn=yes
++        [/lift_fog]
++    [/event]
++
++    [event]
++        name=die
++        [filter]
++            type=Invisible
++        [/filter]
++        [filter_second]
++            side=2,3,4,5,6,7,8
++        [/filter_second]
++        [message]
++            speaker=narrator
++            {NARRATOR_ICON}
++            message= _ "Bug: the dwarves have ruined the spider event again. Please report this to the add-on author."
++        [/message]
++    [/event]
++
++    [event]
+         name=sighted
+         [filter]
+             x,y=17,44
+@@ -452,7 +585,6 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "<span color='red'>If a unit is in lava, it will lose 4 hitpoints per turn, although it will not die from lava.</span>"
+-            #image=wesnoth-icon.png
+         [/message]
+     [/event]
+ 
+@@ -482,8 +614,8 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "The sign says: Storeroom"
+-            #image=wesnoth-icon.png
+         [/message]
++        {VARIABLE signpost_seen yes}
+     [/event]
+ 
+     [event]
+@@ -493,6 +625,30 @@
+             y=17,18,19,20,21,22,23,23
+             side=1
+         [/filter]
++#ifdef EASY
++        [if]
++            [variable]
++                name=signpost_seen
++                equals=yes
++            [/variable]
++            [then]
++                [message]
++                    speaker=unit
++                    message= _ "Looks pretty empty for a storeroom..."
++                [/message]
++            [/then]
++            [else]
++                [message]
++                    speaker=unit
++                    message= _ "Looks pretty empty in here..."
++                [/message]
++            [/else]
++        [/if]
++        [message]
++            speaker=unit
++            message= _ "...anyways, it appears that this isn't the way to the exit. Let's try another path!"
++        [/message]
++#else
+         [message]
+             speaker=unit
+             message= _ "The ceiling is unstable!"
+@@ -563,6 +719,7 @@
+             [/if]
+             {CLEAR_VARIABLE random}
+         [/event]
++#endif
+     [/event]
+ 
+     [event]
+@@ -659,10 +816,12 @@
+         [/if]
+         {CLEAR_VARIABLE i}
+         {CLEAR_VARIABLE lava_seen}
++        {CLEAR_VARIABLE signpost_seen}
+     [/event]
+ 
+     [event]
+-        name=turn 50
++        # turns * 0.5
++        name={ON_DIFFICULTY (turn 70) (turn 60) (turn 50)}
+         [message]
+             speaker=Kogw
+             message= _ "We have used up half of our supplies."
+@@ -670,7 +829,8 @@
+     [/event]
+ 
+     [event]
+-        name=turn 75
++        # turns * 0.75
++        name={ON_DIFFICULTY (turn 105) (turn 90) (turn 75)}
+         [message]
+             speaker=Kogw
+             message= _ "We've used up three-quarters of our supplies. I suggest you make haste."
+@@ -678,7 +838,17 @@
+     [/event]
+ 
+     [event]
+-        name=turn 90
++        # turns - 21 (the minimum number of turns for Malakar to move from the starting keep to the exit)
++        name={ON_DIFFICULTY (turn 119) (turn 99) (turn 79)}
++        [message]
++            speaker=Kogw
++            message= _ "Get a move-on already, Malakar!"
++        [/message]
++    [/event]
++
++    [event]
++        # turns * 0.9
++        name={ON_DIFFICULTY (turn 126) (turn 108) (turn 90)}
+         [message]
+             speaker=Kogw
+             message= _ "Our supplies are dangerously low! Hurry!"

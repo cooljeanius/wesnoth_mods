@@ -1,0 +1,749 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/20_Endgame.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/20_Endgame.cfg	2020-10-07 01:47:16.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Endgame"
+     {MAP 20}
+-    turns=60
++    {TURNS 69 66 63}
+     {SCENARIO_MUSIC battle-epic.ogg}
+     {EXTRA_SCENARIO_MUSIC casualties_of_war.ogg}
+     id=Endgame
+@@ -25,19 +25,21 @@
+         {FLAG_VARIANT drake}
+         canrecruit=yes
+         controller=human
+-        gold=200
++        {GOLD 400 300 200}
++        {INCOME 9 6 3}
+         recruit=Drake Hatchling,Drake Slave,Drake Burner,Drake Glider,Drake Fighter,Drake Clasher
+         unrenamable=yes
+         team_name=good
+         user_team_name= _ "Kakatar Tribe"
+         fog=no
+     [/side]
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 9 8 7}}
+     [side]
+         side=2
+         {FLAG_VARIANT drake}
+         controller=ai
+         {GOLD 450 400 350}
+-        income=6
++        {INCOME 9 8 7}
+         recruit=Drake Burner,Drake Glider,Drake Fighter,Drake Clasher
+         team_name=good
+         no_leader=yes
+@@ -53,6 +55,7 @@
+         user_team_name= _ "Kamalar's Guard"
+         persistent=yes #necessary for Wesnoth to give it a recall list
+     [/side]
++    # FIXME: giving Kamalar's side starting villages doesn't work
+     [side]
+         type=Lieutenant
+         id=Rycyn
+@@ -62,7 +65,7 @@
+         controller=ai
+         canrecruit=yes
+         {GOLD 275 325 375}
+-        income=4
++        {INCOME 2 3 4}
+         recruit=Cavalryman,Horseman,Javelineer,Spearman,Bowman,Fencer,Young Ogre,Heavy Infantryman
+         team_name=evil
+         [ai]
+@@ -95,7 +98,7 @@
+         controller=ai
+         canrecruit=yes
+         {GOLD 350 400 450}
+-        income=4
++        {INCOME 2 3 4}
+         recruit=Cavalryman,Horseman,Longbowman,Spearman,Bowman,Fencer,Ogre,Heavy Infantryman
+         team_name=evil
+         [ai]
+@@ -181,54 +184,58 @@
+             image=scenery/drake-banner.png
+         [/item]
+         #restore Kamalar's recall list
+-		[if]
+-			[variable]
+-				name=kamalar_has_recruit_list
+-				equals=yes
+-			[/variable]
+-			[then]
+-				{FOREACH kamalar_recall u}
+-					{VARIABLE kamalar_recall[$u].side 2}
+-					[unstore_unit]
+-						variable=kamalar_recall[$u]
+-					[/unstore_unit]
+-				{NEXT u}
+-				{CLEAR_VARIABLE u}
+-				{CLEAR_VARIABLE kamalar_recall}
+-			[/then]
+-		[/if]
+-		{CLEAR_VARIABLE kamalar_has_recruit_list}
++        [if]
++            [variable]
++                name=kamalar_has_recruit_list
++                equals=yes
++            [/variable]
++            [then]
++                {FOREACH kamalar_recall u}
++                    {VARIABLE kamalar_recall[$u].side 2}
++                    [unstore_unit]
++                        variable=kamalar_recall[$u]
++                    [/unstore_unit]
++                {NEXT u}
++                {CLEAR_VARIABLE u}
++                {CLEAR_VARIABLE kamalar_recall}
++            [/then]
++        [/if]
++        {CLEAR_VARIABLE kamalar_has_recruit_list}
+         #test code for magi fireballs
+-        #{HMAGUS 39 41 1 ()}
+-        #{HMAGUS 39 40 1 ()}
+-        #{MAGUS 40 40 1 ()}
+-        #[distance_between]
+-        #    x=1
+-        #    y=1
+-        #    to_x=8
+-        #    to_y=7
+-        #[/distance_between]
+-        #[unit]
+-        #    x,y=37,40
+-        #    type=Orcish Warlord
+-        #    side=3
+-        #[/unit]
++#ifdef TEST_MAGI_FIREBALLS
++        {HMAGUS 39 41 1 ()}
++        {HMAGUS 39 40 1 ()}
++        {MAGUS 40 40 1 ()}
++        [distance_between]
++            x=1
++            y=1
++            to_x=8
++            to_y=7
++        [/distance_between]
++        [unit]
++            x,y=37,40
++            type=Orcish Warlord
++            side=3
++        [/unit]
++#endif
+         #tests for side 2 recalls
+-        #[unit]
+-        #    x,y=recall,recall
+-        #    type=Ancient Lich
+-        #    side=2
+-        #[/unit]
+-        #[unit]
+-        #    x,y=recall,recall
+-        #    type=Walking Corpse
+-        #    side=2
+-        #[/unit]
+-        #[unit]
+-        #    x,y=recall,recall
+-        #    type=Drake Warrior
+-        #    side=2
+-        #[/unit]
++#ifdef TEST_SIDE_TWO_RECALLS
++        [unit]
++            x,y=recall,recall
++            type=Ancient Lich
++            side=2
++        [/unit]
++        [unit]
++            x,y=recall,recall
++            type=Walking Corpse
++            side=2
++        [/unit]
++        [unit]
++            x,y=recall,recall
++            type=Drake Warrior
++            side=2
++        [/unit]
++#endif
+     [/event]
+ 
+     [event]
+@@ -237,7 +244,6 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "Malakar and Kamalar continued moving towards the center of the island, unifying the scattered forces they found and overrunning the human forces they encountered. Within four days, they had reached the capital fortress of Weswyt. The humans expected no more than scattered resistance, and did not start raising appropriate defenses until the drakish warforce was virtually at the walls."
+-            #image=wesnoth-icon.png
+         [/message]
+         [if]
+             [variable]
+@@ -249,11 +255,10 @@
+                     speaker=narrator
+                     {NARRATOR_ICON}
+                     message= _ "Kzzklk's scouts reported that the best approach was from the south, and the drake commanders prepared accordingly."
+-                    #image=wesnoth-icon.png
+                 [/message]
+                 [gold]
+                     side=1
+-                    amount=150
++                    amount={ON_DIFFICULTY 170 160 150}
+                 [/gold]
+             [/then]
+             [else]
+@@ -261,7 +266,7 @@
+                     speaker=narrator
+                     {NARRATOR_ICON}
+                     message= _ "Malakar and Kamalar would lead the main force, and the saurian commander, Kzzklk, would lead his force of saurians, in hopes of outflanking the humans."
+-                    #image=wesnoth-icon.png
++                    # hey wmllint stop putting image=wesnoth-icon.png here; we already use {NARRATOR_ICON} above
+                 [/message]
+             [/else]
+         [/if]
+@@ -289,44 +294,44 @@
+         {VARIABLE saurians_recruited 0}
+     [/event]
+ 
+-	[event]
+-		name=saurian_death_track
+-		[event]
+-			name=die
+-			first_time_only=no
+-			id=saurian_death
+-			[filter]
+-				side=1
+-				#seems to me saurians should be race saurian instead of lizard, just in case someone wanted to have lizard monsters or something like that in a scenario with them
+-				race=lizard
+-			[/filter]
+-			[count_units]
+-				side=1
+-				race=lizard
+-				variable=saurian_count
+-			[/count_units]
+-			[if]
+-				[variable]
+-					name=saurian_count
+-					numerical_equals=0
+-				[/variable]
+-				[then]
+-					[message]
+-						speaker=Kamalar
+-						message= _ "All of the saurian warriors have perished."
+-					[/message]
+-					[message]
+-						speaker=Malakar
+-						message= _ "Hear me, drakes! Our saurian allies have given their last, so that we all may live free again! Honor their sacrifice and redouble your efforts!"
+-					[/message]
+-					[remove_event]
+-						id=saurian_death
+-					[/remove_event]
+-				[/then]
+-			[/if]
+-			{CLEAR_VARIABLE saurian_count}
+-		[/event]
+-	[/event]
++    [event]
++        name=saurian_death_track
++        [event]
++            name=die
++            first_time_only=no
++            id=saurian_death
++            [filter]
++                side=1
++                #seems to me saurians should be race saurian instead of lizard, just in case someone wanted to have lizard monsters or something like that in a scenario with them
++                race=lizard
++            [/filter]
++            [count_units]
++                side=1
++                race=lizard
++                variable=saurian_count
++            [/count_units]
++            [if]
++                [variable]
++                    name=saurian_count
++                    numerical_equals=0
++                [/variable]
++                [then]
++                    [message]
++                        speaker=Kamalar
++                        message= _ "All of the saurian warriors have perished."
++                    [/message]
++                    [message]
++                        speaker=Malakar
++                        message= _ "Hear me, drakes! Our saurian allies have given their last, so that we all may live free again! Honor their sacrifice and redouble your efforts!"
++                    [/message]
++                    [remove_event]
++                        id=saurian_death
++                    [/remove_event]
++                [/then]
++            [/if]
++            {CLEAR_VARIABLE saurian_count}
++        [/event]
++    [/event]
+ 
+     [event]
+         name=recruit
+@@ -349,27 +354,27 @@
+                     message= _ "Theeere are nooooo mmmore sssssaurians lleft."
+                 [/message]
+                 [disallow_recruit]
+-		        	side=1
++                    side=1
+                     type=Saurian Skirmisher
+                 [/disallow_recruit]
+                 [disallow_recruit]
+-		        	side=1
++                    side=1
+                     type=Saurian Augur
+                 [/disallow_recruit]
+                 [disallow_recruit]
+-		        	side=1
++                    side=1
+                     type=Saurian Headhunter
+                 [/disallow_recruit]
+                 [disallow_recruit]
+-		        	side=1
++                    side=1
+                     type=Saurian Skald
+                 [/disallow_recruit]
+                 [disallow_recruit]
+-		        	side=1
++                    side=1
+                     type=Saurian Assassin
+                 [/disallow_recruit]
+                 [fire_event]
+-                	name=saurian_death_track
++                    name=saurian_death_track
+                 [/fire_event]
+             [/then]
+         [/if]
+@@ -437,159 +442,159 @@
+             id=Yrynyc
+         [/filter]
+         [switch]
+-        	variable=second_unit.id
+-        	[case]
+-        		value="Malakar"
+-        		#if Malakar kills Yrynyc, you get some bonus dialogue, and you don't have to fight his guards (so they won't clobber Malakar next turn, which wouldn't be very fair)
+-        		[lock_view]
+-        		[/lock_view]
+-        		[message]
+-        			speaker=Malakar
+-        			message= _ "You... you led the humans that took my people captive! YOU MURDERED MY DAUGHTER!"
+-        		[/message]
+-        		#exchange inspired somewhat by the Nuremberg Trials
+-        		[message]
+-        			speaker=Yrynyc
+-        			message= _ "So, you will kill me now?"
+-        		[/message]
+-        		[message]
+-        			speaker=Malakar
+-        			message= _ "A drake marked by the gods, sent to you as my messenger, and you slew her like a beast! Death is the least you deserve."
+-        		[/message]
+-        		[message]
+-        			speaker=Yrynyc
+-        			message= _ "I had my orders. Capture as many drakes as I could, kill any that were in the way. What else could I have done?"
+-        		[/message]
+-        		[message]
+-        			speaker=Malakar
+-        			message= _ "Yet now you give such orders."
+-        		[/message]
+-        		[message]
+-        			speaker=Yrynyc
+-        			message= _ "In truth, I began to regret my actions the moment I set sail back to Wesnoth. When I was but a lad, I enlisted in the Royal Army of Wesnoth to bring the King's justice to his enemies, at the edge of my sword. When I became a General, then Grand Marshal of the Royal Vanguard, I imagined myself marching at the head of grand conquests in the King's name, not taking slaves like common highwaymen and pirates."
+-        		[/message]
+-        		[message]
+-        			speaker=Yrynyc
+-        			message= _ "Though I was born a commoner, my father, a veteran himself, raised me to be a man of honor. He would never have approved of our actions on this island. However, I am but a servant of the King. I could do naught but follow my orders."
+-        		[/message]
+-        		[message]
+-        			speaker=Malakar
+-        			message= _ "You could have chosen the path of honor. Yet, though you forced countless drakes into slavery, you gave yourself over to the lowest form of slavery of all. Others may call you 'Lord' and 'Grand Marshal', but you are merely a slave. A slave to your King."
+-        		[/message]
+-        		[message]
+-        			speaker=Malakar
+-        			message= _ "But in the end, no matter. It was you, you alone, who wielded the blade that struck down my daughter. Not some king across the sea in Wesnoth, but YOU."
+-        		[/message]
+-				[message]
+-					speaker=Malakar
+-					message= _ "AND NOW, BY GAR-ALAGAR, <b>YOU SHALL BURN, IN THIS WORLD AND THE NEXT!!!</b>"
+-				[/message]
+-				[scroll_to_unit]
+-					id=Malakar
+-				[/scroll_to_unit]
+-				[color_adjust]
+-					red=200
+-					green=0
+-					blue=0
+-				[/color_adjust]
+-				[sound]
+-					name=fire.wav
+-				[/sound]
+-				[color_adjust]
+-					red=0
+-					green=0
+-					blue=0
+-				[/color_adjust]
+-        		[unlock_view]
+-        		[/unlock_view]
+-				[store_unit]
+-					[filter]
+-						id=Yrynyc
+-					[/filter]
+-					value=yrynyc_store
+-				[/store_unit]
+-				{VARIABLE yrynyc_store.type "Grand Marshal flame death"}
+-				[unstore_unit]
+-					value=yrynyc_store
+-				[/unstore_unit]
+-				{CLEAR_VARIABLE yrynyc_store}
+-			[/case]
+-			[case]
+-				value="Kogw"
+-				#if Kogw kills Yrynyc, you don't have to fight his guards
+-				[if]
+-					[have_unit]
+-						canrecruit=yes
+-						[not]
+-							side=1,2,5
+-						[/not]
+-					[/have_unit]
+-					[then]
+-						[message]
+-							speaker=Yrynyc
+-							message= _ "I give my life... for my King."
+-						[/message]
+-						[message]
+-							speaker=Kogw
+-							message= _ "Yarr! A pox on your King, and all the King's men!"
+-						[/message]
+-						[message]
+-							speaker=Yrynyc
+-							message= _ "Conqueror of the drakes, yet slain by a filthy pirate."
+-						[/message]
+-					[/then]
+-					[else]
+-						[message]
+-							speaker=Yrynyc
+-							message= _ "Long live Wesnoth! I curse you monsters and pirates to my dying breath!"
+-						[/message]
+-					[/else]
+-				[/if]
+-			[/case]
+-			[else]
+-				[if]
+-					[have_unit]
+-						canrecruit=yes
+-						[not]
+-							side=1,2,5
+-						[/not]
+-					[/have_unit]
+-					[then]
+-						[message]
+-							speaker=Yrynyc
+-							message= _ "GUARDS!!! Slay them all!"
+-						[/message]
+-						[unit]
+-							x,y=25,19
+-							side=5
+-							type=Royal Guard
+-							random_traits=yes
+-							generate_name=yes
+-						[/unit]
+-						[unit]
+-							x,y=25,19
+-							side=5
+-							type=Master Bowman
+-							random_traits=yes
+-							generate_name=yes
+-						[/unit]
+-						[unit]
+-							x,y=25,19
+-							side=5
+-							type=Halberdier
+-							random_traits=yes
+-							generate_name=yes
+-						[/unit]
+-					[/then]
+-					[else]
+-						[message]
+-							speaker=Yrynyc
+-							message= _ "Long live Wesnoth! I curse you monsters to my dying breath!"
+-						[/message]
+-					[/else]
+-				[/if]
+-        	[/else]
+-		[/switch]
++            variable=second_unit.id
++            [case]
++                value="Malakar"
++                #if Malakar kills Yrynyc, you get some bonus dialogue, and you don't have to fight his guards (so they won't clobber Malakar next turn, which wouldn't be very fair)
++                [lock_view]
++                [/lock_view]
++                [message]
++                    speaker=Malakar
++                    message= _ "You... you led the humans that took my people captive! YOU MURDERED MY DAUGHTER!"
++                [/message]
++                #exchange inspired somewhat by the Nuremberg Trials
++                [message]
++                    speaker=Yrynyc
++                    message= _ "So, you will kill me now?"
++                [/message]
++                [message]
++                    speaker=Malakar
++                    message= _ "A drake marked by the gods, sent to you as my messenger, and you slew her like a beast! Death is the least you deserve."
++                [/message]
++                [message]
++                    speaker=Yrynyc
++                    message= _ "I had my orders. Capture as many drakes as I could, kill any that were in the way. What else could I have done?"
++                [/message]
++                [message]
++                    speaker=Malakar
++                    message= _ "Yet now you give such orders."
++                [/message]
++                [message]
++                    speaker=Yrynyc
++                    message= _ "In truth, I began to regret my actions the moment I set sail back to Wesnoth. When I was but a lad, I enlisted in the Royal Army of Wesnoth to bring the King's justice to his enemies, at the edge of my sword. When I became a General, then Grand Marshal of the Royal Vanguard, I imagined myself marching at the head of grand conquests in the King's name, not taking slaves like common highwaymen and pirates."
++                [/message]
++                [message]
++                    speaker=Yrynyc
++                    message= _ "Though I was born a commoner, my father, a veteran himself, raised me to be a man of honor. He would never have approved of our actions on this island. However, I am but a servant of the King. I could do naught but follow my orders."
++                [/message]
++                [message]
++                    speaker=Malakar
++                    message= _ "You could have chosen the path of honor. Yet, though you forced countless drakes into slavery, you gave yourself over to the lowest form of slavery of all. Others may call you 'Lord' and 'Grand Marshal', but you are merely a slave. A slave to your King."
++                [/message]
++                [message]
++                    speaker=Malakar
++                    message= _ "But in the end, no matter. It was you, you alone, who wielded the blade that struck down my daughter. Not some king across the sea in Wesnoth, but YOU."
++                [/message]
++                [message]
++                    speaker=Malakar
++                    message= _ "AND NOW, BY GAR-ALAGAR, <b>YOU SHALL BURN, IN THIS WORLD AND THE NEXT!!!</b>"
++                [/message]
++                [scroll_to_unit]
++                    id=Malakar
++                [/scroll_to_unit]
++                [color_adjust]
++                    red=200
++                    green=0
++                    blue=0
++                [/color_adjust]
++                [sound]
++                    name=fire.wav
++                [/sound]
++                [color_adjust]
++                    red=0
++                    green=0
++                    blue=0
++                [/color_adjust]
++                [unlock_view]
++                [/unlock_view]
++                [store_unit]
++                    [filter]
++                        id=Yrynyc
++                    [/filter]
++                    value=yrynyc_store
++                [/store_unit]
++                {VARIABLE yrynyc_store.type "Grand Marshal flame death"}
++                [unstore_unit]
++                    value=yrynyc_store
++                [/unstore_unit]
++                {CLEAR_VARIABLE yrynyc_store}
++            [/case]
++            [case]
++                value="Kogw"
++                #if Kogw kills Yrynyc, you don't have to fight his guards
++                [if]
++                    [have_unit]
++                        canrecruit=yes
++                        [not]
++                            side=1,2,5
++                        [/not]
++                    [/have_unit]
++                    [then]
++                        [message]
++                            speaker=Yrynyc
++                            message= _ "I give my life... for my King."
++                        [/message]
++                        [message]
++                            speaker=Kogw
++                            message= _ "Yarr! A pox on your King, and all the King's men!"
++                        [/message]
++                        [message]
++                            speaker=Yrynyc
++                            message= _ "Conqueror of the drakes, yet slain by a filthy pirate."
++                        [/message]
++                    [/then]
++                    [else]
++                        [message]
++                            speaker=Yrynyc
++                            message= _ "Long live Wesnoth! I curse you monsters and pirates to my dying breath!"
++                        [/message]
++                    [/else]
++                [/if]
++            [/case]
++            [else]
++                [if]
++                    [have_unit]
++                        canrecruit=yes
++                        [not]
++                            side=1,2,5
++                        [/not]
++                    [/have_unit]
++                    [then]
++                        [message]
++                            speaker=Yrynyc
++                            message= _ "GUARDS!!! Slay them all!"
++                        [/message]
++                        [unit]
++                            x,y=25,19
++                            side=5
++                            type=Royal Guard
++                            random_traits=yes
++                            generate_name=yes
++                        [/unit]
++                        [unit]
++                            x,y=25,19
++                            side=5
++                            type=Master Bowman
++                            random_traits=yes
++                            generate_name=yes
++                        [/unit]
++                        [unit]
++                            x,y=25,19
++                            side=5
++                            type=Halberdier
++                            random_traits=yes
++                            generate_name=yes
++                        [/unit]
++                    [/then]
++                    [else]
++                        [message]
++                            speaker=Yrynyc
++                            message= _ "Long live Wesnoth! I curse you monsters to my dying breath!"
++                        [/message]
++                    [/else]
++                [/if]
++            [/else]
++        [/switch]
+     [/event]
+ 
+     {FREEDOM_DEATHS}
+@@ -598,7 +603,6 @@
+         name=enemies defeated
+         [message]
+             speaker=Malakar
+-            #sound=fire.wav
+             message= _ "MOROGOR IS OURS!"
+         [/message]
+         [if]
+@@ -645,20 +649,20 @@
+         [/message]
+     [/event]
+ 
+-	[event]
+-		name=moveto
+-		[filter]
+-			race=drake
+-			side=1
+-			[filter_location]
+-				terrain=*^Vhc
+-			[/filter_location]
+-		[/filter]
+-		[message]
+-			speaker=unit
+-			message= _ "The humans' audacity knows no bounds. Their squatters have defiled the Temple!"
+-		[/message]
+-	[/event]
++    [event]
++        name=moveto
++        [filter]
++            race=drake
++            side=1
++            [filter_location]
++                terrain=*^Vhc
++            [/filter_location]
++        [/filter]
++        [message]
++            speaker=unit
++            message= _ "The humans' audacity knows no bounds. Their squatters have defiled the Temple!"
++        [/message]
++    [/event]
+ 
+     [event]
+         name=attack
+@@ -684,7 +688,7 @@
+         [filter]
+             side=3,4,5,6,7
+             [not]
+-            	id=Yrynyc
++                id=Yrynyc
+             [/not]
+         [/filter]
+         [filter_second]
+@@ -802,7 +806,7 @@
+                     message= _ "The tower has fallen into disrepair. Onward!"
+                 [/message]
+                 [fire_event]
+-                	name=saurian_death_track
++                    name=saurian_death_track
+                 [/fire_event]
+             [/then]
+         [/if]
+@@ -973,8 +977,8 @@
+             side=3
+         [/unit]
+ #endif
+-		[redraw]
+-		[/redraw]
++        [redraw]
++        [/redraw]
+         [message]
+             speaker="C'onolar"
+             message= _ "Malakar of the Kakatars! Fighting has broken out in huge battles across the island! Every able-bodied drake remaining has pledged their lives to prevent the human reinforcements from reaching Weswyt. They can buy you no more than a few days: make the most of this time!"
+@@ -989,9 +993,9 @@
+     [event]
+         name=turn 35
+         {HMAGUS 50 22 1 (
+-			id="Garranath"
+-			name= _ "Garranath"
+-		)}
++            id="Garranath"
++            name= _ "Garranath"
++        )}
+         #wmllint: recognize Garranath
+         [message]
+             speaker=Garranath
+@@ -1103,29 +1107,31 @@
+         name=enemy gold
+         first_time_only=no
+         #giving Kamalar gold along with the human leaders is deliberate
++        #don't vary it too much by difficulty, though, because then otherwise
++        #it defeats the original intent
+         [gold]
+             side=2
+-            amount=50
++            amount={ON_DIFFICULTY 54 52 50}
+         [/gold]
+         [gold]
+             side=3
+-            amount=40
++            amount={ON_DIFFICULTY 36 38 40}
+         [/gold]
+         [gold]
+             side=4
+-            amount=40
++            amount={ON_DIFFICULTY 36 38 40}
+         [/gold]
+         [gold]
+             side=5
+-            amount=40
++            amount={ON_DIFFICULTY 36 38 40}
+         [/gold]
+         [gold]
+             side=6
+-            amount=40
++            amount={ON_DIFFICULTY 36 38 40}
+         [/gold]
+         [gold]
+             side=7
+-            amount=40
++            amount={ON_DIFFICULTY 36 38 40}
+         [/gold]
+     [/event]
+ 

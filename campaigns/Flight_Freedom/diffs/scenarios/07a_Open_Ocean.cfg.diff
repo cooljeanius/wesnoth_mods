@@ -1,0 +1,62 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/07a_Open_Ocean.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/07a_Open_Ocean.cfg	2020-09-17 23:33:35.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "The Open Ocean"
+     {MAP 07a}
+-    turns=15
++    {TURNS 17 16 15}
+     {SCENARIO_MUSIC knolls.ogg}
+     victory_when_enemies_defeated=no
+     id=Open_Ocean
+@@ -34,6 +34,7 @@
+         team_name=good
+         fog=yes
+         user_team_name= _ "Skullbone Pirates"
++        # (nowhere to recruit, so no gold needed)
+     [/side]
+     [side]
+         side=2
+@@ -137,6 +138,10 @@
+             type=Pirate Schooner
+             side=1
+         [/unit]
++        # TODO: do this for each boat in the recall list:
++        [recall]
++            race=boat
++        [/recall]
+ #endif
+ #ifdef NORMAL
+         [unit]
+@@ -264,11 +269,11 @@
+                 {VARIABLE_OP current_time sub 1}
+                 {VARIABLE_OP current_time modulo 6}
+                 [if]
+-                	[variable]
+-                		name=time_of_day.id
+-                		contains="rain"
+-                	[/variable]
+-                	[then]
++                    [variable]
++                        name=time_of_day.id
++                        contains="rain"
++                    [/variable]
++                    [then]
+                         [replace_schedule]
+                             {DEFAULT_SCHEDULE}
+                             current_time=$current_time
+@@ -392,9 +397,11 @@
+             image=$kogw_image
+             message= _ "(Kogw) Full speed thataway!"
+         [/message]
+-        #[kill]
+-        #    type=Sea Serpent
+-        #[/kill]
++#ifdef ANIMAL_CRUELTY
++        [kill]
++            type=Sea Serpent
++        [/kill]
++#endif
+         [endlevel]
+             result=victory
+             bonus=yes

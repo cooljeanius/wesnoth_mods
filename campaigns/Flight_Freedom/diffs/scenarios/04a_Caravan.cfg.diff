@@ -1,0 +1,431 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/04a_Caravan.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/04a_Caravan.cfg	2020-09-17 20:39:18.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Caravan"
+     {MAP 04a}
+-    turns=20
++    {TURNS 22 21 20}
+     {SCENARIO_MUSIC wanderer.ogg}
+     victory_when_enemies_defeated=no
+     id=Caravan
+@@ -31,6 +31,9 @@
+         team_name=good
+         user_team_name= _ "Kakatar Tribe"
+         fog=no
++        # default gold when unspecified is 100
++        # 120 = enough gold for 1 keep of recalls
++        {GOLD 120 110 100}
+     [/side]
+ 
+     [side]
+@@ -43,7 +46,7 @@
+         canrecruit=yes
+         {GOLD 85 105 125} #originally 100, 125, 150
+         recruit=Elvish Fighter,Elvish Archer,Elvish Scout,Elvish Shaman
+-        #team_name will be changed in a turn 3 event
++        #team_name will be changed (to "evil") in a turn 3 event
+         team_name=good
+         user_team_name= _ "Elvish Melrithian Force"
+         [ai]
+@@ -132,8 +135,8 @@
+             aggression=1.0
+             leader_value=0
+             village_value=0
+-            grouping=no
+-            caution=0.1
++            grouping={ON_DIFFICULTY (no) (offensive) (defensive)}
++            caution={ON_DIFFICULTY 0.2 0.1 0.0}
+             simple_targeting=yes
+         [/ai]
+         no_leader=yes
+@@ -230,14 +233,12 @@
+         [unit]
+             type=Pikeman
+             x,y=49,11
+-            #name= _ "Guard"
+             side=3
+             facing=sw
+         [/unit]
+         [unit]
+             type=Pikeman
+             x,y=49,13
+-            #name= _ "Guard"
+             side=3
+             facing=sw
+         [/unit]
+@@ -335,7 +336,6 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "After torching the mansion, Malakar headed out to intercept the caravan."
+-            #image=wesnoth-icon.png
+         [/message]
+         [if]
+             [variable]
+@@ -376,14 +376,16 @@
+             x,y=6,19
+         [/remove_item]
+         #variable maltype is set in Survival
++        # FIXME: what if Malakar picked up a spear in the previous scenario? I'd like to preserve that even after
++        # this transformation...
+         [if]
+-        	#very unlikely that the player leveled him to a Drake Legend in Survival, but handle it anyway
++            #very unlikely that the player leveled him to a Drake Legend in Survival, but handle it anyway
+             [variable]
+                 name=maltype
+                 equals="Drake Legend"
+             [/variable]
+             [then]
+-            	#currently has the same graphics as the Drake Lord - can use the same silhouette
++                #currently has the same graphics as the Drake Lord - can use the same silhouette
+                 [unit]
+                     x,y=6,19
+                     type=Drake Lord Silhouette
+@@ -405,7 +407,6 @@
+                     unrenamable=yes
+                     id=Malakar
+                     overlays="misc/hero-icon.png"
+-                    #ellipse="misc/ellipse-hero"
+                     name= _ "Malakar"
+                     profile=portraits/malakar.png
+                     side=1
+@@ -414,41 +415,40 @@
+                 [/unit]
+             [/then]
+             [elseif]
+-				[variable]
+-					name=maltype
+-					equals="Drake Lord"
+-				[/variable]
+-				[then]
+-					[unit]
+-						x,y=6,19
+-						type=Drake Lord Silhouette
+-						facing=se
+-					[/unit]
+-					[item]
+-						x,y=6,19
+-						image=units/drakes/drake-lord.png
+-					[/item]
+-					[kill]
+-						x,y=6,19
+-						animate=yes
+-						fire_event=no
+-					[/kill]
+-					[unit]
+-						x,y=6,19
+-						type=Drake Lord
+-						experience=$malakar_exp
+-						unrenamable=yes
+-						id=Malakar
+-						overlays="misc/hero-icon.png"
+-						#ellipse="misc/ellipse-hero"
+-						name= _ "Malakar"
+-						profile=portraits/malakar.png
+-						side=1
+-						canrecruit=yes
+-						facing=se
+-					[/unit]
+-				[/then]
+-			[/elseif]
++                [variable]
++                    name=maltype
++                    equals="Drake Lord"
++                [/variable]
++                [then]
++                    [unit]
++                        x,y=6,19
++                        type=Drake Lord Silhouette
++                        facing=se
++                    [/unit]
++                    [item]
++                        x,y=6,19
++                        image=units/drakes/drake-lord.png
++                    [/item]
++                    [kill]
++                        x,y=6,19
++                        animate=yes
++                        fire_event=no
++                    [/kill]
++                    [unit]
++                        x,y=6,19
++                        type=Drake Lord
++                        experience=$malakar_exp
++                        unrenamable=yes
++                        id=Malakar
++                        overlays="misc/hero-icon.png"
++                        name= _ "Malakar"
++                        profile=portraits/malakar.png
++                        side=1
++                        canrecruit=yes
++                        facing=se
++                    [/unit]
++                [/then]
++            [/elseif]
+             [else]
+                 [unit]
+                     x,y=6,19
+@@ -471,8 +471,7 @@
+                     unrenamable=yes
+                     id=Malakar
+                     overlays="misc/hero-icon.png"
+-                    #this causes weirdness for some reason, but it's apparently not necessary
+-                    #ellipse="misc/ellipse-hero"
++                    # adding ellipse="misc/ellipse-hero" here causes weirdness for some reason, but it's apparently not necessary
+                     name= _ "Malakar"
+                     profile=portraits/malakar.png
+                     side=1
+@@ -524,23 +523,23 @@
+             time=750
+             accelerate=yes
+         [/delay]
+-		[if]
+-			[have_unit]
+-				id=Theracar
+-			[/have_unit]
+-			[then]
+-				[message]
+-					speaker=Theracar
+-					message= _ "Well, at least not yet."
+-				[/message]
+-			[/then]
+-			[else]
+-				[message]
+-					speaker=Malakar
+-					message= _ "Well, at least not yet."
+-				[/message]
+-			[/else]
+-		[/if]
++        [if]
++            [have_unit]
++                id=Theracar
++            [/have_unit]
++            [then]
++                [message]
++                    speaker=Theracar
++                    message= _ "Well, at least not yet."
++                [/message]
++            [/then]
++            [else]
++                [message]
++                    speaker=Malakar
++                    message= _ "Well, at least not yet."
++                [/message]
++            [/else]
++        [/if]
+         [if]
+             [variable]
+                 name=have_hartholar
+@@ -551,7 +550,7 @@
+                     speaker=narrator
+                     {NARRATOR_ICON}
+                     message= _ "NOTE: From now on, since Hartholar is no longer critical to your cause, the game will not end if he is killed."
+-                    #image=wesnoth-icon.png
++                    # hey wmllint stop putting image=wesnoth-icon.png here; we already have {NARRATOR_ICON} above
+                 [/message]
+             [/then]
+         [/if]
+@@ -570,19 +569,19 @@
+         [/message]
+     [/event]
+ 
+-	[event]
+-		name=attack
+-		[filter]
+-			side=1
+-		[/filter]
+-		[filter_second]
+-			id=theCaravan
+-		[/filter_second]
+-		[message]
+-			speaker=theCaravan
+-			message= _ "We're being robbed! Guards!"
+-		[/message]
+-	[/event]
++    [event]
++        name=attack
++        [filter]
++            side=1
++        [/filter]
++        [filter_second]
++            id=theCaravan
++        [/filter_second]
++        [message]
++            speaker=theCaravan
++            message= _ "We're being robbed! Guards!"
++        [/message]
++    [/event]
+ 
+     [event]
+         name=moveto
+@@ -684,10 +683,11 @@
+         [filter_second]
+             side=1
+         [/filter_second]
++        {VARIABLE gold_amt {ON_DIFFICULTY 512 506 500}}
+         [message]
+             speaker=Malakar
+             sound=gold.ogg
+-            message= _ "500 gold! This will go a long way toward our cause!"
++            message= _ "$gold_amt gold! This will go a long way toward our cause!"
+         [/message]
+         [message]
+             speaker=Haloran
+@@ -712,19 +712,20 @@
+                     message= _ "I know, but I fear that they will call reinforcements, which we cannot hope to fight."
+                 [/message]
+             [/then]
+-			#give the player a free Glider for the next scenario's opening scene
+-			[else]
+-				{GENERIC_UNIT 1 (Drake Glider) recall recall}
+-			[/else]
++            #give the player a free Glider for the next scenario's opening scene
++            [else]
++                {GENERIC_UNIT 1 (Drake Glider) recall recall}
++            [/else]
+         [/if]
+         [gold]
+             side=1
+-            amount=500
++            amount=$gold_amt
+         [/gold]
+         [endlevel]
+             result=victory
+             bonus=yes
+         [/endlevel]
++        {CLEAR_VARIABLE gold_amt}
+     [/event]
+ 
+     [event]
+@@ -742,7 +743,7 @@
+             random_traits=yes
+             generate_name=yes
+             side=2
+-			id=elfguard_1
++            id=elfguard_1
+         [/unit]
+         [unit]
+             x,y=24,3
+@@ -750,7 +751,7 @@
+             random_traits=yes
+             generate_name=yes
+             side=2
+-			id=elfguard_2
++            id=elfguard_2
+         [/unit]
+         [unit]
+             x,y=24,3
+@@ -759,63 +760,63 @@
+             random_traits=yes
+             generate_name=yes
+             side=2
+-			id=elfguard_3
++            id=elfguard_3
+         [/unit]
+-		#so they won't get in the way of player vs. caravan
+-		[micro_ai]
+-			side=2
+-			ai_type=zone_guardian
+-			action=add
+-			[filter]
+-				id=elfguard_1,elfguard_2,elfguard_3
+-			[/filter]
+-			[filter_location]
+-				x=18-30
+-				y=1-7
+-			[/filter_location]
+-		[/micro_ai]
++        #so they won't get in the way of player vs. caravan
++        [micro_ai]
++            side=2
++            ai_type=zone_guardian
++            action=add
++            [filter]
++                id=elfguard_1,elfguard_2,elfguard_3
++            [/filter]
++            [filter_location]
++                x=18-30
++                y=1-7
++            [/filter_location]
++        [/micro_ai]
+         [message]
+             speaker=Malakar
+             message= _ "The forest is crawling with elves! We must focus on the caravan!"
+         [/message]
+     [/event]
+ 
+-	#just in case...
+-	[event]
+-		name=die
+-		[filter]
+-			id=Haloran
+-		[/filter]
+-		[filter_second]
+-			side=1
+-		[/filter_second]
+-		[message]
+-			speaker=second_unit
+-			message= _ "Malakar, I have slain the elven chief!"
+-		[/message]
+-		[message]
+-			speaker=Malakar
+-			message= _ "Now is not the time to celebrate our kills! Quickly, we must capture the caravan, before more humans or elves find us!"
+-		[/message]
+-	[/event]
+-
+-	[event]
+-		name=attack
+-		[filter]
+-			side=3
+-			[not]
+-				id=theCaravan
+-			[/not]
+-		[/filter]
+-		[filter_second]
+-			side=1
+-			race=drake
+-		[/filter_second]
+-		[message]
+-			speaker=unit
+-			message= _ "You will not take us alive, lizards!"
+-		[/message]
+-	[/event]
++    #just in case...
++    [event]
++        name=die
++        [filter]
++            id=Haloran
++        [/filter]
++        [filter_second]
++            side=1
++        [/filter_second]
++        [message]
++            speaker=second_unit
++            message= _ "Malakar, I have slain the elven chief!"
++        [/message]
++        [message]
++            speaker=Malakar
++            message= _ "Now is not the time to celebrate our kills! Quickly, we must capture the caravan, before more humans or elves find us!"
++        [/message]
++    [/event]
++
++    [event]
++        name=attack
++        [filter]
++            side=3
++            [not]
++                id=theCaravan
++            [/not]
++        [/filter]
++        [filter_second]
++            side=1
++            race=drake
++        [/filter_second]
++        [message]
++            speaker=unit
++            message= _ "You will not take us alive, lizards!"
++        [/message]
++    [/event]
+ 
+     [event]
+         name=die

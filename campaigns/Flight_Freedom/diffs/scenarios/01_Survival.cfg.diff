@@ -1,0 +1,437 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/01_Survival.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/01_Survival.cfg	2020-09-06 01:02:30.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Survival"
+     {MAP 01}
+-    turns=10
++    {TURNS 14 12 10}
+     {SCENARIO_MUSIC no_way_out.ogg}
+ 
+     id=Survival
+@@ -29,7 +29,7 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        gold=500
++        {GOLD 300 400 500}
+         recruit=Halberdier,Javelineer,Royal Guard,Master Bowman,Iron Mauler,Master at Arms
+         team_name=evil
+         user_team_name= _ "Elite Royal Infantry"
+@@ -56,7 +56,7 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        gold=500
++        {GOLD 300 400 500}
+         recruit=Halberdier,Javelineer,Royal Guard,Master Bowman,Iron Mauler,Master at Arms
+         team_name=evil
+         user_team_name= _ "Elite Royal Infantry"
+@@ -83,7 +83,7 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        gold=500
++        {GOLD 300 400 500}
+         recruit=Halberdier,Javelineer,Royal Guard,Master Bowman,Iron Mauler,Master at Arms
+         team_name=evil
+         user_team_name= _ "Elite Royal Infantry"
+@@ -102,7 +102,7 @@
+     [/side]
+ 
+     [side]
+-    	#we can't have him burn to ashes if he's defeated
++        #we can't have him burn to ashes if he's defeated
+         type=Drake Chieftain no_death_anim
+         name= _ "Malakar"
+         id=Malakar
+@@ -111,15 +111,7 @@
+         canrecruit=yes
+         controller=human
+         recruit=Drake Hatchling,Drake Burner,Drake Glider,Drake Fighter,Drake Clasher
+-#ifdef EASY
+-        gold=260
+-#endif
+-#ifdef NORMAL
+-        gold=175
+-#endif
+-#ifdef HARD
+-        gold=145
+-#endif
++        {GOLD 260 175 145}
+         team_name=good
+         user_team_name= _ "Kakatar Tribe"
+         unrenamable=yes
+@@ -154,25 +146,25 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        gold=120
++        {GOLD 100 110 120}
+         recruit=Dragoon,Knight,Lancer
+         team_name=evil
+         user_team_name= _ "Elite Royal Cavalry"
+         [ai]
+             leader_value=5
+             aggression=0.6
+-			[aspect]
+-				id=recruitment_instructions
+-				[facet]
+-					[value]
+-						[recruit]
+-							type=
+-							pattern=yes
+-							importance=1
+-						[/recruit]
+-					[/value]
+-				[/facet]
+-			[/aspect]
++            [aspect]
++                id=recruitment_instructions
++                [facet]
++                    [value]
++                        [recruit]
++                            type=
++                            pattern=yes
++                            importance=1
++                        [/recruit]
++                    [/value]
++                [/facet]
++            [/aspect]
+             #to keep the leader from running away
+             passive_leader=yes
+         [/ai]
+@@ -230,14 +222,14 @@
+         name=start
+         [lock_view]
+         [/lock_view]
+-		[scroll_to_unit]
+-		    x,y=13,11
+-		[/scroll_to_unit]
++        [scroll_to_unit]
++            x,y=13,11
++        [/scroll_to_unit]
+         [animate_unit]
+             [filter]
+                 x,y=13,11
+             [/filter]
+-			flag=attack
++            flag=attack
+             [primary_attack]
+                 range=melee
+             [/primary_attack]
+@@ -270,7 +262,6 @@
+             speaker=narrator
+             # wmllint: local spelling Armageddon
+             message= _ "For the course of this campaign <i>Inferno Drakes</i> can upgrade to <b>Armageddon Drakes</b>, and <i>Drake Clashers</i> can upgrade to <b>Drake Guards</b>."
+-            #image=wesnoth-icon.png
+             {NARRATOR_ICON}
+         [/message]
+     [/event]
+@@ -281,8 +272,6 @@
+             id=Necolag
+         [/filter]
+         [message]
+-            #speaker=narrator
+-            #caption= _ "Necolag"
+             speaker=Necolag
+             image="portraits/necolag.png"
+             message= _ "NYIEEEEEEEE!"
+@@ -298,69 +287,69 @@
+                 numerical_equals=4
+             [/variable]
+             [then]
+-            	[switch]
+-            		variable=turn_number
+-            		[case]
+-            			value=1
+-            			#add an explicit notice so the gaggle of level 3 enemies at the beginning doesn't drive players away
+-            			[message]
+-            				speaker=narrator
+-            				{NARRATOR_ICON}
+-            				message= _ "<span color='green'>Note: the campaign will not end if this scenario is lost.</span>"
+-            			[/message]
+-            		[/case]
+-					[case]
+-						value=2
+-						[message]
+-							speaker=Malakar
+-							message= _ "This is an army! We cannot hope to take them ourselves, but they will buy our lives dearly. Captain Theracar, I need you to warn the Jamolar tribe in the southeastern swamps."
+-						[/message]
+-						[message]
+-							speaker=Theracar0
+-							image="portraits/theracar.png"
+-							message= _ "At once, Malakar."
+-						[/message]
+-						[message]
+-							speaker=Malakar
+-							message= _ "Tribesmen! We did not know it when we slept last night, nor when we awoke this morning, but it has always been written that this is our final hour. Our first priority is to stop the cavalrymen who would intercept our message to the Jamolars."
+-						[/message]
+-						[message]
+-							speaker=Malakar
+-							message= _ "Our second priority is to make sure that the children's children of these murderers still see our faces in their nightmares. Attack!"
+-						[/message]
+-						[objectives]
+-							side=4
+-							{CONDITION_WIN ( _ "Defeat the cavalry leader")}
+-							{CONDITION_LOSE ( _ "Death of Malakar")}
+-							{CONDITION_LOSE ( _ "Death of Theracar")}
+-							{TURNS_RUN_OUT}
+-							{NOTE_CONTINUE_AFTER_DEFEAT}
+-						[/objectives]
+-					[/case]
+-				[/switch]
+-			[/then]
++                [switch]
++                    variable=turn_number
++                    [case]
++                        value=1
++                        #add an explicit notice so the gaggle of level 3 enemies at the beginning doesn't drive players away
++                        [message]
++                            speaker=narrator
++                            {NARRATOR_ICON}
++                            message= _ "<span color='green'>Note: the campaign will not end if this scenario is lost.</span>"
++                        [/message]
++                    [/case]
++                    [case]
++                        value=2
++                        [message]
++                            speaker=Malakar
++                            message= _ "This is an army! We cannot hope to take them ourselves, but they will buy our lives dearly. Captain Theracar, I need you to warn the Jamolar tribe in the southeastern swamps."
++                        [/message]
++                        [message]
++                            speaker=Theracar0
++                            image="portraits/theracar.png"
++                            message= _ "At once, Malakar."
++                        [/message]
++                        [message]
++                            speaker=Malakar
++                            message= _ "Tribesmen! We did not know it when we slept last night, nor when we awoke this morning, but it has always been written that this is our final hour. Our first priority is to stop the cavalrymen who would intercept our message to the Jamolars."
++                        [/message]
++                        [message]
++                            speaker=Malakar
++                            message= _ "Our second priority is to make sure that the children's children of these murderers still see our faces in their nightmares. Attack!"
++                        [/message]
++                        [objectives]
++                            side=4
++                            {CONDITION_WIN ( _ "Defeat the cavalry leader")}
++                            {CONDITION_LOSE ( _ "Death of Malakar")}
++                            {CONDITION_LOSE ( _ "Death of Theracar")}
++                            {TURNS_RUN_OUT}
++                            {NOTE_CONTINUE_AFTER_DEFEAT}
++                        [/objectives]
++                    [/case]
++                [/switch]
++            [/then]
+         [/if]
+     [/event]
+ 
+-	#cannot do this in the victory event - if Malakar was killed, he won't be around then
+-	[event]
+-		name=get_malakar_variables
+-		[store_unit]
+-			[filter]
+-				id=Malakar
+-			[/filter]
+-			variable=malakar_store
+-		[/store_unit]
+-		{VARIABLE_OP malakar_exp to_variable malakar_store.experience}
+-		[lua]
+-			code = <<
++    #cannot do this in the victory event - if Malakar was killed, he won't be around then
++    [event]
++        name=get_malakar_variables
++        [store_unit]
++            [filter]
++                id=Malakar
++            [/filter]
++            variable=malakar_store
++        [/store_unit]
++        {VARIABLE_OP malakar_exp to_variable malakar_store.experience}
++        [lua]
++            code = <<
+ 				local maltype = wesnoth.get_variable("malakar_store.type")
+ 				maltype = string.gsub(maltype, " no_death_anim", "")
+ 				wesnoth.set_variable("maltype", maltype)
+ 			>>
+-		[/lua]
+-		{CLEAR_VARIABLE malakar_store}
+-	[/event]
++        [/lua]
++        {CLEAR_VARIABLE malakar_store}
++    [/event]
+ 
+     [event]
+         name=die
+@@ -403,52 +392,56 @@
+             {VARIABLE_OP theracar_exp to_variable theracar_store.experience}
+             {CLEAR_VARIABLE theracar_store}
+             #keeping this around just in case anything is restored from the old B branch
+-            #[store_gold]
+-            #    side=4
+-            #    variable=gold
+-            #[/store_gold]
++#ifdef RESTORE_OLD_B_BRANCH
++            [store_gold]
++                side=4
++                variable=gold
++            [/store_gold]
++#endif
+             #only 80% of gold is retained between scenarios
+             {VARIABLE_OP gold multiply 0.8}
+-            #[heal_unit]
+-            #    [filter]
+-            #        side=4
+-            #    [/filter]
+-            #    amount="full"
+-            #    restore_statuses=yes
+-            #[/heal_unit]
+-            #[store_unit]
+-            #    [filter]
+-            #        side=4
+-            #        [not]
+-            #            id=Malakar
+-            #        [/not]
+-            #    [/filter]
+-            #    variable=tempstore
+-            #[/store_unit]
+-            #{FOREACH tempstore i}
+-            #    {VARIABLE tempstore[$i].side 1}
+-            #    {VARIABLE tempstore[$i].facing se}
+-            #    {VARIABLE tempstore[$i].moves 0}
+-            #    #x,y=0,0 puts units in recall list
+-            #    {VARIABLE tempstore[$i].x 0}
+-            #    {VARIABLE tempstore[$i].y 0}
+-            #{NEXT i}
+-            #{CLEAR_VARIABLE i}
+-            #[store_unit]
+-            #    [filter]
+-            #        id=Malakar
+-            #    [/filter]
+-            #    variable=malakar_store
+-            #[/store_unit]
+-            #{VARIABLE malakar_store.side 1}
+-            #{VARIABLE malakar_store.moves 6}
+-            #{VARIABLE malakar_store.facing se}
+-            #{VARIABLE malakar_store.x 8}
+-            #{VARIABLE malakar_store.y 2}
+-            #[kill]
+-            #    fire_event=no
+-            #    animate=no
+-            #[/kill]
++#ifdef RESTORE_OLD_B_BRANCH
++            [heal_unit]
++                [filter]
++                    side=4
++                [/filter]
++                amount="full"
++                restore_statuses=yes
++            [/heal_unit]
++            [store_unit]
++                [filter]
++                    side=4
++                    [not]
++                        id=Malakar
++                    [/not]
++                [/filter]
++                variable=tempstore
++            [/store_unit]
++            {FOREACH tempstore i}
++                {VARIABLE tempstore[$i].side 1}
++                {VARIABLE tempstore[$i].facing se}
++                {VARIABLE tempstore[$i].moves 0}
++                #x,y=0,0 puts units in recall list
++                {VARIABLE tempstore[$i].x 0}
++                {VARIABLE tempstore[$i].y 0}
++            {NEXT i}
++            {CLEAR_VARIABLE i}
++            [store_unit]
++                [filter]
++                    id=Malakar
++                [/filter]
++                variable=malakar_store
++            [/store_unit]
++            {VARIABLE malakar_store.side 1}
++            {VARIABLE malakar_store.moves 6}
++            {VARIABLE malakar_store.facing se}
++            {VARIABLE malakar_store.x 8}
++            {VARIABLE malakar_store.y 2}
++            [kill]
++                fire_event=no
++                animate=no
++            [/kill]
++#endif
+             [if]
+                 [not]
+                     [have_unit]
+@@ -460,7 +453,7 @@
+                 [/then]
+             [/if]
+             [fire_event]
+-            	name=get_malakar_variables
++                name=get_malakar_variables
+             [/fire_event]
+             [endlevel]
+                 result=victory
+@@ -474,8 +467,8 @@
+                 id=Malakar
+             [/filter]
+             [message]
+-            	speaker=Malakar
+-            	message= _ "I cannot abandon my tribe! As Chief, honor demands I fight to the last!"
++                speaker=Malakar
++                message= _ "I cannot abandon my tribe! As Chief, honor demands I fight to the last!"
+             [/message]
+             [allow_undo]
+             [/allow_undo]
+@@ -495,9 +488,9 @@
+             name=wipeout
+             value="swamp"
+         [/set_variable]
+-		[fire_event]
+-			name=get_malakar_variables
+-		[/fire_event]
++        [fire_event]
++            name=get_malakar_variables
++        [/fire_event]
+         [endlevel]
+             result=victory
+             carryover_report=no
+@@ -523,9 +516,9 @@
+             name=wipeout
+             value="beach"
+         [/set_variable]
+-		[fire_event]
+-			name=get_malakar_variables
+-		[/fire_event]
++        [fire_event]
++            name=get_malakar_variables
++        [/fire_event]
+         [endlevel]
+             result=victory
+             carryover_report=no
+@@ -557,9 +550,9 @@
+             name=wipeout
+             value="success"
+         [/set_variable]
+-		[fire_event]
+-			name=get_malakar_variables
+-		[/fire_event]
++        [fire_event]
++            name=get_malakar_variables
++        [/fire_event]
+         [endlevel]
+             result=victory
+             carryover_report=no
+@@ -577,8 +570,9 @@
+         [/kill]
+     [/event]
+ 
+-#    {FREEDOM_DEATHS}
++#ifdef __UNUSED__
++    {FREEDOM_DEATHS}
++#endif
+ 
+     {FTF_COMMON}
+-
+ [/scenario]

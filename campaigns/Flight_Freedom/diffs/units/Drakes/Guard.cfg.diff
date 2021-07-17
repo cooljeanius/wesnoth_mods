@@ -1,0 +1,14 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/units/drakes/Guard.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/units/Drakes/Guard.cfg	2020-08-21 14:39:12.000000000 -0400
+@@ -28,6 +28,11 @@
+         blade=60
+         pierce=70
+     [/resistance]
++#ifdef EASY
++    [abilities]
++        {ABILITY_STEADFAST}
++    [/abilities]
++#endif
+     [attack]
+         name=spear
+         description=_"spear"

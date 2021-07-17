@@ -1,0 +1,186 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/18_Return_to_Morogor.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/18_Return_to_Morogor.cfg	2020-10-06 22:41:04.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Return to Morogor"
+     {MAP 18}
+-    turns=35
++    {TURNS 37 36 35}
+     {SCENARIO_MUSIC northerners.ogg}
+     id=Return_Morogor
+     next_scenario="Liberation"
+@@ -34,6 +34,8 @@
+         save_name=Malakar
+         user_team_name= _ "Kakatar Tribe"
+         fog=no
++        {GOLD 392 256 120}
++        {INCOME 9 6 3}
+     [/side]
+     [side]
+         type=Lieutenant
+@@ -47,7 +49,16 @@
+         recruit=Spearman,Bowman,Longbowman
+         team_name=evil
+         [ai]
++            aggression={ON_DIFFICULTY 0.2 0.3 0.4} # 0.4 is default when unspecified
+             recruitment_ignore_bad_movement=yes
++            [goal]
++                name=protect_unit
++                [criteria] #NOTE: this is a SUF, because we're protecting a unit
++                    id=Yraec
++                [/criteria]
++                protect_radius={ON_DIFFICULTY 10 9 8}
++                value={ON_DIFFICULTY 9 7 5}
++            [/goal]
+         [/ai]
+         user_team_name= _ "Wesnoth Occupation Force"
+     [/side]
+@@ -63,7 +74,16 @@
+         recruit=Spearman,Bowman,Pikeman
+         team_name=evil
+         [ai]
++            aggression={ON_DIFFICULTY 0.2 0.3 0.4} # 0.4 is default when unspecified
+             recruitment_ignore_bad_movement=yes
++            [goal]
++                name=protect_unit
++                [criteria] #NOTE: this is a SUF, because we're protecting a unit
++                    id=Careorra
++                [/criteria]
++                protect_radius={ON_DIFFICULTY 10 9 8}
++                value={ON_DIFFICULTY 9 7 5}
++            [/goal]
+         [/ai]
+         user_team_name= _ "Wesnoth Occupation Force"
+     [/side]
+@@ -79,7 +99,16 @@
+         recruit=Spearman,Bowman,Javelineer
+         team_name=evil
+         [ai]
++            aggression={ON_DIFFICULTY 0.2 0.3 0.4} # 0.4 is default when unspecified
+             recruitment_ignore_bad_movement=yes
++            [goal]
++                name=protect_unit
++                [criteria] #NOTE: this is a SUF, because we're protecting a unit
++                    id=Lunnyn
++                [/criteria]
++                protect_radius={ON_DIFFICULTY 10 9 8}
++                value={ON_DIFFICULTY 9 7 5}
++            [/goal]
+         [/ai]
+         user_team_name= _ "Wesnoth Occupation Force"
+     [/side]
+@@ -142,10 +171,10 @@
+             y=21
+         [/teleport]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Pirate Schooner
+         [/disallow_recruit]
+-	[/event]
++    [/event]
+ 
+     [event]
+         name=start
+@@ -159,10 +188,15 @@
+             random_traits=yes
+             id=scout
+             facing=sw
+-			[modifications]
+-				{TRAIT_LOYAL}
+-			[/modifications]
+-			{IS_LOYAL}
++            [modifications]
++#ifdef EASY
++                {TRAIT_QUICK}
++                {TRAIT_RESILIENT}
++                {TRAIT_HEALTHY}
++#endif
++                {TRAIT_LOYAL}
++            [/modifications]
++            {IS_LOYAL}
+         [/unit]
+         [message]
+             speaker=Malakar
+@@ -221,7 +255,15 @@
+     [/event]
+ 
+     [event]
+-        name=turn 7,turn 13
++#ifdef EASY
++        name=turn 5,turn 11,turn 17,turn 23,turn 29,turn 35
++#endif
++#ifdef NORMAL
++        name=turn 6,turn 12,turn 18,turn 24,turn 30
++#endif
++#ifdef HARD
++        name=turn 7,turn 14,turn 21,turn 28
++#endif
+         first_time_only=no
+         {FIGHTER 50 31}
+         {FIGHTER 49 31}
+@@ -243,29 +285,29 @@
+         [/message]
+     [/event]
+ 
+-	[event]
+-		name=moveto
+-		first_time_only=no
+-		[filter]
+-			id=Malakar
+-			x,y=9,23
+-		[/filter]
++    [event]
++        name=moveto
++        first_time_only=no
++        [filter]
++            id=Malakar
++            x,y=9,23
++        [/filter]
+         [allow_recruit]
+-        	side=1
++            side=1
+             type=Pirate Schooner
+         [/allow_recruit]
+-		[event]
+-			name=moveto
+-			first_time_only=yes
+-			[filter]
+-				id=Malakar
+-			[/filter]
+-			[disallow_recruit]
+-				side=1
+-				type=Pirate Schooner
+-			[/disallow_recruit]
+-		[/event]
+-	[/event]
++        [event]
++            name=moveto
++            first_time_only=yes
++            [filter]
++                id=Malakar
++            [/filter]
++            [disallow_recruit]
++                side=1
++                type=Pirate Schooner
++            [/disallow_recruit]
++        [/event]
++    [/event]
+ 
+     [event]
+         name=time over
+@@ -303,7 +345,7 @@
+             fire_event=no
+         [/kill]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Pirate Schooner
+         [/disallow_recruit]
+     [/event]
+@@ -312,5 +354,4 @@
+ 
+ #undef FIGHTER
+ #undef CLASHER
+-
+ [/scenario]

@@ -1,0 +1,52 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/14_Hordes_Undead.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/14_Hordes_Undead.cfg	2020-10-05 20:40:01.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Hordes of the Foul Undead"
+     {MAP 14}
+-    turns=40
++    {TURNS 42 41 40}
+     {SCENARIO_MUSIC northerners.ogg}
+     id=Hordes_Undead
+     next_scenario="Gate_Storms"
+@@ -30,6 +30,8 @@
+         team_name=good
+         user_team_name= _ "Kakatar Tribe"
+         fog=no
++        # explicit gold is probably not necessary, but just in case:
++        {GOLD 120 110 100}
+     [/side]
+     [side]
+         type=Lich
+@@ -94,7 +96,7 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "After defeating the rebels, the remaining Kakatars left the valley. The gliders soon began reporting salt on the breeze: the ocean couldn't be far off."
+-            #image=wesnoth-icon.png
++            # hey wmllint stop putting image=wesnoth-icon.png here; we already use {NARRATOR_ICON} above
+         [/message]
+         [message]
+             speaker=Kogw
+@@ -125,8 +127,8 @@
+             message= _ "The Gate of Storms, Mal, the Gate! This half of the island is crawling with undead!"
+         [/message]
+         [message]
+-        	speaker=Malakar
+-        	message= _ "We can rally the tribe at the ruined fortress! Go!"
++            speaker=Malakar
++            message= _ "We can rally the tribe at the ruined fortress! Go!"
+         [/message]
+         [lock_view]
+         [/lock_view]
+@@ -179,6 +181,11 @@
+     {UNSTONE_GARGOYLES 31 (2,3)}
+     {STONE_GARGOYLES 35 (2,3)}
+     {UNSTONE_GARGOYLES 37 (2,3)}
++    {STONE_GARGOYLES 39 (2,3)}
++    # HARD doesn't have this turn, and on EASY it'd be easier to just leave them as stone, so just do this on NORMAL:
++#ifdef NORMAL
++    {UNSTONE_GARGOYLES 41 (2,3)}
++#endif
+ 
+     [event]
+         name=time over

@@ -1,0 +1,91 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/05a_Blue_River.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/05a_Blue_River.cfg	2020-09-17 21:34:03.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Blue River"
+     {MAP 05a}
+-    turns=30
++    {TURNS 36 32 30}
+     {SCENARIO_MUSIC battle.ogg}
+     id=Blue_River
+     next_scenario="Southern_Shore"
+@@ -23,6 +23,9 @@
+         {FLAG_VARIANT drake}
+         canrecruit=yes
+         controller=human
++        # Should already have a large carryover from previous scenario, so this isn't really necessary, but whatever:
++        {GOLD 30 20 10}
++        {INCOME 3 2 1}
+         recruit=Drake Hatchling,Drake Slave,Drake Burner,Drake Glider,Drake Fighter,Drake Clasher
+         unrenamable=yes
+         team_name=good
+@@ -30,8 +33,14 @@
+         fog=no
+     [/side]
+ 
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 3 2 1}}
++
+     [side]
++#ifdef EASY
++        type=Elvish Captain
++#else
+         type=Elvish Marshal
++#endif
+         id=Mandros
+         name= _ "Mandros"
+         side=2
+@@ -53,7 +62,7 @@
+         controller=ai
+         canrecruit=yes
+         {GOLD 125 175 225}
+-        income=5
++        {INCOME 3 4 5}
+         recruit=Spearman,Cavalryman,Mage,Bowman,Clipper
+         team_name=evil
+         user_team_name= _ "Wesnoth Royal Army"
+@@ -65,12 +74,15 @@
+ 
+     {OBJECTIVES_USUAL_FTF}
+ 
++#ifdef EASY
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Clipper" 1}
++#else
+     {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Clipper" 2}
++#endif
+ 
+     [event]
+         name=prestart
+         {NPC Crow 25 24 4}
+-        #{NPC Falcon 16 31 4}
+         {NPC Crow 8 10 4}
+         {NPC Crow 24 7 4}
+         {NPC Horse 42 10 4}
+@@ -102,6 +114,10 @@
+             speaker=Malakar
+             message= _ "This must be the Blue River. I know you are all tired. We rest for ten minutes."
+         [/message]
++        # Yes I know this is in milliseconds and not minutes; it just feels right, tho:
++        [delay]
++            time=10
++        [/delay]
+         [move_unit_fake]
+             type=Pirate
+             x=40,41,42,43,44,45,46,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47
+@@ -219,7 +235,7 @@
+         [/message]
+         [message]
+             speaker=Malakar
+-            message= _ "<span size='large'>growls*</span>"
++            message= _ "<span size='large'>*growls*</span>"
+         [/message]
+         [message]
+             speaker=Malakar
+@@ -282,7 +298,7 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "You can now recruit Pirate Schooners."
+-            #image=wesnoth-icon.png
++            # hey wmllint stop putting image=wesnoth-icon.png here; we already have {NARRATOR_ICON} above
+         [/message]
+         [allow_recruit]
+             side=1

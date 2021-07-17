@@ -1,0 +1,425 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/09_Drake_Escape.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/09_Drake_Escape.cfg	2020-09-18 01:21:06.000000000 -0400
+@@ -38,6 +38,8 @@
+         team_name=good
+         user_team_name= _ "Kakatar Tribe"
+         fog=no
++        # Player probably has a decent bonus, but just in case:
++        {GOLD 120 110 100}
+     [/side]
+     [side]
+         type=General
+@@ -49,7 +51,7 @@
+         canrecruit=yes
+         {GOLD 300 350 400}
+         recruit=Swordsman,Knight,Red Mage,Longbowman,Dragoon,Pikeman,Lieutenant,Shock Trooper
+-        income=15
++        {INCOME 12 14 16}
+         team_name=evil
+         user_team_name= _ "Wesnoth Expeditionary Force"
+     [/side]
+@@ -63,7 +65,7 @@
+         canrecruit=yes
+         {GOLD 300 350 400}
+         recruit=Orcish Warrior,Orcish Crossbowman,Troll,Orcish Slayer,Goblin Knight,Goblin Pillager,Troll Rocklobber
+-        income=15
++        {INCOME 12 14 16}
+         team_name=evil2
+         user_team_name= _ "Local Orcish Tribe"
+         [ai]
+@@ -140,7 +142,6 @@
+             aggression=1.0
+             leader_value=0
+             village_value=0
+-            #protect_leader=0
+             grouping=no
+             caution=0.1
+             simple_targeting=yes
+@@ -173,7 +174,6 @@
+                 x=24-25, 26   , 27-28, 29   , 30-34
+                 y=43-47, 42-47, 43-47, 41-47, 43-47
+             [/filter_location]
+-            #station_x,station_y=29,44
+         [/micro_ai]
+         [recall]
+             id=Unforgiver
+@@ -286,9 +286,10 @@
+         [/store_unit]
+     [/event]
+ 
+-    {LIMIT_CONTEMPORANEOUS_RECRUITS 2 "Shock Trooper" 2}
+-    {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Troll" 2}
+-    {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Troll Rocklobber" 2}
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 2 "Shock Trooper" {ON_DIFFICULTY 1 2 3}}
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Troll" {ON_DIFFICULTY 1 2 3}}
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Troll Rocklobber" {ON_DIFFICULTY 1 2 3}}
++    {LIMIT_CONTEMPORANEOUS_RECRUITS 3 "Orcish Slayer" {ON_DIFFICULTY 1 2 3}}
+ 
+     [event]
+         name=turn 2
+@@ -303,7 +304,7 @@
+     [/event]
+ 
+     [event]
+-        name=turn 6
++        name={ON_DIFFICULTY (turn 8) (turn 7) (turn 6)}
+         [message]
+             speaker=Hago
+             message= _ "Hail, Orcish... um... King! You see our forces and must know that we have the ability to crush you. I propose an alternate plan. You will bring us the head of the drake leader, and we will leave your land. Additionally, we will leave behind every weapon we carry with us. You could become the most powerful leader on this island!"
+@@ -389,7 +390,6 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "Einelen vanishes with a magical word!"
+-            #image=wesnoth-icon.png
+         [/message]
+         [unlock_view]
+         [/unlock_view]
+@@ -452,44 +452,44 @@
+             [/have_unit]
+             [then]
+                 #just in case a unit is here
+-				[if]
+-					[have_unit]
+-						x,y=41,7
+-					[/have_unit]
+-					[then]
+-						[store_unit]
+-							[filter]
+-								x,y=41,7
+-							[/filter]
+-							kill=yes
+-							variable=tempstore
+-						[/store_unit]
+-						[unit]
+-							generate_name=yes
+-							random_traits=yes
+-							x,y=41,7
+-							type=Elvish Avenger
+-							side=4
+-							gender=male
+-							facing=sw
+-						[/unit]
+-						[unstore_unit]
+-							variable=tempstore
+-							find_vacant=yes
+-						[/unstore_unit]
+-					[/then]
+-					[else]
+-						[unit]
+-							generate_name=yes
+-							random_traits=yes
+-							x,y=41,7
+-							type=Elvish Avenger
+-							side=4
+-							gender=male
+-							facing=sw
+-						[/unit]
+-					[/else]
+-				[/if]
++                [if]
++                    [have_unit]
++                        x,y=41,7
++                    [/have_unit]
++                    [then]
++                        [store_unit]
++                            [filter]
++                                x,y=41,7
++                            [/filter]
++                            kill=yes
++                            variable=tempstore
++                        [/store_unit]
++                        [unit]
++                            generate_name=yes
++                            random_traits=yes
++                            x,y=41,7
++                            type=Elvish Avenger
++                            side=4
++                            gender=male
++                            facing=sw
++                        [/unit]
++                        [unstore_unit]
++                            variable=tempstore
++                            find_vacant=yes
++                        [/unstore_unit]
++                    [/then]
++                    [else]
++                        [unit]
++                            generate_name=yes
++                            random_traits=yes
++                            x,y=41,7
++                            type=Elvish Avenger
++                            side=4
++                            gender=male
++                            facing=sw
++                        [/unit]
++                    [/else]
++                [/if]
+                 {CLEAR_VARIABLE tempstore}
+                 [lock_view]
+                 [/lock_view]
+@@ -500,7 +500,7 @@
+                     [filter]
+                         x,y=41,7
+                     [/filter]
+-					flag=attack
++                    flag=attack
+                     [primary_attack]
+                         range=ranged
+                     [/primary_attack]
+@@ -566,128 +566,128 @@
+                         equals=no
+                     [/variable]
+                     [then]
+-                    	[count_units]
+-                    		type=Thunder Spirit
+-                    		side=5
+-                    		variable=spirit_count
+-                    	[/count_units]
+-                    	[if]
+-                    		[variable]
+-                    			name=spirit_count
+-                    			less_than_equal_to=3
+-                    		[/variable]
+-                    		[then]
+-								{RANDOM 1..5}
+-								[if]
+-									[variable]
+-										name=random
+-										numerical_equals=1
+-									[/variable]
+-									[then]
+-										{VARIABLE spirit_last_turn yes}
+-										[set_variable]
+-											name=thunderx
+-											rand=1..50
+-										[/set_variable]
+-										#keeps the spirits out of the cave
+-										[set_variable]
+-											name=thundery
+-											rand=1..44
+-										[/set_variable]
+-										[scroll_to]
+-											x=$thunderx
+-											y=$thundery
+-										[/scroll_to]
+-										[sound]
+-											name=lightning.ogg
+-										[/sound]
+-										[sound]
+-											name=fire.wav
+-										[/sound]
+-										[item]
+-											x=$thunderx
+-											y=$thundery
+-											halo=halo/shadow-mage-halo1.png,halo/shadow-mage-halo2.png,halo/shadow-mage-halo3.png,halo/shadow-mage-halo4.png,halo/shadow-mage-halo5.png,halo/shadow-mage-halo6.png,halo/shadow-mage-halo7.png,halo/shadow-mage-halo8.png,halo/shadow-mage-halo9.png,halo/shadow-mage-halo10.png
+-										[/item]
+-										[color_adjust]
+-											red=100
+-											green=100
+-											blue=100
+-										[/color_adjust]
+-										[unit]
+-											x=$thunderx
+-											y=$thundery
+-											type=Thunder Spirit
+-											side=5
+-										[/unit]
+-										[delay]
+-											time=10
+-										[/delay]
+-										[color_adjust]
+-											red=0
+-											green=0
+-											blue=0
+-										[/color_adjust]
+-										[scroll_to]
+-											x=$thunderx
+-											y=$thundery
+-										[/scroll_to]
+-										[delay]
+-											time=150
+-										[/delay]
+-										[remove_item]
+-											x=$thunderx
+-											y=$thundery
+-										[/remove_item]
+-										[message]
+-											speaker=Kogw
+-											message= _ "A spirit has attacked!"
+-										[/message]
+-										[if]
+-											[variable]
+-												name=spirit_counter
+-												numerical_equals=0
+-											[/variable]
+-											[then]
+-												[message]
+-													speaker=Malakar
+-													message= _ "Do these spirits pursue us, too?"
+-												[/message]
+-											[/then]
+-										[/if]
+-										[if]
+-											[variable]
+-												name=spirit_counter
+-												numerical_equals=1
+-											[/variable]
+-											[then]
+-												[message]
+-													speaker=Malakar
+-													message= _ "It did not attack! It just appeared!"
+-												[/message]
+-											[/then]
+-										[/if]
+-										[if]
+-											[variable]
+-												name=spirit_counter
+-												numerical_equals=2
+-											[/variable]
+-											[then]
+-												[message]
+-													speaker=Malakar
+-													message= _ "Are you going to say that EVERY time?"
+-												[/message]
+-											[/then]
+-										[/if]
+-										{VARIABLE_OP spirit_counter add 1}
+-										{CLEAR_VARIABLE thunderx}
+-										{CLEAR_VARIABLE thundery}
+-									[/then]
+-								[/if]
+-								{CLEAR_VARIABLE random}
+-							[/then]
+-						[/if]
+-						{CLEAR_VARIABLE spirit_count}
++                        [count_units]
++                            type=Thunder Spirit
++                            side=5
++                            variable=spirit_count
++                        [/count_units]
++                        [if]
++                            [variable]
++                                name=spirit_count
++                                less_than_equal_to=3
++                            [/variable]
++                            [then]
++                                {RANDOM 1..5}
++                                [if]
++                                    [variable]
++                                        name=random
++                                        numerical_equals=1
++                                    [/variable]
++                                    [then]
++                                        {VARIABLE spirit_last_turn yes}
++                                        [set_variable]
++                                            name=thunderx
++                                            rand=1..50
++                                        [/set_variable]
++                                        #keeps the spirits out of the cave
++                                        [set_variable]
++                                            name=thundery
++                                            rand=1..44
++                                        [/set_variable]
++                                        [scroll_to]
++                                            x=$thunderx
++                                            y=$thundery
++                                        [/scroll_to]
++                                        [sound]
++                                            name=lightning.ogg
++                                        [/sound]
++                                        [sound]
++                                            name=fire.wav
++                                        [/sound]
++                                        [item]
++                                            x=$thunderx
++                                            y=$thundery
++                                            halo=halo/shadow-mage-halo1.png,halo/shadow-mage-halo2.png,halo/shadow-mage-halo3.png,halo/shadow-mage-halo4.png,halo/shadow-mage-halo5.png,halo/shadow-mage-halo6.png,halo/shadow-mage-halo7.png,halo/shadow-mage-halo8.png,halo/shadow-mage-halo9.png,halo/shadow-mage-halo10.png
++                                        [/item]
++                                        [color_adjust]
++                                            red=100
++                                            green=100
++                                            blue=100
++                                        [/color_adjust]
++                                        [unit]
++                                            x=$thunderx
++                                            y=$thundery
++                                            type=Thunder Spirit
++                                            side=5
++                                        [/unit]
++                                        [delay]
++                                            time=10
++                                        [/delay]
++                                        [color_adjust]
++                                            red=0
++                                            green=0
++                                            blue=0
++                                        [/color_adjust]
++                                        [scroll_to]
++                                            x=$thunderx
++                                            y=$thundery
++                                        [/scroll_to]
++                                        [delay]
++                                            time=150
++                                        [/delay]
++                                        [remove_item]
++                                            x=$thunderx
++                                            y=$thundery
++                                        [/remove_item]
++                                        [message]
++                                            speaker=Kogw
++                                            message= _ "A spirit has attacked!"
++                                        [/message]
++                                        [if]
++                                            [variable]
++                                                name=spirit_counter
++                                                numerical_equals=0
++                                            [/variable]
++                                            [then]
++                                                [message]
++                                                    speaker=Malakar
++                                                    message= _ "Do these spirits pursue us, too?"
++                                                [/message]
++                                            [/then]
++                                        [/if]
++                                        [if]
++                                            [variable]
++                                                name=spirit_counter
++                                                numerical_equals=1
++                                            [/variable]
++                                            [then]
++                                                [message]
++                                                    speaker=Malakar
++                                                    message= _ "It did not attack! It just appeared!"
++                                                [/message]
++                                            [/then]
++                                        [/if]
++                                        [if]
++                                            [variable]
++                                                name=spirit_counter
++                                                numerical_equals=2
++                                            [/variable]
++                                            [then]
++                                                [message]
++                                                    speaker=Malakar
++                                                    message= _ "Are you going to say that EVERY time?"
++                                                [/message]
++                                            [/then]
++                                        [/if]
++                                        {VARIABLE_OP spirit_counter add 1}
++                                        {CLEAR_VARIABLE thunderx}
++                                        {CLEAR_VARIABLE thundery}
++                                    [/then]
++                                [/if]
++                                {CLEAR_VARIABLE random}
++                            [/then]
++                        [/if]
++                        {CLEAR_VARIABLE spirit_count}
+                     [/then]
+                     [else]
+                         {VARIABLE spirit_last_turn no}
+@@ -797,5 +797,4 @@
+     [/event]
+ 
+     {FTF_COMMON}
+-
+ [/scenario]

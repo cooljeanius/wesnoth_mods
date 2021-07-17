@@ -1,0 +1,169 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/12_Rockfall.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/12_Rockfall.cfg	2020-09-05 01:54:24.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Rockfall"
+     {MAP 12}
+-    turns=30
++    {TURNS 36 33 30}
+     {SCENARIO_MUSIC northerners.ogg}
+     victory_when_enemies_defeated=no
+     id=Rockfall
+@@ -28,6 +28,7 @@
+         shroud=yes
+         user_team_name= _ "Kakatar Tribe"
+         fog=no
++        # (no explicit gold; should have plenty left over from previous scenario)
+     [/side]
+ 
+     [side]
+@@ -38,9 +39,13 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 225 275 325}
++        {GOLD 200 250 300}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker,Dwarvish Guardsman
++#ifdef EASY
++        team_name=dwarves
++#else
+         team_name=evil
++#endif
+         shroud=yes
+         user_team_name= _ "Dwarves"
+     [/side]
+@@ -53,9 +58,13 @@
+         {FLAG_VARIANT knalgan}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 225 275 325}
++        {GOLD 200 250 300}
+         recruit=Dwarvish Fighter,Dwarvish Thunderer,Dwarvish Ulfserker,Dwarvish Guardsman
++#ifdef EASY
++        team_name=dwarves
++#else
+         team_name=evil
++#endif
+         shroud=yes
+         user_team_name= _ "Dwarves"
+     [/side]
+@@ -67,13 +76,21 @@
+         controller=ai
+         gold=0
+         recruit=
++#ifdef EASY
++        team_name=monsters
++#else
+         team_name=evil
++#endif
+         no_leader=yes
+         user_team_name= _ "Monsters"
+     [/side]
+ 
+     #rocks' side
++#ifdef EASY
++    {NPC_SIDE 5 monsters ("")}
++#else
+     {NPC_SIDE 5 evil ("")}
++#endif
+ 
+     {OBJECTIVES_HEADER_BEGIN}
+     {CONDITION_WIN ( _ "Exit the cave")}
+@@ -85,15 +102,15 @@
+     [event]
+         name=prestart
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Hatchling
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Slave
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Clasher
+         [/disallow_recruit]
+         #rocks to be destroyed
+@@ -102,7 +119,7 @@
+         x={X}
+         y={Y}
+         side=5
+-		ellipse=none
++	ellipse=none
+         type=Rock
+     [/unit]
+ #enddef
+@@ -129,7 +146,9 @@
+             type=Lava Beast
+             ai_special=guardian
+         [/unit]
+-        #		{LAVA_MONSTER 8 8}
++#ifdef NIGHTMARE
++        {LAVA_MONSTER 8 8}
++#endif
+         {LAVA_MONSTER 11 13}
+         {LAVA_MONSTER 7 17}
+         {LAVA_MONSTER 27 15}
+@@ -326,10 +345,14 @@
+                     speaker=second_unit
+                     message= _ "All 6 boulders have been destroyed! The cave could collapse at any time! Everyone out, now!"
+                 [/message]
++                [set_variable]
++                    name=turns_to_escape
++                    value={ON_DIFFICULTY 7 6 5}
++                [/set_variable]
+                 [message]
+                     speaker=narrator
+                     {NARRATOR_ICON}
+-                    message= _ "Malakar has 5 turns to escape the cave-in."
++                    message= _ "Malakar has $turns_to_escape turns to escape the cave-in."
+                     #image=wesnoth-icon.png
+                 [/message]
+                 [set_variable]
+@@ -365,7 +388,22 @@
+                     [if]
+                         [variable]
+                             name=elapsed
+-                            numerical_equals=6
++                            numerical_equals=$turns_to_escape
++                        [/variable]
++                        [then]
++                            {QUAKE rumble.ogg}
++                            [message]
++                                speaker=Malakar
++                                caption= _ "Kogw"
++                                image=$kogw_image
++                                message= _ "This is our last chance to make it out!"
++                            [/message]
++                        [/then]
++                    [/if]
++                    [if]
++                        [variable]
++                            name=elapsed
++                            numerical_equals=($turns_to_escape + 1)
+                         [/variable]
+                         [then]
+                             {QUAKE cave-in.ogg}
+@@ -420,15 +458,15 @@
+                 [/unstore_unit]
+                 {CLEAR_VARIABLE kogw_store}
+                 [allow_recruit]
+-		        	side=1
++		    side=1
+                     type=Drake Hatchling
+                 [/allow_recruit]
+                 [allow_recruit]
+-		        	side=1
++		    side=1
+                     type=Drake Slave
+                 [/allow_recruit]
+                 [allow_recruit]
+-		        	side=1
++		    side=1
+                     type=Drake Clasher
+                 [/allow_recruit]
+                 [set_variable]

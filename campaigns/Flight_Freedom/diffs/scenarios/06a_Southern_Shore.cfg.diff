@@ -1,0 +1,113 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/06a_Southern_Shore.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/06a_Southern_Shore.cfg	2020-09-17 22:59:59.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Southern Shore"
+     {MAP 06a}
+-    turns=20
++    {TURNS 22 21 20}
+     {SCENARIO_MUSIC revelation.ogg}
+     id=Southern_Shore
+     next_scenario="Open_Ocean"
+@@ -29,6 +29,8 @@
+         team_name=good
+         user_team_name= _ "Skullbone Pirates"
+         fog=no
++        # default gold when left unspecified is 100
++        {GOLD 120 110 100}
+     [/side]
+     [side]
+         type=Dreadnought
+@@ -40,7 +42,7 @@
+         canrecruit=yes
+         {GOLD 200 250 300}
+         recruit=Clipper,Caravel
+-        income=15
++        {INCOME 9 12 15}
+         team_name=evil
+         #forces recruitment
+         [ai]
+@@ -82,14 +84,13 @@
+             name= _ "Unforgiver"
+             type=Pirate Galleon2
+             side=1
+-            #{IS_HERO}
+             unrenamable=yes
+             random_traits=no
+             #makes the Unforgiver the leader
+             canrecruit=yes
+         [/unit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Clasher, Drake Slave, Drake Hatchling
+         [/disallow_recruit]
+     [/event]
+@@ -100,16 +101,19 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "After securing the Blue River, Malakar boarded the pirates' flagship, the Unforgiver, and set sail for Morogor."
++            # hey wmllint stop putting image=wesnoth-icon.png here; we already have {NARRATOR_ICON} above
+         [/message]
+         [message]
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "Omandro had been wrong, however, and the human reinforcements were much closer than he had thought."
++            # hey wmllint stop putting image=wesnoth-icon.png here; we already have {NARRATOR_ICON} above
+         [/message]
+         [message]
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "Just as the Unforgiver cleared the coast, it was intercepted by the Royal Navy."
++            # hey wmllint stop putting image=wesnoth-icon.png here; we already have {NARRATOR_ICON} above
+         [/message]
+         [message]
+             speaker=Luna
+@@ -167,7 +171,6 @@
+             id=Unforgiver
+         [/filter_second]
+         [filter_attack]
+-            #name=catapult
+             range=bombard
+         [/filter_attack]
+         [message]
+@@ -181,7 +184,7 @@
+         name=die
+         [filter]
+             side=2
+-			race=boat
++            race=boat
+         [/filter]
+         [filter_second]
+             side=1
+@@ -303,18 +306,18 @@
+         [/endlevel]
+     [/event]
+ 
+-	[event]
+-		name=time over
+-		{WESNOTH_THIRD_FLEET_APPEARANCE 30 28 2}
+-		[message]
+-			speaker=Unforgiver
+-			image=$kogw_image
+-			message= _ "(Kogw) Malakar... it's the entire Royal Third Fleet! We're surrounded!"
+-		[/message]
+-		[endlevel]
+-			result=defeat
+-		[/endlevel]
+-	[/event]
++    [event]
++        name=time over
++        {WESNOTH_THIRD_FLEET_APPEARANCE 30 28 2}
++        [message]
++            speaker=Unforgiver
++            image=$kogw_image
++            message= _ "(Kogw) Malakar... it's the entire Royal Third Fleet! We're surrounded!"
++        [/message]
++        [endlevel]
++            result=defeat
++        [/endlevel]
++    [/event]
+ 
+     {FTF_COMMON}
+ [/scenario]

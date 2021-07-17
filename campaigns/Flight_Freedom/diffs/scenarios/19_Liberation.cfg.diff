@@ -1,0 +1,186 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/19_Liberation.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/19_Liberation.cfg	2020-10-07 00:42:54.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "Liberation"
+     {MAP 19}
+-    {TURNS 68 61 56}
++    {TURNS 99 69 59}
+     {SCENARIO_MUSIC knalgan_theme.ogg}
+     id=Liberation
+     next_scenario="Endgame"
+@@ -43,7 +43,7 @@
+         share_maps=yes
+         share_view=yes
+         user_team_name= _ "Kakatar Tribe"
+-        gold=120
++        {GOLD 360 240 120}
+     [/side]
+     #NW humans
+     [side]
+@@ -54,12 +54,16 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 130 160 190}
+-        income=8
++        {GOLD 100 130 160}
++        {INCOME 2 5 8}
+         recruit=Swordsman,Spearman,Bowman,Javelineer
+         team_name=evil
+         [ai]
+             recruitment_ignore_bad_movement=yes
++            grouping=no
++#ifdef EASY
++            simple_targeting=yes
++#endif
+             [aspect]
+                 id=attacks
+                 [facet]
+@@ -84,13 +88,17 @@
+         controller=ai
+         canrecruit=yes
+         {GOLD 100 125 150}
+-        income=8
++        {INCOME 2 5 8}
+         recruit=Spearman,Bowman,Longbowman
+         team_name=evil
+         [ai]
+             #to keep him in front of the torture room gate
+             passive_leader=yes
+             recruitment_ignore_bad_movement=yes
++            grouping=no
++#ifdef EASY
++            simple_targeting=yes
++#endif
+             [aspect]
+                 id=attacks
+                 [facet]
+@@ -119,6 +127,10 @@
+         color=2
+         user_team_name= _ "Slave Guards"
+         [ai]
++            grouping=no
++#ifdef EASY
++            simple_targeting=yes
++#endif
+             [aspect]
+                 id=attacks
+                 [facet]
+@@ -140,8 +152,8 @@
+         {FLAG_VARIANT drake}
+         controller=ai
+         canrecruit=yes
+-        gold=0
+-        #clashers would be worthless until the bridge is repaired, and burners are too slow
++        gold=0 # Kamalar gets gold when you meet him; no need for it until then
++        # Clashers would be worthless until the bridge is repaired, and Burners are too slow:
+         recruit=Drake Glider,Drake Fighter,Cave Drake
+         team_name=good2
+         persistent=0
+@@ -152,10 +164,6 @@
+         color=3
+         [ai]
+             passive_leader=yes
+-            #            [avoid]
+-            #                x=1-15
+-            #                y=1-40
+-            #            [/avoid]
+         [/ai]
+         user_team_name= _ "Kamalar's Guard"
+     [/side]
+@@ -194,7 +202,7 @@
+         [ai]
+             [goal]
+                 [criteria]
+-                    side=4
++                    side=4 # guards
+                 [/criteria]
+                 value=50
+             [/goal]
+@@ -303,7 +311,6 @@
+     [item]
+         x,y=30,7
+         image=items/grave-bones-treasure.png
+-#        visible_in_fog=no
+     [/item]
+ 
+     #torture chamber
+@@ -380,7 +387,7 @@
+                 {TRAIT_RESILIENT}
+             [/modifications]
+         [/unit]
+-        {CAPTURE_VILLAGES 5 22 11 4}
++        {CAPTURE_VILLAGES 5 22 11 4} # Kamalar's side
+         [set_menu_item]
+             id=control_slaves
+             description= _ "Manual control"
+@@ -521,7 +528,7 @@
+         [/unstore_unit]
+         [redraw]
+         [/redraw]
+-        #a Command and Conquer 3 reference
++        # I don't care what the original author says; this is too generic of a message to be a reference to anything:
+         [message]
+             speaker=unit
+             message= _ "We're free! The oppressors must die!"
+@@ -640,7 +647,6 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "The drakes split into three forces. Malakar led the smallest, a hand-picked team tasked with liberating the former Drakkar Quarry, now known as Bosun's Mine."
+-            #image=wesnoth-icon.png
+         [/message]
+         [message]
+             speaker=Kogw
+@@ -662,7 +668,7 @@
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "NOTE: Your encampment will disappear on turn 2, and your recall list will cease to be available for this scenario."
+-            #image=wesnoth-icon.png
++            # hey wmllint stop putting image=wesnoth-icon.png here; we already use {NARRATOR_ICON} above
+         [/message]
+     [/event]
+ 
+@@ -671,7 +677,7 @@
+         [terrain]
+             x=1-2  ,3 ,4
+             y=23-24,24,23-24
+-            terrain=Uu
++            terrain=Re
+         [/terrain]
+         #a hack to keep the northwest humans from moving after turn 2
+         [petrify]
+@@ -799,9 +805,6 @@
+         [redraw]
+             side=1
+         [/redraw]
+-        #[scroll_to]
+-        #    x,y=10,21
+-        #[/scroll_to]
+         [message]
+             speaker=Kamalar
+             message= _ "Hello, my brothers."
+@@ -841,12 +844,12 @@
+         [modify_side]
+             side=5
+             controller=human
+-            income=0
++            income={ON_DIFFICULTY 2 1 0}
+             user_team_name= _ "Kamalar's Guard"
+         [/modify_side]
+         [gold]
+-            side=5
+-            amount=50
++            side=5 # Kamalar's side
++            amount={ON_DIFFICULTY 70 60 50}
+         [/gold]
+     [/event]
+ 
+@@ -1611,7 +1614,6 @@
+         name=moveto
+         first_time_only=no
+         [filter]
+-            #x,y=15,18
+             x=15,16
+             y=18,17
+             side=1,5

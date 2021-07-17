@@ -1,0 +1,359 @@
+--- /Users/ericgallager/Downloads/Flight_Freedom/scenarios/03a_Manor.cfg	2019-02-28 17:47:53.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Flight_Freedom/scenarios/03a_Manor.cfg	2020-09-17 19:34:49.000000000 -0400
+@@ -3,7 +3,7 @@
+ [scenario]
+     name= _ "The Manor"
+     {MAP 03a}
+-    turns=28
++    {TURNS 32 30 28}
+     {SCENARIO_MUSIC loyalists.ogg}
+     id=Manor
+     next_scenario="Caravan"
+@@ -47,7 +47,7 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 40 55 70}
++        {GOLD 20 50 70}
+         recruit=Spearman,Bowman
+         team_name=evil
+         user_team_name= _ "Prax's Bodyguard"
+@@ -60,7 +60,7 @@
+         {FLAG_VARIANT loyalist}
+         controller=ai
+         canrecruit=yes
+-        {GOLD 60 75 90}
++        {GOLD 50 70 90}
+         recruit=Spearman,Bowman
+         profile=portraits/prax.png~RIGHT()
+         team_name=evil
+@@ -68,7 +68,7 @@
+         #keeps color of Prax's recruits the same as those that have went through the trapdoor (they are moved to side 2)
+         color=2
+         [ai]
+-            #reduce the chance of this AI blocking an entire corridor
++            #reduce the chance of this AI blocking an entire corridor (I should do this for more scenarios in this campaign)
+             grouping=no
+             [avoid]
+                 x,y=14,8
+@@ -107,45 +107,45 @@
+         name=prestart
+         #should prevent a weird recruitment bug, but probably hasn't been necessary for a long time
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Burner
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Clasher
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Fighter
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Drake Glider
+         [/disallow_recruit]
+         #extended to account for branch from Hafwyt
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Saurian Skirmisher
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Saurian Augur
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Saurian Headhunter
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Saurian Skald
+         [/disallow_recruit]
+         [disallow_recruit]
+-        	side=1
++            side=1
+             type=Saurian Assassin
+         [/disallow_recruit]
+         [gold]
+             side=1
+-            amount=150
++            amount={ON_DIFFICULTY 250 200 150}
+         [/gold]
+         #I don't remember why I put these [terrain] tags in
+         [terrain]
+@@ -342,9 +342,9 @@
+             x,y=21,22
+             side=3
+             type=Pikeman
+-			[status]
+-			    guardian=yes
+-			[/status]
++            [status]
++                guardian=yes
++            [/status]
+ #ifdef EASY
+             [modifications]
+                 [trait]
+@@ -362,42 +362,43 @@
+             x,y=20,10
+             side=3
+             type=Javelineer
+-			[status]
+-			    guardian=yes
+-			[/status]
+-            #		[modifications]
+-            #			[trait]
+-            #				[effect]
+-            #					apply_to=hitpoints
+-            #					increase_total=-17
+-            #					heal_full=yes
+-            #				[/effect]
+-            #			[/trait]
+-            #		[/modifications]
++            [status]
++                guardian=yes
++            [/status]
++#ifdef EASY
++            [modifications]
++                [trait]
++                    [effect]
++                        apply_to=hitpoints
++                        increase_total=-17
++                        heal_full=yes
++                    [/effect]
++                [/trait]
++            [/modifications]
++#endif
+         [/unit]
+         [unit]
+             x,y=20,20
+             side=5
+             type=Door
+-			ellipse=none
++            ellipse=none
+         [/unit]
+         [unit]
+             x,y=16,12
+             side=5
+             type=Door
+-			ellipse=none
++            ellipse=none
+         [/unit]
+         [unit]
+             x,y=16,5
+             side=5
+             type=Door
+-			ellipse=none
++            ellipse=none
+         [/unit]
+         [message]
+             speaker=narrator
+             {NARRATOR_ICON}
+             message= _ "Although the hatchlings were now safe, they had suffered grievous wounds, rendering most of them unable to fight. Many died from their wounds, sending Malakar and the drakes into a ferocious bloodlust."
+-            #image=wesnoth-icon.png
+         [/message]
+         [message]
+             speaker=Malakar
+@@ -661,9 +662,11 @@
+             image=icons/armor-pickup.png
+             message= _ "I wish this armor were drake-sized."
+         [/message]
+-        #[remove_item]
+-        #    x,y=23,22
+-        #[/remove_item]
++#ifdef DISAPPEARING_ARMOR
++        [remove_item]
++            x,y=23,22
++        [/remove_item]
++#endif
+     [/event]
+ 
+     #doors
+@@ -754,8 +757,8 @@
+             type=Spectre
+             side=5
+             facing=sw
+-			id=necromancy_spectre
+-			name= _ "Ensorcelled Soul"
++            id=necromancy_spectre
++            name= _ "Ensorcelled Soul"
+         [/unit]
+         [redraw]
+         [/redraw]
+@@ -850,7 +853,7 @@
+             side=2
+             type=Skeleton
+             animate=yes
+-			name= _ "Skeleton"
++            name= _ "Skeleton"
+         [/unit]
+         [message]
+             x,y=18,2
+@@ -905,9 +908,9 @@
+             x=21,22
+             y=10,9-11
+             side=1
+-			[not] #he's too straight-laced for forced humor
+-				id=Malakar
+-			[/not]
++            [not] #he's too straight-laced for forced humor
++                id=Malakar
++            [/not]
+         [/filter]
+         [message]
+             speaker=unit
+@@ -921,9 +924,9 @@
+                 x=21,22
+                 y=10,9-11
+                 side=1
+-				[not]
+-					id=Malakar
+-				[/not]
++                [not]
++                    id=Malakar
++                [/not]
+             [/filter]
+             [message]
+                 speaker=unit
+@@ -937,9 +940,9 @@
+                     x=21,22
+                     y=10,9-11
+                     side=1
+-					[not]
+-						id=Malakar
+-					[/not]
++                    [not]
++                        id=Malakar
++                    [/not]
+                 [/filter]
+                 [message]
+                     speaker=unit
+@@ -954,9 +957,9 @@
+                         x=21,22
+                         y=10,9-11
+                         side=1
+-						[not]
+-							id=Malakar
+-						[/not]
++                        [not]
++                            id=Malakar
++                        [/not]
+                     [/filter]
+                     [message]
+                         speaker=unit
+@@ -975,24 +978,24 @@
+             x,y=18,6
+             side=1
+         [/filter]
+-		[if]
+-			[variable]
+-				name=unit.id
+-				equals=Malakar
+-			[/variable]
+-			[then]
+-				[message]
+-					speaker=unit
+-					message= _ "There is a fresh corpse here. It appears to have been stitched together... it moves!"
+-				[/message]
+-			[/then]
+-			[else]
+-				[message]
+-					speaker=unit
+-					message= _ "There's a fresh corpse here! It's been stitched together... it's moving!"
+-				[/message]
+-			[/else]
+-		[/if]
++        [if]
++            [variable]
++                name=unit.id
++                equals=Malakar
++            [/variable]
++            [then]
++                [message]
++                    speaker=unit
++                    message= _ "There is a fresh corpse here. It appears to have been stitched together... it moves!"
++                [/message]
++            [/then]
++            [else]
++                [message]
++                    speaker=unit
++                    message= _ "There's a fresh corpse here! It's been stitched together... it's moving!"
++                [/message]
++            [/else]
++        [/if]
+         [sound]
+             name=zombie-attack.wav
+         [/sound]
+@@ -1202,24 +1205,24 @@
+                             speaker=unit
+                             message= _ "Perfect!"
+                         [/message]
+-						[if]
+-							[variable]
+-								name=unit.id
+-								equals=Malakar
+-							[/variable]
+-							[then]
+-								[message]
+-									speaker=unit
+-									message= _ "Except I am standing on the trapdoor."
+-								[/message]
+-							[/then]
+-							[else]
+-								[message]
+-									speaker=unit
+-									message= _ "Except... that I'm standing on the trapdoor."
+-								[/message]
+-							[/else]
+-						[/if]
++                        [if]
++                            [variable]
++                                name=unit.id
++                                equals=Malakar
++                            [/variable]
++                            [then]
++                                [message]
++                                    speaker=unit
++                                    message= _ "Except I am standing on the trapdoor."
++                                [/message]
++                            [/then]
++                            [else]
++                                [message]
++                                    speaker=unit
++                                    message= _ "Except... that I'm standing on the trapdoor."
++                                [/message]
++                            [/else]
++                        [/if]
+                     [/then]
+                     [else]
+                         [if]
+@@ -1287,11 +1290,15 @@
+ #enddef
+ 
+     {HAUNTED_HOUSE_1 2}
+-    #	{HAUNTED_HOUSE_2 5}
+-    #	{HAUNTED_HOUSE_1 9}
++#ifdef EVEN_MORE_HAUNTED
++    {HAUNTED_HOUSE_2 5}
++    {HAUNTED_HOUSE_1 9}
++#endif
+     {HAUNTED_HOUSE_2 12}
+     {HAUNTED_HOUSE_2 16}
+-    #	{HAUNTED_HOUSE_1 19}
++#ifdef EVEN_MORE_HAUNTED
++    {HAUNTED_HOUSE_1 19}
++#endif
+ 
+     [event]
+         name=sighted
