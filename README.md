@@ -40,9 +40,11 @@ playing them, but now I am going to alphabetize them:
 - Northern Rebirth: (mainline)
 - Northern Rebirth Remake: 1.2.10
 - Sceptre of Fire: (mainline)
+- Secrets of the Ancients: (mainline)
 - Sepulchre of Elran: 1.0.1
 - Son of the Black Eye: (mainline)
 - The Battle for the Contrabass Clarinet: 1.0.0
+- The Elf, the Dwarf and the Mage: 1.2.1
 - The Final Exam: 2.6.1
 - The Return of the Darks: 0.1.0\[unfinished]
 - The Rise of Wesnoth: (mainline)
