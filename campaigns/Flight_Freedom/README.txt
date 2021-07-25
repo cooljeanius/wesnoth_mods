@@ -72,3 +72,7 @@ So yeah this was another hard one. Here's a writeup on my per-scenario changes:
 Also, this doesn't exactly fit in any particular scenario, but I gave the
 Drake Guard the Steadfast ability, because otherwise at first glance it looks
 like a RiPLIB violation.
+
+Note: I am taking over maintenance of this campaign; any further changes to it
+will happen in the following repository instead:
+https://github.com/cooljeanius/Flight_Freedom
