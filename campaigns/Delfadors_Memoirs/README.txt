@@ -13,3 +13,6 @@ villages." After that I didn't need to edit again until scenario 13 (The Return
 of Trouble), where I mostly just needed some starting villages, and then I had
 another break until scenario 18 (The Portal of Doom), where I made Iliah-Malal
 appear later and target Delfador less.
+
+Note that these changes have been merged back upstream as of this PR being
+merged: https://github.com/wesnoth/wesnoth/pull/5382
