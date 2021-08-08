@@ -17,3 +17,7 @@ the lich's keep.
 If I go back and give this one another playthru I'll want to do something about
 the weird spacing and indentation style used here; there's too much whitespace
 which makes it hard to focus on the actual code.
+
+Note that these changes have been merged back upstream; I don't think this
+campaign's maintainer keeps it in version control, though, so I don't have
+any PR to point to...
