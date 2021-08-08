@@ -18,3 +18,6 @@ villages at the start. In retrospect I might have gone a bit overboard because
 now the Liches just sit around and do nothing after you survive their initial
 assault, meaning I ended with a bunch of extra gold. But oh well, I got it to
 where I could beat it, so I'm happy.
+
+Note that these changes have been merged back upstream as of this PR being
+merged: https://github.com/wesnoth/wesnoth/pull/5496
