@@ -8,3 +8,6 @@ him some buffs. This means that Alanin is now lying in the following scenario
 better), but whatever. I still managed to lose my first time in that scenario
 because I wasn't paying attention to the turn limit, so it didn't make it TOO
 much easier.
+
+Note that these changes are merged back upstream as of this PR being
+merged: https://github.com/wesnoth/wesnoth/pull/5524
