@@ -46,3 +46,6 @@ Beaten. It got rather hard near the end. Scenario-specific notes:
   made the events where the cuttlefish destroy the bridges turn them into fords
   instead on EASY, to make them less annoying. Also switched commenting-out of code
   to ifdef-ing out of code.
+
+Note that these changes have been merged back upstream as of this PR being
+merged: https://github.com/wesnoth/wesnoth/pull/5603
