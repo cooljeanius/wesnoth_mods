@@ -1,0 +1,185 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Secrets_of_the_Ancients/scenarios/16_The_Mage.cfg	2021-09-05 22:32:23.000000000 -0400
++++ 16_The_Mage.cfg	2021-09-09 03:52:41.000000000 -0400
+@@ -32,11 +32,12 @@
+ 
+     {DEFAULT_SCHEDULE}
+     {DEFAULT_MUSIC_PLAYLIST}
+-    {TURNS 22 22 22}
++    {TURNS 29 26 23}
+ 
+     [side]
+         {SIDE_1_BOTH}
+-        {GOLD 150 120 100}
++        {GOLD 190 145 100}
++        {INCOME 3 2 1}
+         # There is only a little bit shrouded in this scenario (in the cave), but
+         # we still need this:
+         shroud=yes
+@@ -52,14 +53,14 @@
+         name= _ "Crelanu"
+         team_name=bad
+         recruit=Red Mage,White Mage,Mage
+-        {GOLD 140 200 230}
+-        {INCOME 15 22 30}
++        {GOLD 130 180 230}
++        {INCOME 14 22 30}
+         color=green  # To match his color in LoW
+         {FLAG_VARIANT loyalist}
+     [/side]
+ 
+-    {STARTING_VILLAGES  1 6}
+-    {STARTING_VILLAGES  2 6}
++    {STARTING_VILLAGES 1 {ON_DIFFICULTY 8 7 6}}
++    {STARTING_VILLAGES 2 {ON_DIFFICULTY 4 5 6}}
+ 
+     # *************************** PRESTART ***************************
+     [event]
+@@ -128,6 +129,12 @@
+             side=2
+             x,y=20,7  # Otherwise, the first one goes for a village.
+             moves=0  # Pretending it was just recruited.
++#ifdef EASY
++            [modifications]
++                {TRAIT_WEAK}
++                {TRAIT_SLOW}
++            [/modifications]
++#endif
+         [/unit]
+     [/event]
+ 
+@@ -223,8 +230,13 @@
+             id=Ginmera
+             side=2
+             [modifications]
++#ifdef EASY
++                {TRAIT_WEAK}
++                {TRAIT_SLOW}
++#else
+                 {TRAIT_RESILIENT}
+                 {TRAIT_INTELLIGENT}
++#endif
+             [/modifications]
+         [/unit]
+ 
+@@ -259,8 +271,13 @@
+             id=Rinconan
+             side=2
+             [modifications]
++#ifdef EASY
++                {TRAIT_WEAK}
++                {TRAIT_SLOW}
++#else
+                 {TRAIT_RESILIENT}
+                 {TRAIT_STRONG}
++#endif
+             [/modifications]
+         [/unit]
+         {FREEZE_UNIT Rinconan}
+@@ -279,6 +296,44 @@
+             image=logo.png
+             message= _ "Moving a unit onto a bottle of holy water will remove the bottle. A living unit can do this safely, but any undead unit will be destroyed."
+         [/message]
++
++#ifdef EASY
++        [message]
++            speaker=Ardonna
++            message=_"Hm, that holy water could be dangerous... Vendraxis, could you help here?"
++        [/message]
++
++        [message]
++            speaker=Vendraxis
++            message=_"Hm, I think I might be able to russsstle up some of my fellow ssssauriansss from the area... let me sssssee..." # wmllint: no spellcheck
++        [/message] #
++
++        [modify_unit]
++            [filter]
++                id=Vendraxis
++            [/filter]
++            canrecruit=yes
++            # clearing it makes it show up again for whatever reason:
++            ellipse=
++            {IS_EXPENDABLE_LEADER}
++        [/modify_unit]
++
++        [disallow_extra_recruit]
++            id=Vendraxis
++            extra_recruit=Chocobone,Dark Adept,Ghost,Ghoul,Skeleton,Skeleton Archer,Walking Corpse
++        [/disallow_extra_recruit]
++
++        [allow_extra_recruit]
++            id=Vendraxis
++            extra_recruit=Saurian Skirmisher,Saurian Augur
++        [/allow_extra_recruit]
++
++        [message]
++            speaker=narrator
++            image=logo.png
++            message= _ "Vendraxis shall be able to recruit saurians for this scenario only. Move Vendraxis to the keep to see."
++        [/message] #
++#endif
+     [/event]
+ 
+     [event]
+@@ -519,6 +574,62 @@
+         [clear_variable]
+             name=crelanu_stored
+         [/clear_variable]
++#ifdef EASY
++        [disallow_extra_recruit]
++            id=Vendraxis
++            extra_recruit=Saurian Skirmisher,Saurian Augur
++        [/disallow_extra_recruit]
++        [modify_unit]
++            [filter]
++                id=Vendraxis
++            [/filter]
++            canrecruit=no
++            {IS_LOYAL}
++        [/modify_unit]
++#endif
++    [/event]
++
++    [event]
++        name=time over
++        [message]
++            speaker=Ras-Tabahn
++            message="(<i>Cough, cough</i>)"
++        [/message]
++        [harm_unit]
++            [filter]
++                id=Ras-Tabahn
++            [/filter]
++            amount=69
++            kill=no
++        [/harm_unit]
++        [message]
++            speaker=Ras-Tabahn
++            message="It's too late... the disease has overtaken me..."
++        [/message]
++        [kill]
++            id=Ras-Tabahn
++        [/kill]
++        [redraw][/redraw]
++
++        [clear_variable]
++            name=rastabahn_stored, rastabahn_harmed, location, holy_waters
++        [/clear_variable]
++#ifdef EASY
++        [disallow_extra_recruit]
++            id=Vendraxis
++            extra_recruit=Saurian Skirmisher,Saurian Augur
++        [/disallow_extra_recruit]
++        [modify_unit]
++            [filter]
++                id=Vendraxis
++            [/filter]
++            canrecruit=no
++            {IS_LOYAL}
++        [/modify_unit]
++#endif
++        [endlevel]
++            result=defeat
++        [/endlevel]
+     [/event]
+ 
+     {HERO_DEATHS}

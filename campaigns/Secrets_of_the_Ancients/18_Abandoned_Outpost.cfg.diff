@@ -1,0 +1,11 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Secrets_of_the_Ancients/scenarios/18_Abandoned_Outpost.cfg	2021-09-05 22:32:23.000000000 -0400
++++ 18_Abandoned_Outpost.cfg	2021-09-09 04:26:25.000000000 -0400
+@@ -54,7 +54,7 @@
+ 
+     {UNDERGROUND}
+     {DEFAULT_MUSIC_PLAYLIST}
+-    {TURNS 32 29 25}
++    {TURNS 36 31 26}
+ 
+     [side]
+         {SIDE_1_BOTH}

@@ -1,0 +1,49 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Secrets_of_the_Ancients/scenarios/20_North_Knalga.cfg	2021-09-05 22:32:23.000000000 -0400
++++ 20_North_Knalga.cfg	2021-09-15 06:09:03.000000000 -0400
+@@ -27,8 +27,9 @@
+ 
+     [side]
+         {SIDE_1_BOTH}
+-        # The player should have a lot of gold after the last scenario, so:
+-        {GOLD 100 40 20}
++        # The player should have a lot of gold after the last scenario, so only put this a bit above the default:
++        {GOLD 190 155 120}
++        {INCOME 6 4 2}
+         shroud=yes
+     [/side]
+ 
+@@ -40,7 +41,7 @@
+         type=Dwarvish Lord
+         name= _ "Golbanduth"
+         id=Golbanduth
+-        {GOLD 600 800 1000}
++        {GOLD 500 750 1000}
+         recruit=Dwarvish Fighter, Dwarvish Steelclad, Dwarvish Lord, Dwarvish Thunderguard, Dwarvish Pathfinder, Dwarvish Runesmith
+         # The castle tiles are connected through two posts (stone walls), but that
+         # means the AI could recruit on the posts. These two units sit on those
+@@ -173,7 +174,11 @@
+                 {FIND_CASTLE_HEX 2 location}
+                 [set_variable]
+                     name=dwarf_type
++#ifdef EASY
++                    rand=Dwarvish Fighter, Dwarvish Thunderer, Dwarvish Scout
++#else
+                     rand=Dwarvish Steelclad, Dwarvish Lord, Dwarvish Thunderguard, Dwarvish Pathfinder, Dwarvish Runesmith
++#endif
+                 [/set_variable]
+                 [unit]
+                     type=$dwarf_type
+@@ -787,6 +792,13 @@
+             layer=overlay
+         [/terrain]
+ 
++#ifdef EASY
++        [message]
++            speaker=Ardonna
++            message=_"But wait! Before squeezing through there, I think we had better make sure we have a sizeable enough army to bring with us."
++        [/message]
++#endif
++
+         # We want a "sighted" event for the first dwarf other than the guard who sees
+         # a unit from side 1. Now that the guard can't see them anymore, we can add
+         # this event. The next dwarf who sees a unit from side 1 will almost

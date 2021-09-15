@@ -1,0 +1,111 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Secrets_of_the_Ancients/scenarios/08_Carcyn.cfg	2021-09-05 22:32:23.000000000 -0400
++++ 08_Carcyn.cfg	2021-03-15 01:54:57.000000000 -0400
+@@ -41,13 +41,14 @@
+ 
+     {DEFAULT_SCHEDULE}
+     {DEFAULT_MUSIC_PLAYLIST}
+-    {TURNS 28 28 28}
++    {TURNS 30 29 28}
+ 
+     [side]
+         # wmllint: who SIDE_1_RAS-TABAHN is Ras-Tabahn
+         # wmllint: unwho RECALL_LOYAL_UNITS
+         {SIDE_1_RAS-TABAHN}
+-        {GOLD 200 200 200}
++        {GOLD 220 210 200}
++        {INCOME 3 2 1}
+     [/side]
+ 
+     [side]
+@@ -94,17 +95,17 @@
+         [/unit]
+         [unit]
+             type=Ghost
+-            experience=6
++            experience={ON_DIFFICULTY 8 7 6}
+             side=1
+         [/unit]
+         [unit]
+             type=Skeleton
+-            experience=3
++            experience={ON_DIFFICULTY 7 5 3}
+             side=1
+         [/unit]
+         [unit]
+             type=Skeleton
+-            experience=16
++            experience={ON_DIFFICULTY 20 18 16} # (out of 35)
+             side=1
+         [/unit]
+ 
+@@ -140,7 +141,8 @@
+         [/label]
+         [label]
+             x,y=6,4
+-            text= _ "Tackle Shop"  #po: or Fishing Supplies
++            #po: or Fishing Supplies
++            text= _ "Tackle Shop"
+             color=255, 255, 255
+         [/label]
+         [label]
+@@ -150,32 +152,38 @@
+         [/label]
+         [label]
+             x,y=10,9
+-            text= _ "Mercantile"  #po: the old word for "general store"
++            #po: the old word for "general store"
++            text= _ "Mercantile"
+             color=255, 255, 255
+         [/label]
+         [label]
+             x,y=18,8
+-            text= _  "Carcyn"  #po: The name of the city
++            #po: The name of the city
++            text= _  "Carcyn"
+             color=255, 255, 255
+         [/label]
+         [label]
+             x,y=18,13
+-            text= _ "Public House"  #po: the old word for "pub". "Bar" is about the same.
++            #po: the old word for "pub". "Bar" is about the same.
++            text= _ "Public House"
+             color=255, 255, 255
+         [/label]
+         [label]
+             x,y=4,12
+-            text= _ "Jailhouse"  #po: or just "Jail"
++            #po: or prison, or just "Jail"
++            text= _ "Jailhouse"
+             color=255, 255, 255
+         [/label]
+         [label]
+             x,y=23,3
+-            text= _ "Boatworks"  #po: or Boatyard
++            #po: or Boatyard
++            text= _ "Boatworks"
+             color=255, 255, 255
+         [/label]
+         [label]
+             x,y=25,8
+-            text= _ "Grange Hall"  #po: "Grange" in the American usage: farmers' association
++            #po: "Grange" in the American usage: farmers' association
++            text= _ "Grange Hall"
+             color=255, 255, 255
+         [/label]
+         [item]
+@@ -248,6 +256,7 @@
+             x,y=5,12
+             type=Delinquent
+             side=1
++            # po: female name
+             name= _ "Shynal"
+             id=Shynal
+             gender=female
+@@ -268,6 +277,7 @@
+             x,y=5,13
+             type=Ruffian SotA
+             side=1
++            # po: male name
+             name= _ "Carcyn"
+             id=Carcyn
+             {IS_LOYAL}

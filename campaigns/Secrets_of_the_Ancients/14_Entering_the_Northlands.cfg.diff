@@ -1,0 +1,46 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Secrets_of_the_Ancients/scenarios/14_Entering_the_Northlands.cfg	2021-09-05 22:32:23.000000000 -0400
++++ 14_Entering_the_Northlands.cfg	2021-06-22 01:08:06.000000000 -0400
+@@ -43,7 +43,8 @@
+         # wmllint: who SIDE_1_BOTH is Ardonna,Ras-Tabahn
+         # wmllint: who RECALL_LOYAL_UNITS is Bone Captain, Vendraxis, Shynal, Carcyn
+         {SIDE_1_BOTH}
+-        {GOLD 170 170 170}
++        {GOLD 198 184 170}
++        {INCOME 9 6 3}
+     [/side]
+ 
+     [side]
+@@ -55,8 +56,8 @@
+         id=Rod-Ishnak
+         team_name=bad
+         recruit=Orcish Crossbowman,Orcish Warrior
+-        {GOLD 100 140 200}
+-        {INCOME 17 22 28}
++        {GOLD 80 140 200}
++        {INCOME 16 22 28}
+         {FLAG_VARIANT6 ragged}
+     [/side]
+ 
+@@ -76,8 +77,8 @@
+             id=Krongk
+         [/unit]
+         recruit=Orcish Crossbowman,Orcish Warrior
+-        {GOLD 100 140 200}
+-        {INCOME 15 20 26}
++        {GOLD 80 140 200}
++        {INCOME 14 20 26}
+         {FLAG_VARIANT6 ragged}
+     [/side]
+ 
+@@ -128,7 +129,11 @@
+             name=starting_orc_units
+             mode=append
+             [split]
++#ifdef EASY
++                list="Orcish Archer,Orcish Archer,Wolf Rider,Wolf Rider,Goblin Spearman"
++#else
+                 list="Orcish Archer,Orcish Archer,Wolf Rider,Wolf Rider,Goblin Pillager"
++#endif
+                 key=type
+                 separator=","
+             [/split]
