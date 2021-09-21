@@ -1,0 +1,74 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/19_Fight_at_the_Ford.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/AfterEI/scenarios/19_Fight_at_the_Ford.cfg	2021-09-17 02:45:41.000000000 -0400
+@@ -61,7 +61,8 @@
+ # Our heroes
+   [side]
+ {FLYNN_LF}
+-    gold=0		# Stored gold added later
++    {GOLD 120 110 100} # Stored gold ought to be added later, but put some here just in case
++    {INCOME 3 2 1}
+   [/side]
+ 
+ 
+@@ -73,8 +74,8 @@
+     team_name=Heroes
+     user_team_name= _ "Cavalry"
+     recruit=Cavalryman
+-    gold=0
+-    income=-2
++    {GOLD 120 110 100}
++    {INCOME 0 -1 -2}
+     color=lightblue
+     {FLAG_VARIANT loyalist}
+   [/side]
+@@ -105,7 +106,8 @@
+     recruit=Bowman, Spearman
+     color=lightred
+     {FLAG_VARIANT loyalist}
+-    gold=100
++    {GOLD 120 110 100}
++    {INCOME 3 2 1}
+   [/side]
+ 
+ 
+@@ -242,16 +244,19 @@
+       [filter]
+         side=1
+         x,y=recall,recall
+-#        [not]
+-#          id=Flynn				# Except Flynn
+-#        [/not]
++#ifdef __UNUSED__
++        [not]
++          id=Flynn				# Except Flynn
++        [/not]
++#endif
+       [/filter]
+       mode=append
+       kill=yes
+     [/store_unit]
++    # The change to use a formula here is because I've had this fail to add any gold for me previously:
+     [modify_side]
+       side=1
+-      gold=$AEI_Flynn_gold
++      gold="$(max($AEI_Flynn_gold|, {ON_DIFFICULTY 120 110 100}))"
+     [/modify_side]
+     {CLEAR_VARIABLE AEI_Flynn_gold}
+     {CLEAR_VARIABLE AEI_Flynn_Army[0]}		# Otherwise we have 2 Flynns!
+@@ -283,6 +288,16 @@
+       side=1
+       x,y=11,24
+     [/recall]
++#ifdef EASY
++    [recall]
++      side=1
++      race=human
++      trait=loyal
++#ifver WESNOTH_VERSION >= 1.15.3
++      upkeep=loyal
++#endif
++    [/recall]
++#endif
+     [unstore_unit]
+       variable=Dirk_save
+       x,y=1,1

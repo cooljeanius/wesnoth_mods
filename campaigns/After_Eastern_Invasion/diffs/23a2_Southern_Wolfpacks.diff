@@ -1,0 +1,122 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/23a2_Southern_Wolfpacks.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/AfterEI/scenarios/23a2_Southern_Wolfpacks.cfg	2021-09-18 04:16:33.000000000 -0400
+@@ -400,13 +400,13 @@
+ 
+ # Gold settings
+ #
+-#         Start gold           Income      Alert gold           Respawn gold
+-# side 2  {GOLD 20 25 30}      Standard    {GOLD 30 40 50}      {GOLD 17 20 23}
+-# Side 3  {GOLD 30 35 40}      Standard    {GOLD 50 65 80}      {GOLD 25 30 35}
+-# Side 4  {GOLD 50 60 70}      income=6    {GOLD 100 120 140}   {GOLD 50 60 70}
+-# Side 5  {GOLD 55 65 75}      income=6    {GOLD 110 130 150}   {GOLD 65 80 95}
+-# Side 6  {GOLD 80 95 110}     income=8    {GOLD 120 155 190}   {GOLD 130 170 210}
+-# Side 7  {GOLD 100 120 140}   income=10   {GOLD 150 200 250}   {GOLD 180 230 280}
++#         Start gold           Income            Alert gold           Respawn gold
++# side 2  {GOLD 20 25 30}      Standard          {GOLD 30 40 50}      {GOLD 17 20 23}
++# Side 3  {GOLD 30 35 40}      Standard          {GOLD 50 65 80}      {GOLD 25 30 35}
++# Side 4  {GOLD 50 60 70}      {INCOME 4 5 6}    {GOLD 100 120 140}   {GOLD 50 60 70}
++# Side 5  {GOLD 55 65 75}      {INCOME 4 5 6}    {GOLD 110 130 150}   {GOLD 65 80 95}
++# Side 6  {GOLD 80 95 110}     {INCOME 6 7 8}    {GOLD 120 155 190}   {GOLD 130 170 210}
++# Side 7  {GOLD 100 120 140}   {INCOME 8 9 10}   {GOLD 150 200 250}   {GOLD 180 230 280}
+ #
+ # Alert happens first time a player unit moves within 9 hexes of a pack's keep.
+ # Because their territory has been invaded the pack becomes more agressive.
+@@ -454,7 +454,8 @@
+ # Our heroes
+   [side]
+ {FLYNN_LF}
+-    gold=320		# Or carryover (difficulty implemented by enemy gold)
++    {GOLD 340 330 320} # Or carryover
++    {INCOME 3 2 1}
+   [/side]
+ 
+ 
+@@ -557,7 +558,7 @@
+     flag=flags/ragged-flag-[1~6].png:150
+     flag_icon=flags/ragged-flag-icon.png
+     {GOLD 50 60 70}
+-    income=6
++    {INCOME 4 5 6}
+   [/side]
+ 
+ 
+@@ -592,7 +593,7 @@
+     flag=flags/ragged-flag-[1~6].png:150
+     flag_icon=flags/ragged-flag-icon.png
+     {GOLD 55 65 75}
+-    income=6
++    {INCOME 4 5 6}
+   [/side]
+ 
+ 
+@@ -629,7 +630,7 @@
+     flag=flags/ragged-flag-[1~6].png:150
+     flag_icon=flags/ragged-flag-icon.png
+     {GOLD 80 95 110}
+-    income=8
++    {INCOME 6 7 8}
+   [/side]
+ 
+ 
+@@ -666,7 +667,7 @@
+     flag=flags/ragged-flag-[1~6].png:150
+     flag_icon=flags/ragged-flag-icon.png
+     {GOLD 100 120 140}
+-    income=10
++    {INCOME 8 9 10}
+   [/side]
+ 
+ 
+@@ -1791,28 +1792,30 @@
+     [clear_variable]
+       name=ab_Gnawbones, ab_Whiners, ab_Muzzlegores, ab_Tanglers, ab_Ripthroats, ab_Fellfangs, turns_total
+     [/clear_variable]
+-#    [store_gold]		# Flynn not in next scenario so save his gold and army
+-#      side=1
+-#      variable=Flynn_gold_save
+-#    [/store_gold]
+-#    [heal_unit]
+-#      [filter]
+-#        side=1
+-#      [/filter]
+-#      moves=full
+-#      restore_attacks=yes
+-#    [/heal_unit]
+-#    [store_unit]
+-#      variable=Flynn_army_save
+-#      [filter]
+-#        side=1
+-#        [not]
+-#          id=Flynn
+-#        [/not]
+-#        side=1
+-#      [/filter]
+-#      kill=yes
+-#    [/store_unit]
++#ifdef __UNUSED__
++    [store_gold]		# Flynn not in next scenario so save his gold and army
++      side=1
++      variable=Flynn_gold_save
++    [/store_gold]
++    [heal_unit]
++      [filter]
++        side=1
++      [/filter]
++      moves=full
++      restore_attacks=yes
++    [/heal_unit]
++    [store_unit]
++      variable=Flynn_army_save
++      [filter]
++        side=1
++        [not]
++          id=Flynn
++        [/not]
++        side=1
++      [/filter]
++      kill=yes
++    [/store_unit]
++#endif
+     {AEI_PICKDROP_TEST_IF_UNAVAILABLE ring_02b}
+     {AEI_PICKDROP_TEST_IF_UNAVAILABLE amulet_03}
+     {ENDLEVEL 80}

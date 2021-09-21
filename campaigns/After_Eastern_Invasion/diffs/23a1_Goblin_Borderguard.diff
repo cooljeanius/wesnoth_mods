@@ -1,0 +1,39 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/23a1_Goblin_Borderguard.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/AfterEI/scenarios/23a1_Goblin_Borderguard.cfg	2021-09-18 02:57:32.000000000 -0400
+@@ -22,7 +22,7 @@
+   name=_"Goblin Borderguard"
+   next_scenario=23a2_Southern_Wolfpacks
+   map_data="{~add-ons/AfterEI/maps/23a1_Goblin_Borderguard.map}"
+-  turns=33
++  {TURNS 35 34 33}
+   victory_when_enemies_defeated=no
+ 
+   {INTRO_AND_SCENARIO_MUSIC traveling_minstrels.ogg heroes_rite.ogg}
+@@ -48,7 +48,8 @@
+ # Our heroes
+   [side]
+ {FLYNN_LF}
+-    gold=0		# +carryover, modified in prestart 
++    {GOLD 140 120 100}		# +carryover, modified in prestart
++    {INCOME 5 3 1}
+   [/side]
+ 
+ 
+@@ -422,7 +423,7 @@
+     [/store_side]
+     [set_variable]
+       name=Flynn_gold
+-      value=$side.gold
++      value="$(max($side.gold|, {ON_DIFFICULTY 140 120 100}))"
+     [/set_variable]
+     [set_variable]		# Save current side 1 recruit list
+       name=saved_recruit_list	# [set_extra_recruit] doesn't work as I thought hence this hack
+@@ -433,7 +434,7 @@
+     [/clear_variable]
+     [modify_side]
+       side=1
+-      gold=160			# Dirk's starting gold
++      gold={ON_DIFFICULTY 198 179 160} # Dirk's starting gold
+     [/modify_side]
+ #
+ # --- Dirk setup (except for recruitment) ---

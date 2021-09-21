@@ -1,0 +1,38 @@
+--- /Users/ericgallager/Downloads/AfterEI/scenarios/20_Favours.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.14/data/add-ons/AfterEI/scenarios/20_Favours.cfg	2021-09-17 03:21:21.000000000 -0400
+@@ -5,7 +5,7 @@
+   name=_"Favours"
+   next_scenario=21_Suprise_Visit
+   map_data="{~add-ons/AfterEI/maps/20_Favours.map}"
+-  turns=6				# Increased later
++  {TURNS 8 7 6}				# Increased later
+   victory_when_enemies_defeated=no
+ 
+   {INTRO_AND_SCENARIO_MUSIC TravelstotheEast.ogg loyalists.ogg}
+@@ -65,7 +65,7 @@
+     user_team_name= _ "Outlaws"
+     recruit=Ruffian, Footpad, Thug
+     {FLAG_VARIANT long}
+-    gold=50
++    {GOLD 70 60 50}
+     color=brightorange
+   [/side]
+ 
+@@ -204,7 +204,7 @@
+       [/message]
+       [message]
+         speaker=Kosh
+-        message= _ "Welcome.  I be Kosh.  You must be Flynn.  Scampa here says you're alright.  We're in a tight spot!
++        message= _ "Welcome.  I be Kosh.  You must be Flynn.  Scampa here says yer alright.  We're in a tight spot!
+  
+ " + {ASIDE _"Scampa, stay safe.  Wouldn't do for them to see you get killed..."}
+       [/message]
+@@ -292,7 +292,7 @@
+ #endif
+     [/set_variable]
+     [modify_turns]
+-      add=9			# Time to kill the worker ants
++      add={ON_DIFFICULTY 11 10 9} # Time to kill the worker ants
+     [/modify_turns]
+     [objectives]		# Describe victory and defeat conditions
+       side=1
