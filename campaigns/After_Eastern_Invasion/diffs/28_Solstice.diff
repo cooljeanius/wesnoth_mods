@@ -1,5 +1,5 @@
 --- /Users/ericgallager/Downloads/AfterEI/scenarios/28_Solstice.cfg	2020-02-07 07:00:07.000000000 -0500
-+++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/28_Solstice.cfg	2021-09-22 04:38:10.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/scenarios/28_Solstice.cfg	2021-09-22 10:56:19.000000000 -0400
 @@ -460,6 +460,17 @@
  y= 51, 1, 1,27, 1,10, 1,15#enddef
  #
@@ -193,6 +193,15 @@
    [event]		# First time dialogue for recruit fail
      name=rfw_ftd
      [if]
+@@ -2144,7 +2184,7 @@
+       [/message]
+       [message]
+         x,y=$rwf_rx,$rwf_ry
+-        message= _ "-Gulp- ... Humans attack.  Lots wolfs gone.  Please not kill me!"
++        message= _ "-Gulp- ... Humans attack.  Lots wolfs gone.  Others injured and unrideable.  Please not kill me!"
+       [/message]
+       [message]
+         speaker=$rwf_leader
 @@ -3883,7 +3923,13 @@
      {CLEAR_VARIABLE Arrah_save}
      [set_extra_recruit]
@@ -272,7 +281,7 @@
 +      side=1
 +    [/capture_village]
 +#endif
-+          
++
  #
  # Remove unpoisonable status (may not be any)
  # Note that [object] [filter] only applies to
