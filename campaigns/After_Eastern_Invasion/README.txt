@@ -15,5 +15,20 @@ breaking from my normal habits and starting this one early.
   more than you, they can still overpower you. I'm not really sure how to fix
   that without changing the scenario drastically, so I just gave up. I'm aware
   that there's a branching path here, but I tried the other path as well, and
-  I had separate troubles there that I haven't even bothered trying to fix yet,
-  so I'm still stuck either way.
+  I had separate troubles there that required their own separate fixes, so I
+  still got stuck either way initially. Update: I got around it eventually.
+15b Aitsward North Gate: added variance to gold and turns, tweaked enemy AI, added
+  variance to the EXP of certain units, made certain enemy units cost upkeep on
+  EASY, added traits to certain units, added a few extra peasants on EASY
+15b2 Aitsward Civil War: added variance to turns and gold, added variance to EXP
+  of certain units, added variance to limit on assassin and hunstsman
+  contemporaneous recruits, and various other quantities
+19 Fight at the Ford: basically just gold/income tweaks; also recall an additional
+  unit on EASY
+20 Favours: basic turns/gold tweaks
+23a1 Goblin Borderguard: basic turns/gold tweaks
+23a2 Southern Wolfpacks: basic gold/income tweaks
+25 The Caveguard: basic turns/gold tweaks
+28 Solstice: add labels to tunnels on EASY in debug mode, make some text a bit
+  clearer, adjust Arrah's recruits, make highlighting of image more obvious,
+  give player another village on EASY
