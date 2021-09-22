@@ -1,0 +1,10 @@
+--- /Users/ericgallager/Downloads/AfterEI/utils/AEI-interface-utils.cfg	2020-02-07 07:00:07.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_Eastern_Invasion/utils/AEI-interface-utils.cfg	2021-09-22 04:19:46.000000000 -0400
+@@ -50,6 +50,7 @@
+   [scroll_to]
+     x,y={X},{Y}
+     check_fogged=false
++    highlight=yes
+   [/scroll_to]
+ 
+   [while]
