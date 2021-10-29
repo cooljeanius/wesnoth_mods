@@ -1,0 +1,15 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Descent_Into_Darkness/scenarios/12_Endless_Night.cfg	2021-09-05 22:32:23.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Descent_Into_Darkness/12_Endless_Night.cfg	2021-10-17 02:13:52.000000000 -0400
+@@ -109,9 +109,10 @@
+         controller=human
+         save_id=Malin Keshar
+         recruit=Walking Corpse,Vampire Bat,Ghost,Ghoul,Skeleton Archer,Skeleton,Dark Adept
+-        {GOLD 220 200 180}
++        {GOLD 280 230 180}
++        {INCOME 3 2 1}
+         team_name=good
+-        village_gold=1
++        village_gold={ON_DIFFICULTY 3 2 1}
+         user_team_name= _ "Mal Keshar"
+         {FLAG_VARIANT undead}
+ 

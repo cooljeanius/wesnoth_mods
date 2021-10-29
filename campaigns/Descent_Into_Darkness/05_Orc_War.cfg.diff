@@ -1,0 +1,54 @@
+--- /Applications/MacPorts/The Battle for Wesnoth.app/Contents/Resources/data/campaigns/Descent_Into_Darkness/scenarios/05_Orc_War.cfg	2021-09-05 22:32:23.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Descent_Into_Darkness/05_Orc_War.cfg	2020-08-07 19:40:05.000000000 -0400
+@@ -5,7 +5,7 @@
+     name= _ "Orc War"
+     map_data="{campaigns/Descent_Into_Darkness/maps/05_Orc_War.map}"
+     victory_when_enemies_defeated=yes
+-    turns=37
++    {TURNS 42 40 37}
+     next_scenario=06_Return_to_Parthyn
+ 
+     {DEFAULT_SCHEDULE_MORNING}
+@@ -44,7 +44,8 @@
+         side=1
+         controller=human
+         recruit=Walking Corpse,Vampire Bat,Ghost,Ghoul,Skeleton Archer,Skeleton,Dark Adept DiD
+-        {GOLD 190 170 150}
++        {GOLD 200 170 150}
++        {INCOME 3 2 1}
+         team_name=good
+         user_team_name= _ "Malin Keshar"
+         {FLAG_VARIANT undead}
+@@ -60,8 +61,8 @@
+         side=2
+         controller=ai
+         recruit=Goblin Spearman,Orcish Archer,Orcish Crossbowman,Wolf Rider,Orcish Grunt,Goblin Knight,Orcish Warrior,Troll Whelp
+-        {GOLD 50 70 90}
+-        {INCOME 4 6 8}
++        {GOLD 40 70 90}
++        {INCOME 2 6 8}
+         team_name=orcs
+         user_team_name=_"Orcs"
+         {FLAG_VARIANT6 ragged}
+@@ -98,8 +99,8 @@
+         side=3
+         controller=ai
+         recruit=Orcish Archer,Orcish Crossbowman,Goblin Pillager,Orcish Grunt,Orcish Assassin
+-        {GOLD 50 70 90}
+-        {INCOME 5 7 9}
++        {GOLD 40 70 90}
++        {INCOME 3 7 9}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+         {FLAG_VARIANT6 ragged}
+@@ -136,8 +137,8 @@
+         side=4
+         controller=ai
+         recruit=Orcish Archer,Orcish Crossbowman,Troll Whelp,Wolf Rider,Orcish Grunt
+-        {GOLD 50 70 90}
+-        {INCOME 4 6 8}
++        {GOLD 40 70 90}
++        {INCOME 2 6 8}
+         team_name=orcs
+         user_team_name= _ "Orcs"
+         {FLAG_VARIANT6 ragged}
