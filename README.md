@@ -22,7 +22,7 @@ playing them, but now I am going to alphabetize them:
 - A Fiery Birth: 1.2.0
 - A New Order: 1.2.19
 - After Eastern Invasion: 1.0.4
-- After the Storm: 0.10.11
+- After the Storm: 0.10.11 at first, 0.10.12 when I finished it
 - Ashen Hearts: 2.41.0
 - Carved in Stone: (N/A)
 - Dead Water: (mainline)
