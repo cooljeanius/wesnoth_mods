@@ -15,14 +15,14 @@ after any update you do. Based on 1.14.12 to start with, then 1.14.14 later.
 I've been meaning to include diffs against the originals, too, and I've started
 to do that for the mainline campaigns now that I have a separate installation
 of it, but it's slow-going and fragile (i.e., I'll have to remember to update
-them), and I still can't do them for add-ons yet.
+them), and I still can't do them for (most) add-ons yet.
 
 Versions of Add-ons based upon; my original order was the order in which I was
 playing them, but now I am going to alphabetize them:
 - A Fiery Birth: 1.2.0
 - A New Order: 1.2.19
 - After Eastern Invasion: 1.0.4
-- After the Storm: 0.10.11
+- After the Storm: 0.10.11 at first, 0.10.12 when I finished it
 - Ashen Hearts: 2.41.0
 - Carved in Stone: (N/A)
 - Dead Water: (mainline)
