@@ -1,0 +1,11 @@
+--- /Users/ericgallager/Documents/GitHub/After_the_Storm/episode2/scenarios/10_The_Betrayal.cfg	2021-11-30 05:51:57.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/After_the_Storm/10_The_Betrayal.cfg	2021-11-20 20:44:38.000000000 -0500
+@@ -1127,7 +1127,7 @@
+         {TB_CAPTURE_STARTING_VILLAGES 5 12}
+ 
+         [modify_turns]
+-            {QUANTITY value 62 60 58}
++            {QUANTITY value 70 69 68}
+         [/modify_turns]
+ 
+         [redraw][/redraw]
