@@ -1,0 +1,20 @@
+--- /Users/ericgallager/Documents/GitHub/Genesis/episode1/scenarios/01_Ash.cfg	2021-11-30 22:23:29.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Genesis/01_Ash.cfg	2020-11-10 00:31:06.000000000 -0500
+@@ -27,7 +27,7 @@
+         # profile=portraits/esther.png
+         unrenamable=yes
+         side=1
+-        {GOLD 150 120 70}
++        {GOLD 170 120 70}
+     [/side]
+ 
+     [side]
+@@ -41,7 +41,7 @@
+         side=2
+         recruit=Demon,Winged Demon,Chaos Hound
+         {GOLD 80 90 100}
+-        {INCOME 3 6 10}
++        {INCOME 3 6 9}
+     [/side]
+ 
+     {STARTING_VILLAGES_ALL 1}
