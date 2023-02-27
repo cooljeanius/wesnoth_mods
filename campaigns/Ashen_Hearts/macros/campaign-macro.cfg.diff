@@ -1,0 +1,20 @@
+--- /Users/ericgallager/Library/Containers/org.wesnoth.Wesnoth/Data/Library/Application Support/Wesnoth_1.16/data/add-ons/Ashen_Hearts/macros/campaign-macro.cfg	2022-05-08 15:09:01.000000000 -0400
++++ /Users/ericgallager/wesnoth_mods/campaigns/Ashen_Hearts/macros/campaign-macro.cfg	2020-08-20 21:13:12.000000000 -0400
+@@ -14,6 +14,10 @@
+ 	name=_"Herkarth"
+ 	canrecruit=yes
+ 	unrenamable=true
++	[modifications]
++		{TRAIT_LOYAL}
++		upkeep=loyal
++	[/modifications]
+ #enddef
+ 
+ #define QUANTITY2 NAME EASY_VALUE NIGHTMARE_VALUE
+@@ -41,4 +45,4 @@
+     # Macro which will let you say {GOLD x y} to set
+     # per-turn income depending on easy/nightmare - x/y
+     {QUANTITY2 income {EASY_AMOUNT} {NIGHTMARE_AMOUNT}}
+-#enddef
+\ No newline at end of file
++#enddef
