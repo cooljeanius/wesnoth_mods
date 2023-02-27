@@ -1,0 +1,72 @@
+--- /Users/ericgallager/Downloads/Ashen_Hearts/scenarios/07_Dragonheart.cfg	2019-02-28 17:31:03.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Ashen_Hearts/scenarios/07_Dragonheart.cfg	2020-08-22 10:22:52.000000000 -0400
+@@ -51,8 +51,8 @@
+ 		recruit=Drake Burner, Drake Clasher, Drake Fighter, Drake Glider
+ 
+ 		##:: Gold and Income
+-		{GOLD2 240 200}
+-		{INCOME2 0 0}
++		{GOLD2 290 200}
++		{INCOME2 4 2}
+ 	[/side]
+ 
+ 	##|| Friend
+@@ -100,7 +100,7 @@
+ #endif
+ 		
+ 		##:: Gold and Income
+-		{GOLD2 120 160}
++		{GOLD2 100 160}
+ 		{INCOME2 0 0}
+ 	[/side]
+ #enddef
+@@ -114,6 +114,10 @@
+ 	[event]
+ 		name=prestart
+ 		
++		[disallow_recruit]
++			type=Drake Arbiter
++		[/disallow_recruit]
++
+ 		[petrify]
+ 			id=Khazran_Dragonheart
+ 		[/petrify]
+@@ -161,9 +165,29 @@
+ 		[recall]
+ 			id=Uluthur
+ 		[/recall]
++
++#ifdef EASY
++		[modify_unit]
++			[filter]
++				id=Uluthur
++			[/filter]
++			canrecruit=yes
++                        # clearing it makes it show up again for whatever reason:
++			ellipse=
++		[/modify_unit]
++
++		[recall]
++			id=Malkrath
++		[/recall]
++#endif
++
+ 		
+ 		##::recruits
++#ifdef EASY
++		{LIMIT_CONTEMPORANEOUS_RECRUITS 3,4,5,6,7 "Dwarvish Thunderguard" 0}
++#else
+ 		{LIMIT_CONTEMPORANEOUS_RECRUITS 3,4,5,6,7 "Dwarvish Thunderguard" 1}
++#endif
+ 		{LIMIT_CONTEMPORANEOUS_RECRUITS 3,4,5,6,7 "Dwarvish Thunderer" 1}
+ 		
+ #define SACRIFICE_DRAKE TYPE X Y STATUE_X STATUE_Y EVENT_ID
+@@ -362,7 +386,7 @@
+ 					
+ 					[message]
+ 						speaker=Khazran_Dragonheart
+-						message= _ "Herkarth! The age of drakes is upon us! We, the descendatns of fire, shall enslave all others and rule the world!"
++						message= _ "Herkarth! The age of drakes is upon us! We, the descendants of fire, shall enslave all others and rule the world!"
+ 					[/message]
+ 					
+ 					[message]

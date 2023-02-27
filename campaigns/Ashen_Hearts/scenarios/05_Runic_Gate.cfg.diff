@@ -1,0 +1,144 @@
+--- /Users/ericgallager/Downloads/Ashen_Hearts/scenarios/05_Runic_Gate.cfg	2019-02-28 17:31:03.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Ashen_Hearts/scenarios/05_Runic_Gate.cfg	2020-08-18 17:44:45.000000000 -0400
+@@ -15,12 +15,12 @@
+ 		[part]
+ 			{AH_BIGMAP}
+ 			{JOURNEY_05_NEW}
+-			story= _"Following the wanderer's cryptic advice, the drakes haste toward the Earth's Smith. The ancient temple soon appeared on the horizon."
++			story= _"Following the wanderer's cryptic advice, the drakes made haste toward the Earth's Smith. The ancient temple soon appeared on the horizon."
+ 		[/part]
+ 	[/story]
+ 
+ 	# Number of turns
+-	{TURNS2 42 38}
++	{TURNS2 72 38}
+ 
+ 	# The player wins if all enemy leaders are dead.
+ 	victory_when_enemies_defeated=no
+@@ -34,16 +34,16 @@
+ 		{HERKARTH_SIDE}
+ 
+ 		##:: Recruit List
+-		recruit=Drake Burner, Drake Clasher, Drake Fighter, Drake Glider
+-		
++         	recruit=Drake Burner, Drake Clasher, Drake Fighter, Drake Glider
++                # (thrashers and enforcers are added later on easy in events)
+ 		shroud=yes
+ 
+ 		##:: Gold and Income
+-		{GOLD2 340 300}
+-		{INCOME2 0 0}
++		{GOLD2 365 300}
++		{INCOME2 2 1}
+ 	[/side]
+ 
+-	##|| Fpe
++	##|| Foe
+ 	[side]
+ 		##:: Side Info
+ 		side=2
+@@ -61,7 +61,7 @@
+ 		##:: Recruit List
+ 
+ 		[ai]
+-			aggression=0.99
++			{QUANTITY2 aggression 0.98 0.99}
+ 			
+ 			[goal]
+ 				name=target
+@@ -73,7 +73,7 @@
+ 		[/ai]
+ 
+ 		##:: Gold and Income
+-		{GOLD2 20 40}
++		{GOLD2 10 40}
+ 		{INCOME2 0 2}
+ 	[/side]
+ 	
+@@ -100,7 +100,7 @@
+ #endif
+ 
+ 		[ai]
+-			aggression=0.99
++			{QUANTITY2 aggression 0.98 0.99}
+ 			
+ 			[goal]
+ 				name=target
+@@ -112,7 +112,7 @@
+ 		[/ai]
+ 		
+ 		##:: Gold and Income
+-		{GOLD2 20 40}
++		{GOLD2 10 40}
+ 		{INCOME2 0 0}
+ 	[/side]
+ 	
+@@ -142,7 +142,7 @@
+ 			[avoid]
+ 				terrain=Uu^*,Uh^*
+ 			[/avoid]
+-			aggression=0.8
++			{QUANTITY2 aggression 0.7 0.8}
+ 			
+ 			[goal]
+ 				name=target
+@@ -325,17 +325,17 @@
+             side=3
+             ai_type=zone_guardian
+             action=add
+-			ca_score=170000
++	    ca_score=170000
+             [filter]
+-				side=3
+-				[not]
+-					id=Krokkendol
+-				[/not]
+-			[/filter]
++			side=3
++			[not]
++				id=Krokkendol
++			[/not]
++	    [/filter]
+             [filter_location]
+                 x=15-31,20-46,31-46
+-				y=2-11,12-16,17-22
+-				terrain=Rb,Uu, Uu^Em, Rb^Em, Rb^Es, Rb^Li
++		y=2-11,12-16,17-22
++		terrain=Rb,Uu, Uu^Em, Rb^Em, Rb^Es, Rb^Li
+             [/filter_location]
+         [/micro_ai]
+ 		
+@@ -543,6 +543,16 @@
+ 			speaker=Herkarth
+ 			message= _ "Those pesky stoneheads have fortified the walls and the spear-wielding ones defend them with their shields. Perhaps our enforcers and thrasher can break through, or perhaps we can find another way around."
+ 		[/message]
++#ifdef EASY
++                [allow_recruit]
++			side=1
++			type=Drake Thrasher, Drake Enforcer
++		[/allow_recruit]
++		[gold]
++			side=1
++			amount=32
++		[/gold]
++#endif
+ 	[/event]
+ 	
+ 	[event]
+@@ -572,6 +582,16 @@
+ 		[/message]
+ 		
+ 		{SCROLL_TO 14 7}
++#ifdef EASY
++		[allow_recruit]
++			side=1
++			type=Drake Thrasher, Drake Enforcer
++		[/allow_recruit]
++		[gold]
++			side=1
++			amount=32
++		[/gold]
++#endif
+ 	[/event]
+ 	
+ 	

@@ -1,0 +1,16 @@
+--- /Users/ericgallager/Downloads/Ashen_Hearts/units/dragonheart.cfg	2019-02-28 17:31:03.000000000 -0500
++++ /Users/ericgallager/wesnoth_mods/campaigns/Ashen_Hearts/units/dragonheart.cfg	2020-08-21 07:58:42.000000000 -0400
+@@ -47,6 +47,13 @@
+         number=6
+ 		[specials]
+ 			{WEAPON_SPECIAL_MAGICAL}
++#ifdef EASY
++			[line_damage]
++				id=line_damage
++				name="line damage"
++				description="This unit deals half damage to the unit that is standing behind the attacked unit."
++			[/line_damage]
++#endif
+ 		[/specials]
+     [/attack]
+ 	
