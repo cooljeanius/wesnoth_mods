@@ -33,8 +33,8 @@ Scenario-specific notes:
   isn't as much of a gameplay reason for the Heavy Infantrymen, but hey, why
   not add them?
 07a Settling Disputes: added more villages to map, gave player and Stalrag
-  more gold, varied the starting HP/EXP of starting units with difficulty,
-  removed gold from liches
+  more gold, varied the starting HP/EXP of starting units with difficulty
+  to give Stalrag a better chance of survival, removed some gold from liches
 08a Elvish Princess: increased turn limit, basic gold tweaks, vary radii of
   starting village capture areas with difficulty, have Atul drop some gold
 09a Introductions: vary the type of some trolls with difficulty; give player
@@ -54,4 +54,4 @@ Scenario-specific notes:
   liches, but even with this second set of changes, Hamel still gets to Rakshas
   before I do. I'm thinking of tweaking the AI even more, or maybe giving an
   "attacked" event for Rakshas, to give him guards and more gold if Hamel's
-  side attacks him.
+  side attacks him before you do.
